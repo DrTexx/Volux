@@ -5,8 +5,8 @@ https://github.com/pypa/sampleproject
 """
 
 
-script_name = 'dbi'
-script_requirements = ['colorama==0.4.1']
+script_name = 'volux'
+script_requirements = []
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
 script_version = '1.2.4'
