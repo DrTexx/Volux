@@ -9,7 +9,7 @@ script_name = 'volux'
 script_requirements = []
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
-script_version = '1.2.4'
+script_version = '0.8.0b'
 script_description = 'Audio Control Interface'
 github_username = 'DrTexxOfficial'
 script_author = 'Denver P'
@@ -18,7 +18,7 @@ meta_audience = 'End Users/Desktop'
 meta_topic = 'Multimedia :: Sound/Audio'
 meta_license = 'MIT License'
 meta_py_version = '3.5'
-meta_keywords='debugging bug testing color colour terminal'
+meta_keywords=''
 
 
 # Always prefer setuptools over distutils
