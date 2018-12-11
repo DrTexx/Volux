@@ -17,6 +17,7 @@
 # pip3 install pyalsaaudio --user
 # pip3 install plyer --user
 # pip3 install psutil --user
+# pip3 install python-xlib --user # already installed from apt python3-xlib?
 
 # BUILTIN MODULES #
 import time # used for delays
