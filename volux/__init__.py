@@ -12,6 +12,7 @@
 # (all working with most recent versions as of 04/12/2018)
 # sudo apt install python3-tk
 # sudo apt install python3-xlib
+# sudo apt install python3-dbus # maybe?
 # sudo apt install libasound2-dev
 # pip3 install pyalsaaudio --user
 # pip3 install plyer --user
@@ -27,12 +28,11 @@ from os.path import realpath
 # SITE PACKAGES #
 from plyer import notification
 import alsaaudio as al
-# PERSONAL MODULES #
-from dp_datatools import LivePercentage, clamp
 # LOCAL MODULES
-import temperatures as temps
-from VolumeAssistant import VolumeAssistant
-from VolumeBar import VolumeBar
+import volux.temperatures as temps
+from volux.dp_datatools import LivePercentage, clamp
+from volux.VolumeAssistant import VolumeAssistant
+from volux.VolumeBar import VolumeBar
 ### ---- PREFERENCES ---- ###
 program_title = "vol2 by Denver"
 program_icon = realpath('icon.png')
