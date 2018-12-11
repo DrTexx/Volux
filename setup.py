@@ -6,7 +6,7 @@ https://github.com/pypa/sampleproject
 
 
 script_name = 'volux'
-script_requirements = []
+script_requirements = ['pyalsaaudio==0.8.4','plyer==1.3.2','psutil==5.4.8']
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
 script_version = '0.8.0'
@@ -63,7 +63,7 @@ setup(
     # https://packaging.python.org/specifications/core-metadata/#summary
     description=script_description,  # Required
 
-    # This is an optional longer description of your project that represents
+    # This is an optional longer description of y    our project that represents
     # the body of text which users will see when they visit PyPI.
     #
     # Often, this is the same as your README, so you can just read it in from
