@@ -1,5 +1,4 @@
 from _thread import start_new_thread # used to run functions in parallel
-from Xlib import display # used to locate mouse and find screen size
 import alsaaudio as al
 import time
 
@@ -40,7 +39,6 @@ class VolumeAssistant:
         data = display.Display().screen().root.query_pointer()._data
         return({'x': data["root_x"],
                 'y': data["root_y"]})
-    def _get_display_size(self):
-        data = display.Display().screen().root.get_geometry()._data
-        return({'x': data['width'],
-                'y': data['height']})
+    def _get_display_size(self,root):
+        return({'x': root.winfo_screenwidth(),
+                'y': root.winfo_screenheight()})

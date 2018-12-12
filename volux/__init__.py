@@ -11,13 +11,11 @@
 # DEPENDENCIES:
 # (all working with most recent versions as of 04/12/2018)
 # sudo apt install python3-tk
-# sudo apt install python3-xlib
 # sudo apt install python3-dbus # maybe?
 # sudo apt install libasound2-dev
 # pip3 install pyalsaaudio --user
 # pip3 install plyer --user
 # pip3 install psutil --user
-# pip3 install python-xlib --user # already installed from apt python3-xlib?
 
 # BUILTIN MODULES #
 import time # used for delays
@@ -35,7 +33,7 @@ from volux.dp_datatools import LivePercentage, clamp
 from volux.VolumeAssistant import VolumeAssistant
 from volux.VolumeBar import VolumeBar
 ### ---- PREFERENCES ---- ###
-program_title = "vol2 by Denver"
+program_title = "volux"
 program_icon = realpath('icon.png')
 sound_device = "Master"
 default_mixer_name = "Master"
@@ -47,18 +45,6 @@ VolAs = VolumeAssistant() # initialise a Volume Assistant object
 VolBar = VolumeBar()
 coreWatch = temps.CoreWatch(temps.get_cores()) # start watching cores for temperature issues
 
-### ---- TESTING STUFF ---- ###
-#minimum = 0
-#maximum = 500
-#initial = 250
-#liveperc = LivePercentage(minimum,maximum,initial); print(liveperc.getPerc(),liveperc.getNum())
-#liveperc.setNum(125); print(liveperc.getPerc(),liveperc.getNum())
-#liveperc.setPerc(75); print(liveperc.getPerc(),liveperc.getNum())
-#liveperc.set(45); print(liveperc.getPerc(),liveperc.getNum())
-#liveperc.set("45"); print(liveperc.getPerc(),liveperc.getNum())
-#liveperc.set("80%"); print(liveperc.getPerc(),liveperc.getNum())
-#print("{} units on a scale of {} to {} units is {}%".format(units,minimum,maximum,unitsToPerctange))
-#print("{} percentage on a scale of {} to {} units is {} units".format(percentage,minimum,maximum,percentageToUnit
 ### DEFINE STATES
 class VolumeMode:
     def __init__(self):pass
@@ -97,6 +83,7 @@ class StateManager:
 sm = StateManager(VolumeMode)
 
 ### ---- TKINTER STUFF BEGINS ---- ###
+root = Tk.Tk()
 class Window(Tk.Frame):
     def __init__(self,master=None):
         Tk.Frame.__init__(self,master)
@@ -105,7 +92,7 @@ class Window(Tk.Frame):
         self._init_window()
         self._open_message()
     def _init_objects(self):
-        self.displaySize = VolAs._get_display_size() # max size of the percentage bar in pixels
+        self.displaySize = VolAs._get_display_size(root) # max size of the percentage bar in pixels
         self.barWidth = LivePercentage(0,self.displaySize['x']) # set width of bar
     def _init_window(self):
         m = self.master
@@ -220,9 +207,8 @@ class Window(Tk.Frame):
             timeout=10)
         exit()
         
-root = Tk.Tk()
 app = Window(root)
-dispSize = VolAs._get_display_size()
+dispSize = VolAs._get_display_size(root)
 overlay_w = dispSize['x']
 overlay_h = app.barHeight
 windowOffsets = {'x': 0,
