@@ -6,7 +6,7 @@
 # Debug Interface - volux 
 
 [![PyPI Version](https://img.shields.io/pypi/v/volux.svg)](https://pypi.python.org/pypi/volux/)
-[![GitHub release](https://img.shields.io/github/release/drtexxofficial/volux.svg)](https://GitHub.com/DrTexxOfficial/volux/releases/)
+[![GitHub release](https://img.shields.io/github/release-pre/drtexxofficial/volux.svg)](https://GitHub.com/DrTexxOfficial/volux/releases/)
 [![GitHub license](https://img.shields.io/github/license/DrTexxOfficial/volux.svg?branch=master)](https://github.com/DrTexxOfficial/volux/blob/master/LICENSE)
 [![Github all releases](https://img.shields.io/github/downloads/DrTexxOfficial/volux/total.svg)](https://GitHub.com/DrTexxOfficial/volux/releases/)
 
