@@ -33,33 +33,7 @@ Install requirements:
     $ pip3 install -r requirements.txt --user
     
 ## Script Functionality
-### User-Written Verbosity-Dependant Debug Messages
-- information is only show when A and B are satisfied
-    - debugging is active
-    - the threshold verbosity is reached or exceeded (this threshold is specified on a per-message basis)
-- verbosity can be
-    - set in advanced
-    - **modified on-the-fly**
-- multiple **external functions** can be executed in a single-line
-- users can write their own debugging messages on the status of each function's progress
-- console output is colour-coded (based on verbosity levels)
-
-## What is the purpose?
-My console had become populated by indecernable walls of debugging text, all thanks to riddling my scripts with lines like `print(str(var),var)` for debugging.
-So I created a module to maintain my sanity and save my time.
-
 ## Examples
-Initial config:
-```python3
-from volux import volux
-volux = volux(3,True)
-dpm = volux.print_message
-```
-Generic example:
-```
-[IN ]: dpm(2,"message with","sub-message")
-[OUT]: [3][2]<=[2018-12-10 01:54:59.845995] message with | sub-message
-```
 
 <br/>
 
