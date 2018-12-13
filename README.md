@@ -52,10 +52,10 @@ Features in development / planned for development
 
 | Mode                | State    | Image |
 | :---:               | :---:    | :---: |
-| Volume (active)     | active   | <img src="docs/volume-active.png"/> |
-| Volume (inactive)   | inactive | <img src="docs/volume-inactive.png"/> |
-| Mute (active)       | active   | <img src="docs/mute-active.png"/> |
-| Brightness (active) | active   | <img src="docs/brightness-active.png"/> |
+| Volume (active)     | active   | <img src="docs/volume-active.jpg"/> |
+| Volume (inactive)   | inactive | <img src="docs/volume-inactive.jpg"/> |
+| Mute (active)       | active   | <img src="docs/mute-active.jpg"/> |
+| Brightness (active) | active   | <img src="docs/brightness-active.jpg"/> |
 
 _(this space is planned for example images of each function)_
 
