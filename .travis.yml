@@ -11,7 +11,7 @@ before_install:
   - sudo dir -R
   - pip install codecov
   - pip install pytest pytest-cov
-  - pip install /volux/pyalsaaudio-0.8.4-cp35-cp35m-linux_x86_64.whl
+  - pip install ./pyalsaaudio-0.8.4-cp35-cp35m-linux_x86_64.whl
 # command to install dependencies
 install:
   #- pip3 install -r requirements.txt
