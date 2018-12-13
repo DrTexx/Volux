@@ -1,0 +1,5 @@
+*.pyc
+gh-md-toc
+build/
+*.egg-info
+dist/
