@@ -8,9 +8,9 @@ before_install:
   #- sudo apt update
   #- sudo apt-get install dirmngr
   #- sudo apt-get install alsaaudio
+  - sudo dir -R
   - pip install codecov
   - pip install pytest pytest-cov
-  - dir -R
   - pip install /volux/pyalsaaudio-0.8.4-cp35-cp35m-linux_x86_64.whl
 # command to install dependencies
 install:
