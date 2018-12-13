@@ -57,8 +57,6 @@ Features in development / planned for development
 | Mute (active)       | active   | <img src="docs/mute-active.jpg"/> |
 | Brightness (active) | active   | <img src="docs/brightness-active.jpg"/> |
 
-_(this space is planned for example images of each function)_
-
 ### Supported platforms
 
 <img src="docs/Platform_Windows.svg" width="14pt"/>&nbsp;&nbsp; Windows 7 or later
