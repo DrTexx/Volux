@@ -5,7 +5,7 @@ python:
   - "3.7-dev"  # 3.7 development branch
 # coverage testing preperation
 before_install:
-  - apt-get install gcc g++
+  - sudo apt-get install gcc g++
   - pip install codecov
   - pip install pytest pytest-cov
 # command to install dependencies
