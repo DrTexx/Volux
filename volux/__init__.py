@@ -165,13 +165,10 @@ class Window(Tk.Frame):
         m.bind("<Double-Button-3>",self._exit_app)
         barContainer.bind("<Enter>",self._mouse_entered)
         barContainer.bind("<Leave>",self._mouse_left)
-        #root.bind("<Motion>",self._update_loop)
     def _update_loop(self,ms_per_loop=1000):
-        #m = self.master
         root.lift() # ensure window on top of others
         self._update_bar() # update bar graphics
-        print(VolBar.mode.name)
-        self.after(ms_per_loop,self._update_loop)
+        self.after(ms_per_loop,self._update_loop) # repeat _update_loop()
     def _update_bar(self):
         modeColor = VolBar.mode.color # set background based on mode color
         self.barWidth.setPerc(VolAs.volume) # set the width as a percentage
@@ -185,10 +182,6 @@ class Window(Tk.Frame):
         if muted[0] == True: self.mixer.setmute(0)
         elif muted[0] == False: self.mixer.setmute(1)
         else: raise Exception("mixer's .getmute()[0] method should return True or False!")
-        #if VolAs.muted == True: action = "mute"
-        #elif VolAs.muted == False: action = "unmute"
-        #else: raise TypeError("must be a boolean!")
-        #call(["amixer","sset",str(VolAs.device),action,"-q"])
     def _mouse_entered(self,event): root.wm_attributes("-alpha",default_opacity)
     def _mouse_left(self,event): root.wm_attributes("-alpha",outside_zone_opacity)
     def _open_message(self):
@@ -220,7 +213,5 @@ root.overrideredirect(1) # remove frame of window
 root.wait_visibility(root) # required for window transparency
 root.wm_attributes("-alpha",outside_zone_opacity) # make window transparent
 root.title(program_title)
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
-#app._update_loop()
+app._update_loop() # must be before main loop
 root.mainloop()
