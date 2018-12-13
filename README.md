@@ -52,9 +52,12 @@ Features in development / planned for development
 _(this space is planned for example images of each function)_
 
 ### Supported platforms
-- Windows 7 or later
-- MacOS
-- Linux (most distributions)
+
+<img src="docs/Platform_Windows.svg" width="14pt"/>&nbsp;&nbsp; Windows 7 or later
+
+<img src="docs/Platform_Mac.svg" width="14pt"/>&nbsp;&nbsp; MacOS
+
+<img src="docs/Platform_Linux.svg" width="14pt"/>&nbsp;&nbsp; Linux (most distributions)
 
 ## Issues and bugs
 If you have any problems running Volux, please kindly post an issue to this repository. Issues can be solved much faster if you can provide:
@@ -69,15 +72,13 @@ Volux is developed under Debian (Linux) using GNOME 3.22.2 and Python 3.5. Provi
 ## Using Volux
 All interactions with Volux are only valid when hovering over the bar Volux produces. This allows you to interact with Volux without loosing your ability to use your scroll bar in other applications.
 
-### Changing modes
-To cycle between modes in Volux, right-click the main bar
+### Modes
+To cycle between modes in Volux, right-click the main bar. By default, a green bar signifies volume mode and a blue bar signifies brightness mode (wip).
 
-By default, a green bar signifies volume mode and a blue bar signifies brightness mode (wip)
-
-### Changing volume/brightness
+### Volume/brightness
 While in volume or brightness mode, scroll up/down to increase/decrease volume or brightness while hovering over the main bar.
 
-### Exiting the application
+### Exit
 To exit Volux, double right-click the bar at any time.
 
 ## Installation
