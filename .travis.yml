@@ -17,7 +17,7 @@ install:
   - pip3 install -r requirements.txt
 # command to run tests
 script:
-  - xvfb-run --server-args="-screen 0 1920x1080x32" make test
+  #- xvfb-run --server-args="-screen 0 1920x1080x32" make test
   - pytest --cov=./
 # coverage testing
 after_success:
