@@ -8,17 +8,17 @@ before_install:
   #- sudo apt update
   #- sudo apt-get install dirmngr
   #- sudo apt-get install alsaaudio
-  - sudo dir -R
   - pip install codecov
   - pip install pytest pytest-cov
   - pip install ./pyalsaaudio-0.8.4-cp35-cp35m-linux_x86_64.whl
+  - sudo dir -R
 # command to install dependencies
 install:
-  #- pip3 install -r requirements.txt
+  - pip3 install -r requirements.txt
 # command to run tests
 script:
 #  - xvfb-run --server-args="-screen 0 1920x1080x32" make test
-#  - pytest --cov=./
+  - pytest --cov=./
 # coverage testing
 after_success:
 - codecov
