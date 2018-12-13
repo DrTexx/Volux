@@ -7,7 +7,6 @@
 Table of contents
 =================
 <!--ts-->
-   * [Table of contents](#table-of-contents)
    * [Volux](#volux)
       * [Purpose](#purpose)
          * [What does it do?](#what-does-it-do)
