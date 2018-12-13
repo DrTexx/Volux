@@ -11,6 +11,7 @@ Table of contents
       * [Purpose](#purpose)
          * [What does it do?](#what-does-it-do)
          * [What <em>will</em> it do?](#what-will-it-do)
+         * [Screenshots](#screenshots)
          * [Supported platforms](#supported-platforms)
       * [Installation](#installation)
          * [Requirements](#requirements)
