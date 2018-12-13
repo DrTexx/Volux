@@ -48,6 +48,15 @@ Features in development / planned for development
 - Brightness control via mouse wheel
 - Interface customisation
 
+### Screenshots
+
+| Mode                | State    | Image |
+| :---:               | :---:    | :---: |
+| Volume (active)     | active   | <img src="docs/volume-active.png"/> |
+| Volume (inactive)   | inactive | <img src="docs/volume-inactive.png"/> |
+| Mute (active)       | active   | <img src="docs/mute-active.png"/> |
+| Brightness (active) | active   | <img src="docs/brightness-active.png"/> |
+
 _(this space is planned for example images of each function)_
 
 ### Supported platforms
