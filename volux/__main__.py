@@ -18,6 +18,7 @@
 # pip3 install psutil --user
 
 # BUILTIN MODULES #
+import sys
 import time # used for delays
 import math
 from _thread import start_new_thread # used to run functions in parallel
@@ -213,5 +214,8 @@ root.overrideredirect(1) # remove frame of window
 root.wait_visibility(root) # required for window transparency
 root.wm_attributes("-alpha",outside_zone_opacity) # make window transparent
 root.title(program_title)
-app._update_loop() # must be before main loop
-root.mainloop()
+
+print(sys.argv[0])
+if '__main__.py' in sys.argv[0]:
+    app._update_loop() # must be before main loop
+    root.mainloop()
