@@ -120,6 +120,7 @@ If you have any problems running Volux, please kindly post an issue to this repo
 
 - Your OS
 - Your desktop environment (if using Linux)
+- Your python version
 - A Summary of issues experienced
 - Any relevant screenshot/s
 
