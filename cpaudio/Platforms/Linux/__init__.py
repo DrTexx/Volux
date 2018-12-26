@@ -2,8 +2,8 @@ class MixerController:
 
     def __init__(self):
 
-        import alsaaudio as al
-        self.mixer = al.Mixer("Master")
+        import alsaaudio
+        self.mixer = alsaaudio.Mixer("Master")
         
         from alsaaudio import ALSAAudioError
         self.ALSAAudioError = ALSAAudioError
