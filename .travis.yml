@@ -6,7 +6,7 @@ python:
 # coverage testing preperation
 before_install:
   - sudo apt update
-  - sudo apt install libasound2-dev
+  - sudo apt install libasound2-dev alsa-utils alsa-oss
   #- sudo apt-get install dirmngr
   #- sudo apt-get install pyalsaaudio
   - pip install codecov
