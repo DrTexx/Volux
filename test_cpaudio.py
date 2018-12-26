@@ -1,6 +1,5 @@
 import cpaudio
 import pytest
-from time import sleep
 
 # create a mixer class
 mc = cpaudio.MixerController()
