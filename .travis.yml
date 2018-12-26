@@ -5,6 +5,7 @@ python:
   - "3.7-dev"  # 3.7 development branch
 # coverage testing preperation
 before_install:
+  - export AUDIODEV=null
   - sudo apt update
   - sudo apt install libasound2-dev alsa-utils alsa-oss
   #- sudo apt-get install dirmngr
