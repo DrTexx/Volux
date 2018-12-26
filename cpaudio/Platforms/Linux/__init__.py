@@ -1,9 +1,3 @@
-import alsaaudio
-mixer = alsaaudio.Mixer()
-print(mixer)
-print(mixer.cardname())
-print(alsaaudio.mixers())
-
 class MixerController:
 
     def __init__(self):
@@ -14,11 +8,9 @@ class MixerController:
         self.ALSAAudioError = alsaaudio.ALSAAudioError
 
     def svol(self,newvol):
-        
-        try:
+        if (newvol >= 0) and (newvol <= 100):
             self.mixer.setvolume(newvol)
-        
-        except self.ALSAAudioError:
+        else:
             raise ValueError("volume must be between 0 and 100")
 
     def gvol(self):
