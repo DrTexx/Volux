@@ -17,7 +17,7 @@
 # pip3 install plyer --user
 # pip3 install psutil --user
 
-# BUILTIN MODULES #
+# BUILTIN MODULES
 import sys
 import time # used for delays
 import math
