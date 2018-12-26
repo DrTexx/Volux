@@ -5,8 +5,10 @@ stack: python 3.5
 install:
 - sudo apt-get install -y libasound2-dev alsa-utils alsa-oss
 - pip install -r requirements.txt
+- pip install codecov
+- pip install pytest pytest-cov
 
 build: off
 
 test_script:
-- python -m 
+- pytest --cov=./
