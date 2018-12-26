@@ -5,11 +5,13 @@ class MixerController:
         import alsaaudio
 #        self.mixer = alsaaudio.Mixer("Master")
         self.mixer = alsaaudio.Mixer()
-        self.ALSAAudioError = alsaaudio.ALSAAudioError
 
     def svol(self,newvol):
         if (newvol >= 0) and (newvol <= 100):
-            self.mixer.setvolume(newvol)
+            try:
+                self.mixer.setvolume(newvol)
+            except:
+                raise Exception
         else:
             raise ValueError("volume must be between 0 and 100")
 
