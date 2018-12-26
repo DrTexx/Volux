@@ -3,6 +3,7 @@ image: ubuntu
 stack: python 3.5
 
 install:
+- sudo apt-get install libasound2-dev alsa-utils alsa-oss
 - pip install -r requirements.txt
 
 build: off
