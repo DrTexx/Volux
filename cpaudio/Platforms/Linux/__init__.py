@@ -4,16 +4,22 @@ class MixerController:
 
         import alsaaudio
 #        self.mixer = alsaaudio.Mixer("Master")
+        print("mixers:",alsaaudio.mixers())
+        print("PCM:",alsaaudio.PCM().cardname())
         self.mixer = alsaaudio.Mixer()
 
     def svol(self,newvol):
-        if (newvol >= 0) and (newvol <= 100):
-            try:
-                self.mixer.setvolume(newvol)
-            except:
-                raise Exception
+        if type(newvol) == int:
+            
+            if (newvol >= 0) and (newvol <= 100):
+                try:
+                    self.mixer.setvolume(newvol)
+                except:
+                    raise Exception
+            else:
+                raise ValueError("volume must be between 0 and 100")
         else:
-            raise ValueError("volume must be between 0 and 100")
+            raise TypeError("volume must be an integer")
 
     def gvol(self):
         
@@ -22,16 +28,27 @@ class MixerController:
 
     def smute(self,newstate):
         
-        if (newstate == 0) or (newstate == False):
-            self.mixer.setmute(0)
-        
-        elif (newstate == 1) or (newstate == True):
-            self.mixer.setmute(1)
+        if type(newstate) == bool:
+            
+            if newstate == False:
+                self.mixer.setmute(0)
+            elif newstate == True:
+                self.mixer.setmute(1)
+            else:
+                raise Exception("WHAT?")
         
         else:
-            raise TypeError("Input must be either True, False, 0 or 1")
+            raise TypeError("Input must be boolean")
 
     def gmute(self):
         
         _gmute = self.mixer.getmute()
-        return(int(sum(_gmute) / len(_gmute)))
+        mute_average = int(sum(_gmute) / len(_gmute))
+        
+        if mute_average == 0:
+            return(False)
+        elif mute_average == 1:
+            return(True)
+        
+        else:
+            raise Exception("mute_average didn't return 0 or 1, please create an issue on github!")

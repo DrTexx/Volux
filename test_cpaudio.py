@@ -16,7 +16,7 @@ class Test_cpaudio():
         assert mc.gvol() == 98
     def test_svol_TypeErrors(self):
         with pytest.raises(TypeError):
-            mc.svol(4.5) # no decimals
+            mc.svol(4.5) # no floats
         with pytest.raises(TypeError):
             mc.svol("30") # no strings
     def test_svol_ValueErrors(self):
@@ -29,11 +29,11 @@ class Test_cpaudio():
         assert mc.gmute() == 1
         mc.smute(False)
         assert mc.gmute() == 0
-        mc.smute(1)
-        assert mc.gmute() == 1
-        mc.smute(0)
-        assert mc.gmute() == 0
     def test_smute_TypeErrors(self):
+        with pytest.raises(TypeError):
+            mc.smute(0)
+        with pytest.raises(TypeError):
+            mc.smute(1)
         with pytest.raises(TypeError):
             mc.smute("True")
         with pytest.raises(TypeError):
