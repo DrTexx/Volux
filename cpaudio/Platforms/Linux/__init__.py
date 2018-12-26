@@ -1,9 +1,16 @@
+import alsaaudio
+mixer = alsaaudio.Mixer()
+print(mixer)
+print(mixer.cardname())
+print(alsaaudio.mixers())
+
 class MixerController:
 
     def __init__(self):
 
         import alsaaudio
-        self.mixer = alsaaudio.Mixer("Master")
+#        self.mixer = alsaaudio.Mixer("Master")
+        self.mixer = alsaaudio.Mixer()
         self.ALSAAudioError = alsaaudio.ALSAAudioError
 
     def svol(self,newvol):
