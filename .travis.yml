@@ -10,7 +10,7 @@ before_install:
   - sudo apt-get install libasound2-dev alsa-utils alsa-oss
   - sudo modprobe snd-dummy
   - sudo lsmod
-  - sudo apt-get install alsaaudio pyalsaaudio python-alsaaudio
+  - sudo apt-get install python-alsaaudio #alsaaudio pyalsaaudio
   - pip install codecov
   - pip install pytest pytest-cov
   - sudo dir -R
