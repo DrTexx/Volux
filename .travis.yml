@@ -5,21 +5,23 @@ python:
   - "3.7-dev"  # 3.7 development branch
 # coverage testing preperation
 before_install:
-  - export AUDIODEV=null
-  - sudo apt update
-  - sudo apt install libasound2-dev #alsa-utils alsa-oss
-  #- sudo apt-get install dirmngr
-  #- sudo apt-get install pyalsaaudio
+  - sudo apt-get update -qq
+  - sudo apt-get install -y portaudio19-dev
+  - sudo apt-get install libasound2-dev alsa-utils alsa-oss
+  - sudo modprobe snd-summy
+  - sudo lsmod
+  - sudo apt-get install alsaaudio pyalsaaudio python-alsaaudio
   - pip install codecov
   - pip install pytest pytest-cov
-  #- pip install ./pyalsaaudio-0.8.4-cp35-cp35m-linux_x86_64.whl
   - sudo dir -R
+  #- pip install ./pyalsaaudio-0.8.4-cp35-cp35m-linux_x86_64.whl
 # command to install dependencies
 install:
   - pip install -r requirements.txt
 # command to run tests
 script:
   #- xvfb-run --server-args="-screen 0 1920x1080x32" make test
+  - export AUDIODEV=null
   - pytest --cov=./
 # coverage testing
 after_success:
