@@ -4,9 +4,7 @@ class MixerController:
 
         import alsaaudio
         self.mixer = alsaaudio.Mixer("Master")
-        
-        from alsaaudio import ALSAAudioError
-        self.ALSAAudioError = ALSAAudioError
+        self.ALSAAudioError = alsaaudio.ALSAAudioError
 
     def svol(self,newvol):
         
