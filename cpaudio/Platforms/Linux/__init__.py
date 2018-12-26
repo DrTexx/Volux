@@ -6,7 +6,7 @@ class MixerController:
 #        self.mixer = alsaaudio.Mixer("Master")
         print("mixers:",alsaaudio.mixers())
         print("PCM:",alsaaudio.PCM().cardname())
-        self.mixer = alsaaudio.Mixer()
+        self.mixer = alsaaudio.Mixer("Master")
 
     def svol(self,newvol):
         if type(newvol) == int:
@@ -51,4 +51,4 @@ class MixerController:
             return(True)
         
         else:
-            raise Exception("mute_average didn't return 0 or 1, please create an issue on github!")
+            raise Exception("mute_average didn't return 0 or 1, please create an issue on Github!")
