@@ -27,7 +27,6 @@ from subprocess import call
 from os.path import realpath
 # SITE PACKAGES #
 from plyer import notification
-import alsaaudio as al
 # LOCAL MODULES
 import volux.temperatures as temps
 from volux.dp_datatools import LivePercentage, clamp
