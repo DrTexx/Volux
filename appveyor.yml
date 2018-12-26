@@ -12,5 +12,9 @@ install:
 
 build: off
 
+environment:
+  matrix:
+    - AUDIODEV: null
+
 test_script:
 - pytest --cov=./
