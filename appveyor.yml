@@ -7,6 +7,8 @@ install:
 - pip install -r requirements.txt
 - pip install codecov
 - pip install pytest pytest-cov
+- sudo modprobe snd-dummy
+- sudo lsmod
 
 build: off
 
