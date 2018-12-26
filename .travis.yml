@@ -4,16 +4,20 @@ python:
   - "3.6"
   - "3.7-dev"  # 3.7 development branch
 # coverage testing preperation
+addons:
+  apt:
+    packages:
+      - xvfb
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y portaudio19-dev
   - sudo apt-get install libasound2-dev alsa-utils alsa-oss
   - sudo modprobe snd-dummy
   - sudo lsmod
-  - sudo apt-get install python-alsaaudio #alsaaudio pyalsaaudio
+  #- sudo apt-get install python-alsaaudio #alsaaudio pyalsaaudio
+  #- pip install pyalsaaudio
   - pip install codecov
   - pip install pytest pytest-cov
-  - pip install pyalsaaudio
   - sudo dir -R
   #- pip install ./pyalsaaudio-0.8.4-cp35-cp35m-linux_x86_64.whl
 # command to install dependencies
