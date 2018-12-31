@@ -1,3 +1,3 @@
 pyalsaaudio==0.8.4
-plyer==1.3.2
+plyer==1.4.0
 psutil==5.4.8
