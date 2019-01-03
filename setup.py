@@ -6,7 +6,9 @@ https://github.com/pypa/sampleproject
 
 
 script_name = 'volux'
-#script_requirements = ['pyalsaaudio==0.8.4','plyer==1.3.2','psutil==5.4.8']
+script_requirements = ["pyalsaaudio==0.8.4 ; sys_platform == 'windows'",
+                       "plyer==1.3.2",
+                       "psutil==5.4.8"]
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
 script_version = '0.8.13'
