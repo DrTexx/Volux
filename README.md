@@ -70,7 +70,7 @@ Features in development / planned for development
 ### Requirements
 | Platform       | External Requirements      |
 | ---            | ---                        |
-| Windows        | _no external requirements_ |
+| Windows        | ```> pip install https://github.com/AndreMiras/pycaw/archive/master.zip``` |
 | Darwin (MacOS) | _no external requirements_ |
 | Linux          | ```$ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev``` |
 
