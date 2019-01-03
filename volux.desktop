@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Volux
+Comment=Volux
+Type=Application
+Encoding=UTF-8
+Exec=/opt/volux/run_volux.sh
+Icon=/opt/volux/volux/img/icon.png
+Categories=GNOME;Application;Audio;
+Terminal=false
+StartupNotify=true
