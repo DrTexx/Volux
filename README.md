@@ -62,12 +62,19 @@ Features in development / planned for development
 
 <img src="docs/Platform_Windows.svg" width="14pt"/>&nbsp;&nbsp; Windows 7 or later
 
-<img src="docs/Platform_Mac.svg" width="14pt"/>&nbsp;&nbsp; MacOS
+<img src="docs/Platform_Mac.svg" width="14pt"/>&nbsp;&nbsp; MacOS _(WIP)_
 
 <img src="docs/Platform_Linux.svg" width="14pt"/>&nbsp;&nbsp; Linux (most distributions)
 
 ## Installation
 ### Requirements
+#### Windows
+_no external requirements_
+
+#### Darwin (MacOS)
+_no external requirements_
+
+#### Linux
 
     $ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev
 
