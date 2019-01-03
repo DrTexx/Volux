@@ -9,7 +9,7 @@ script_name = 'volux'
 script_requirements = ['pyalsaaudio==0.8.4','plyer==1.3.2','psutil==5.4.8']
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
-script_version = '0.8.11'
+script_version = '0.8.2.0'
 script_description = 'Audio Control Interface'
 github_username = 'DrTexxOfficial'
 script_author = 'Denver P'
