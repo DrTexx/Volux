@@ -123,12 +123,13 @@ Volux is developed under Debian 9 Stretch (Linux) using GNOME 3.22.2 and Python 
 
 Additional testing has been done under these conditions:
 
-| Architecture | Operating System | Desktop Env   | Python | Status  | Notes                        |
-| ---          | ---              | ---           | ---    | ---     | ---                          |
-| 64 bit       | Debian 9 Stretch | Gnome 3.22.2  | 3.5    | Working | Development conditions       |
-| 64 bit       | Ubuntu _ver=?_   | Gnome _ver=?_ | 3.6    | Working |                              |
-| 64 bit       | Windows 10       | N/A           | 3.7    | Working | Reimplementation successful! |
-| 64 bit       | Mac OS           | N/A           | 3.x    | Broken  | Dependencies missing         |
+| Archi. | Operating System | Desktop Env   | Python | Verison | Status  | Notes                        |
+| ---    | ---              | ---           | ---    | ---     | ---     | ---                          |
+| 64 bit | Debian 9 Stretch | Gnome 3.22.2  | 3.5    |         | Working | Development conditions       |
+| 64 bit | Ubuntu _ver=?_   | Gnome _ver=?_ | 3.6    |         | Working |                              |
+| 64 bit | Windows 10       | N/A           | 3.7    | 0.8.15  | Working | Reimplementation successful! |
+| 64 bit | Windows 10       | N/A           | 3.7.2  | 0.8.15  | Working |                              |
+| 64 bit | Mac OS           | N/A           | 3.x    |         | Broken  | Dependencies missing         |
 
 <br/>
 
