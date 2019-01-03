@@ -1,5 +1,5 @@
 from _thread import start_new_thread # used to run functions in parallel
-import alsaaudio as al
+import cpaudio
 import time
 
 class VolumeAssistant:
@@ -8,9 +8,7 @@ class VolumeAssistant:
         self.volume = 10 # TODO: change this to poll the actual volume on scroll detection
         self.muted = False # TODO: change this to reflect reality
         self.previous_volume = 0
-        self.device = "Master"
-        self.defaultMixer = "Master"
-        self.mixer = al.Mixer(self.defaultMixer)
+        self.mixer = cpaudio.MixerController()
     def start(self,pollFreq):
         def _startthread(self,pollFreq):
             self.running = True
@@ -28,9 +26,7 @@ class VolumeAssistant:
     def stop(self):
         self.running=False
     def ismuted(self):
-        _muted = self.mixer.getmute()[0]
-        if _muted == 1: return(True)
-        elif _muted == 0: return(False)
+        return(self.mixer.gmute())
     def _get_percentage(self,child,parent):
         percentages = {'x': (child['x']/parent['x'])*100,
                        'y': (child['y']/parent['y'])*100}
