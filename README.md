@@ -127,7 +127,7 @@ Additional testing has been done under these conditions:
 | ---          | ---              | ---           | ---    | ---     | ---                          |
 | 64 bit       | Debian 9 Stretch | Gnome 3.22.2  | 3.5    | Working | Development conditions       |
 | 64 bit       | Ubuntu _ver=?_   | Gnome _ver=?_ | 3.6    | Working |                              |
-| 64 bit       | Windows 10       | N/A           | 3.7    | Broken  | Reimplementation in progress |
+| 64 bit       | Windows 10       | N/A           | 3.7    | Working | Reimplementation successful! |
 | 64 bit       | Mac OS           | N/A           | 3.x    | Broken  | Dependencies missing         |
 
 <br/>
