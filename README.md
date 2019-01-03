@@ -68,33 +68,21 @@ Features in development / planned for development
 
 ## Installation
 ### Requirements
-#### Windows
-_no external requirements_
+| Platform       | External Requirements      |
+| ---            | ---                        |
+| Windows        | _no external requirements_ |
+| Darwin (MacOS) | _no external requirements_ |
+| Linux          | ```$ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev``` |
 
-#### Darwin (MacOS)
-_no external requirements_
+### Installation
+| Installation Method              | Command/s                                            |
+| ---                              | ---                                                  |
+| pip (as user) ***recommended!*** | ```$ pip3 install volux --user```                    |
+| pip (as root)                    | ```$ sudo pip3 install volux```                      |
+| wheel (.whl) (as user)           | ```$ pip3 install volux-*-py3-none-any.whl --user``` |
+| wheel (.whl) (as root)           | ```$ sudo pip3 install volux-*-py3-none-any.whl```   |
 
-#### Linux
-
-    $ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev
-
-### Install via pip
-Install as user (recommended):
-
-    $ pip3 install volux --user
-
-Install as root:
-
-    $ sudo pip3 install volux
-
-### Install via wheel (.whl)
-Install as user (recommended):
-
-    $ pip3 install volux-*-py3-none-any.whl --user
-    
-Install as root:
-
-    $ sudo pip3 install volux-*-py3-none-any.whl
+_note: Under some linux distros all references to 'pip' must be replaced with 'pip3'. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters_    
 
 ### Build from source
 Clone this repository:
@@ -135,11 +123,12 @@ Volux is developed under Debian 9 Stretch (Linux) using GNOME 3.22.2 and Python 
 
 Additional testing has been done under these conditions:
 
-| Architecture | Operating System | Desktop Env   | Python | Status  | Notes                  |
-| ---          | ---              | ---           | ---    | ---     | ---                    |
-| 64 bit       | Debian 9 Stretch | Gnome 3.22.2  | 3.5    | Working | Development conditions |
-| 64 bit       | Ubuntu _ver=?_   | Gnome _ver=?_ | 3.6    | Working |                        |
-| 64 bit       | Windows 10       | N/A           | 3.7    | Broken  | Dependency issues      |
+| Architecture | Operating System | Desktop Env   | Python | Status  | Notes                        |
+| ---          | ---              | ---           | ---    | ---     | ---                          |
+| 64 bit       | Debian 9 Stretch | Gnome 3.22.2  | 3.5    | Working | Development conditions       |
+| 64 bit       | Ubuntu _ver=?_   | Gnome _ver=?_ | 3.6    | Working |                              |
+| 64 bit       | Windows 10       | N/A           | 3.7    | Broken  | Reimplementation in progress |
+| 64 bit       | Mac OS           | N/A           | 3.x    | Broken  | Dependencies missing         |
 
 <br/>
 
