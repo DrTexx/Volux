@@ -12,7 +12,7 @@ script_requirements = ["pyalsaaudio==0.8.4 ; platform_system == 'Linux'",
                        "comtypes==1.1.7 ; platform_system == 'Windows'"]
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
-script_version = '0.8.14'
+script_version = '0.8.15'
 script_description = 'Audio Control Interface'
 github_username = 'DrTexxOfficial'
 script_author = 'Denver P'
