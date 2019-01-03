@@ -55,11 +55,45 @@ class Test_cpaudio():
         print(mc.gmute())
         assert mc.gmute() == _mute_before_tests
 
+class test_cpaudio_platforms():
+    def __init__(self):
+        
+        import cpaudio.Platforms.Windows as cpaudio_windows
+        import cpaudio.Platforms.Darwin as cpaudio_darwin
+        import cpaudio.Platforms.Linux as cpaudio_linux
+        
+        self.cpaudio_windows = cpaudio_windows
+        self.cpaudio_darwin = cpaudio_darwin
+        self.cpaudio_linux = cpaudio_linux
+        
+        self.cpaudio_all_platforms = [self.cpaudio_windows,
+                                      self.cpaudio_darwin,
+                                      self.cpaudio_linux]
+        
+        self.universal_classes = ['MixerController']
+        self.MixerController_methods = ['svol','gvol','smute','gmute']
+        
+    def test_classes(self):
+        
+        assert self.universal_classes in dir(self.cpaudio_windows)
+        assert self.universal_classes in dir(self.cpaudio_darwin)
+        assert self.universal_classes in dir(self.cpaudio_linux)
+        
+    def test_mixer_functions(self):
+        
+        MixerController_windows = self.cpaudio_windows.MixerController()
+        MixerController_darwin = self.cpaudio_windows.MixerController()
+        MixerController_linux = self.cpaudio_windows.MixerController()
+        
+        for m in self.MixerController_methods:
+            assert m in dir(MixerController_windows)
+            assert m in dir(MixerController_darwin)
+            assert m in dir(MixerController_linux)
+
 #    def test_submessages(self):
 #        assert "parent message | sub-message" in dpm(3,"parent message","sub-message",return_string=True)
 
-tcpa = Test_cpaudio()
-tcpa.test_vol_reset()
-tcpa.test_mute_reset()
-print("end of tests")
+#test_cpaudio_platforms().test_classes()
+#test_cpaudio_platforms().test_mixer_functions()
 
+print("end of tests")
