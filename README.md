@@ -127,10 +127,19 @@ If you have any problems running Volux, please kindly post an issue to this repo
 
 - Your OS
 - Your desktop environment (if using Linux)
+- Your python version
 - A Summary of issues experienced
 - Any relevant screenshot/s
 
-Volux is developed under Debian (Linux) using GNOME 3.22.2 and Python 3.5. Providing you've correctly installed all dependencies, Volux is almost guranteed to work under these conditions.
+Volux is developed under Debian 9 Stretch (Linux) using GNOME 3.22.2 and Python 3.5. Providing you've correctly installed all dependencies, Volux is almost guranteed to work under these conditions.
+
+Additional testing has been done under these conditions:
+
+| Architecture | Operating System | Desktop Env   | Python | Status  | Notes                  |
+| ---          | ---              | ---           | ---    | ---     | ---                    |
+| 64 bit       | Debian 9 Stretch | Gnome 3.22.2  | 3.5    | Working | Development conditions |
+| 64 bit       | Ubuntu _ver=?_   | Gnome _ver=?_ | 3.6    | Working |                        |
+| 64 bit       | Windows 10       | N/A           | 3.7    | Broken  | Dependency issues      |
 
 <br/>
 
