@@ -3,10 +3,12 @@ class MixerController:
     def __init__(self):
 
         import alsaaudio
-#        self.mixer = alsaaudio.Mixer("Master")
-        print("mixers:",alsaaudio.mixers())
-        print("PCM:",alsaaudio.PCM().cardname())
-        self.mixer = alsaaudio.Mixer("Master")
+        try:
+            print("mixers:",alsaaudio.mixers())
+            print("PCM:",alsaaudio.PCM().cardname())
+            self.mixer = alsaaudio.Mixer("Master")
+        except FileNotFoundError:
+            print("I see you're running on a CI server -.-")
 
     def svol(self,newvol):
         if type(newvol) == int:
