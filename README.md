@@ -75,12 +75,12 @@ Features in development / planned for development
 | Linux          | ```$ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev``` |
 
 ### Installation
-| Installation Method              | Command/s                                            |
-| ---                              | ---                                                  |
-| pip (as user) ***recommended!*** | ```$ pip3 install volux --user```                    |
-| pip (as root)                    | ```$ sudo pip3 install volux```                      |
-| wheel (.whl) (as user)           | ```$ pip3 install volux-*-py3-none-any.whl --user``` |
-| wheel (.whl) (as root)           | ```$ sudo pip3 install volux-*-py3-none-any.whl```   |
+| Installation Method                | Command/s                                           | Platforms
+| ---                                | ---                                                 | ---
+| pip (as user) ***recommended!***   | ```pip install volux --user```                      | Windows/Unix
+| pip (as root)                      | ```$ sudo pip install volux```                      | Unix
+| wheel (.whl) (as user)             | ```pip install volux-*-py3-none-any.whl --user```   | Windows/Unix
+| wheel (.whl) (as root)             | ```$ sudo pip install volux-*-py3-none-any.whl```   | Unix
 
 _note: Under some linux distros all references to 'pip' must be replaced with 'pip3'. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters_    
 
