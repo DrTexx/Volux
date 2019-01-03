@@ -6,9 +6,11 @@ https://github.com/pypa/sampleproject
 
 
 script_name = 'volux'
-script_requirements = ["pyalsaaudio==0.8.4 ; sys_platform == 'windows'",
+script_requirements = ["pyalsaaudio==0.8.4 ; platform_system == 'Linux'",
                        "plyer==1.3.2",
-                       "psutil==5.4.8"]
+                       "psutil==5.4.8",
+                       "comtypes==1.1.7 ; platform_system == 'Windows'",
+                       "https://github.com/AndreMiras/pycaw/archive/master.zip"]
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
 script_version = '0.8.14'
