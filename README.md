@@ -99,16 +99,23 @@ Build:
     $ python3 setup.py bdist_wheel
 
 ## Using Volux
-All interactions with Volux are only valid when hovering over the bar Volux produces. This allows you to interact with Volux without loosing your ability to use your scroll bar in other applications.
+All interactions with Volux are only valid when hovering over the bar Volux produces. This allows you to interact with Volux without loosing your ability to scroll in other applications.
+
+### Launching
+In order to launch Volux, open your platform's command-line/terminal and run the following:
+
+    python -m volux
+
+***NOTE:*** This will not be necessary in future releases (however still possible). An application launcher will be provided in addition to the option to launch at startup.
 
 ### Modes
-To cycle between modes in Volux, right-click the main bar. By default, a green bar signifies volume mode and a blue bar signifies brightness mode (wip).
+To cycle between modes in Volux, _right-click_ the main bar. By default, a green bar signifies **volume mode** and a blue bar signifies **brightness mode** (wip).
 
 ### Volume/brightness
-While in volume or brightness mode, scroll up/down to increase/decrease volume or brightness while hovering over the main bar.
+While in volume or brightness mode, _scroll up/down_ to increase/decrease volume or brightness while hovering over the main bar.
 
 ### Exit
-To exit Volux, double right-click the bar at any time.
+To exit Volux, _double right-click_ the bar at any time.
 
 ## Issues and bugs
 If you have any problems running Volux, please kindly post an issue to this repository. Issues can be solved much faster if you can provide:
