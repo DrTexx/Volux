@@ -23,7 +23,7 @@ import tkinter as Tk
 from os.path import realpath
 
 # SITE PACKAGES #
-from plyer import notification
+#from plyer import notification
 
 # LOCAL MODULES
 #import volux.temperatures as temps

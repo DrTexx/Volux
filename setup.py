@@ -7,12 +7,10 @@ https://github.com/pypa/sampleproject
 
 script_name = 'volux'
 script_requirements = ["pyalsaaudio==0.8.4 ; platform_system == 'Linux'",
-                       "plyer==1.3.2",
-                       "psutil==5.4.8",
                        "comtypes==1.1.7 ; platform_system == 'Windows'"]
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
-script_version = '0.8.16'
+script_version = '0.8.17'
 script_description = 'Audio Control Interface'
 github_username = 'DrTexxOfficial'
 script_author = 'Denver P'
