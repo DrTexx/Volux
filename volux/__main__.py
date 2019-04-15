@@ -18,31 +18,31 @@
 # pip3 install psutil --user
 
 # BUILTIN MODULES
+import json
+from tkinter import * # for UI
+from tkinter.ttk import * # for not ugly UI
 import sys # for processing CLI arguments
-import tkinter as Tk # for generating UI
 from os.path import realpath # for loading files (e.g. icons)
 
 # SITE PACKAGES #
 #from plyer import notification
-import cpaudio
-mixer = cpaudio.MixerController()
 
 # LOCAL MODULES
 #import volux.temperatures as temps
 from volux.dp_datatools import LivePercentage, clamp
 from volux.VolumeAssistant import VolumeAssistant
 from volux.VolumeBar import VolumeBar
+from volux.barStyle import add_bar_styles, barstyles
+import cpaudio
+mixer = cpaudio.MixerController()
 
 
 
 ### ---- PREFERENCES ---- ###
-program_title = "Volux"
 program_icon = realpath('icon.png')
-sound_device = "Master"
-default_mixer_name = "Master"
-default_opacity = 0.5
-outside_zone_opacity = 0.1
-bar_height = 5
+with open("preferences.json") as f:
+    preferences = json.load(f)
+
 
 ### ---- SETUP STUFF ---- ###
 VolAs = VolumeAssistant() # initialise a Volume Assistant object
@@ -96,36 +96,49 @@ sm = StateManager(VolumeMode)
 
 
 
-
 ### ---- TKINTER STUFF BEGINS ---- ###
 
-root = Tk.Tk()
+root = Tk()
 
-class Window(Tk.Frame):
+class Window(Frame):
 
     def __init__(self,master=None):
-        Tk.Frame.__init__(self,master)
+
+        Frame.__init__(self,master)
         self.master = master
         self._init_objects()
+        self._init_styles()
         self._init_window()
         self._init_bindings()
         #self._open_message()
 
     def _init_objects(self):
-        self.displaySize = VolAs._get_display_size(root) # max size of the percentage bar in pixels
+
+        self.displaySize = VolAs._get_display_size(root) # max size of the bar in pixels
+
         self.barWidth = LivePercentage(0,self.displaySize['x']) # set width of bar
+
+    def _init_styles(self):
+
+        print("INIT STYLES!")
+        self.style = Style()
+        self.style.configure("barContainer.TFrame", background="BLACK")
+        add_bar_styles(self.style, barstyles)
+
+        print("FINISHED ADDING STYLES!")
 
     def _init_window(self):
         m = self.master
         m.title("Please submit an issue to Github if you see this!")
-        
-        self.barHeight = bar_height # define height of bar
-        
-        self.barContainer = Tk.Frame(m, background="BLACK")
-        self.barContainer.pack(fill=Tk.BOTH,expand=1)
-        
-        self.bar = Tk.Frame(self.barContainer) # create the bar
-        
+
+        self.barContainer = Frame(m, style="barContainer.TFrame")
+
+        self.barContainer.pack(fill=BOTH,expand=1)
+
+        self.barHeight = preferences["bar_height"] # define height of bar
+
+        self.bar = Frame(self.barContainer) # create the bar
+
         self._update_bar() # update bar values
 
         def _key_pressed(event): print("key pressed",event.key)
@@ -140,7 +153,7 @@ class Window(Tk.Frame):
             self._update_bar()
             print("brightness mode off!")
             
-        self.bar.pack(fill=Tk.Y,ipadx=5,ipady=5,side=Tk.LEFT)
+        self.bar.pack(fill=Y,ipadx=5,ipady=5,side=LEFT)
 
     def _adjust_bar(self, event, movement):
         if type(movement) == int: # if movement is an integer
@@ -239,17 +252,23 @@ class Window(Tk.Frame):
         self.after(ms_per_loop,self._update_loop) # repeat _update_loop()
 
     def _update_bar(self):
-        modeColor = VolBar.mode.color # set background based on mode color
+
+        mode_style_id = VolBar.mode.style_id # set background based on mode color
+
+        print(mode_style_id)
+
         self.barWidth.setPerc(VolAs.volume) # set the width as a percentage
+
         newWidth = self.barWidth.getNum() # get a numerical version of the percentage
-        self.bar.configure(background=modeColor,width=str(newWidth)) # update the bar with these settings
+
+        self.bar.configure(style=mode_style_id, width=str(newWidth)) # update the bar with these settings
 
     def _update_volume(self): mixer.svol(VolAs.volume)
 
     def _toggle_mute(self): mixer.smute(not mixer.gmute()) # toggle mute state
 
-    def _mouse_entered(self,event): root.wm_attributes("-alpha",default_opacity)
-    def _mouse_left(self,event): root.wm_attributes("-alpha",outside_zone_opacity)
+    def _mouse_entered(self,event): root.wm_attributes("-alpha",preferences["default_opacity"])
+    def _mouse_left(self,event): root.wm_attributes("-alpha",preferences["outside_zone_opacity"])
     def _open_message(self):
         notification.notify(
             title=program_title,
@@ -278,8 +297,8 @@ root.geometry("{}x{}+{}+{}".format(overlay_w,overlay_h,
 root.attributes("-topmost",True) # force window to stay on top (doesn't work in full screen applications)
 root.overrideredirect(1) # remove frame of window
 root.wait_visibility(root) # required for window transparency
-root.wm_attributes("-alpha",outside_zone_opacity) # make window transparent
-root.title(program_title)
+root.wm_attributes("-alpha",preferences["outside_zone_opacity"]) # make window transparent
+root.title(preferences["program_title"])
 
 print("sys.argv[0]:")
 print(sys.argv[0])

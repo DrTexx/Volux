@@ -1,0 +1,8 @@
+{
+	"program_title": "Volux",
+	"sound_device": "Master",
+	"default_mixer_name": "Master",
+	"default_opacity": 0.5,
+	"outside_zone_opacity": 0.1,
+	"bar_height": 5
+}

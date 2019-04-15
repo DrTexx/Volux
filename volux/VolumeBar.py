@@ -1,9 +1,9 @@
 class BarMode:
 
-    def __init__(self,name,color):
+    def __init__(self,name,style_id):
 
         self.name = name
-        self.color = color
+        self.style_id = style_id
 
 class VolumeBar:
 
@@ -11,10 +11,9 @@ class VolumeBar:
 
         # TODO: change colors to be a specific hex value
         self.modes = {
-            'volume': BarMode('volume','GREEN'),
-            'brightness': BarMode('brightness','BLUE'),
-            'muted': BarMode('muted','RED'),
-            'unknown': BarMode('unknown','GREY')}
+            'volume': BarMode('volume',"volume.TFrame"),
+            'brightness': BarMode('brightness',"brightness.TFrame"),
+            'muted': BarMode('muted',"muted.TFrame"),
+            'unknown': BarMode('unknown',"unknown.TFrame")}
 
         self.mode = self.modes['volume']
-
