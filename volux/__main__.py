@@ -19,7 +19,7 @@
 
 # BUILTIN MODULES
 import sys
-import tkinter as Tk
+import tkinter as Tk # for generating UI
 from os.path import realpath
 
 # SITE PACKAGES #
@@ -50,29 +50,43 @@ VolBar = VolumeBar()
 
 ### DEFINE STATES
 class VolumeMode:
-    def __init__(self):pass
+
+    def __init__(self): pass
+
     def enter(self):
         VolBar.mode = VolBar.modes['volume']
         mixer.smute(False)
+
     def vacate(self):
         VolBar.mode = VolBar.modes['unknown']
+
 class MuteMode:
+
     def __init__(self): pass
+
     def enter(self):
         VolBar.mode = VolBar.modes['muted']
         mixer.smute(True)
+
     def vacate(self):
         VolBar.mode = VolBar.modes['unknown']
+
 class BrightnessMode:
+
     def __init__(self): pass
+
     def enter(self):
         VolBar.mode = VolBar.modes['brightness']
+
     def vacate(self):
         VolBar.mode = VolBar.modes['unknown']
+
         if mixer.gmute() == True:
             return(MuteMode)
+
         elif mixer.gmute() == False:
             return(VolumeMode)
+
         else: raise TypeError("_ismuted should be a bool value")
 
 ### IMPORT AND INITIALSE STATE MANAGER
@@ -89,6 +103,7 @@ class Window(Tk.Frame):
         self.master = master
         self._init_objects()
         self._init_window()
+        self._init_bindings()
         #self._open_message()
 
     def _init_objects(self):
@@ -98,83 +113,120 @@ class Window(Tk.Frame):
     def _init_window(self):
         m = self.master
         m.title("Please submit an issue to Github if you see this!")
-        self.barHeight = bar_height # set height of bar            self._update_bar()
-        barContainer = Tk.Frame(m)
-        barContainer.configure(background="BLACK")
-        barContainer.pack(fill=Tk.BOTH,expand=1)
-        self.bar = Tk.Frame(barContainer) # create the bar
+        
+        self.barHeight = bar_height # define height of bar
+        
+        self.barContainer = Tk.Frame(m, background="BLACK")
+        self.barContainer.pack(fill=Tk.BOTH,expand=1)
+        
+        self.bar = Tk.Frame(self.barContainer) # create the bar
+        
         self._update_bar() # update bar values
-        def _adjust_bar(event,movement):
-            if type(movement) == int: # if movement is an integer
-                #self.barMode = self.barModes['volume']
-                notchMultiplier = 5 # impact of a single scroll notch on percentage
-                newVol = mixer.gvol() + movement*notchMultiplier
-                mixer.svol(newVol)
-                VolAs.volume = clamp(newVol,0,100)
-            else: raise TypeError("Value should be an integer! Not sure what happened!")
-            self._update_bar() # update the bar's graphical appearance
-            self._update_volume() # update the system volume
-            #TODO: support for Windows/Mac scrolling
-        def _scroll_up(event):
-            if sm.state == VolumeMode:
-                _adjust_bar(event,+1)
-            elif sm.state == BrightnessMode:
-                _brightness_up()
-            elif sm.state == MuteMode:
-                sm.change_state(VolumeMode)
-            self._update_bar()
-        def _scroll_down(event):
-            if sm.state == VolumeMode:
-                _adjust_bar(event,-1)
-            elif sm.state == BrightnessMode:
-                _brightness_down()
-            elif sm.state == MuteMode:
-                sm.change_state(VolumeMode)
-            self._update_bar()
-        def _scroll_delta(event):
-            movement = event.delta/120
-            if movement == 1:
-                _scroll_up(event)
-            elif movement == -1:
-                _scroll_down(event)
-            else:
-                raise ValueError("movement should be 1 or -1")
-        def _middle_click(event):
-            if sm.state == VolumeMode: # if unmuted
-                sm.change_state(MuteMode) # change to muted
-                self._update_bar()
-            elif sm.state == MuteMode: # if unmuted
-                sm.change_state(VolumeMode) # change to muted
-            self._update_bar()
-        def _key_pressed(event):
-            print("key pressed",event.key)
-        def _key_released(event):
-            print("key released",event.key)
-        def _brightness_up(): print("WIP:"+"UP")
-        def _brightness_down(): print("WIP:"+"DOWN")
-        def _right_click(event):
-            if sm.state == BrightnessMode:
-                sm.change_state(sm.state().vacate())
-            else:
-                sm.change_state(BrightnessMode)
-            self._update_bar()
-            #print("brightness mode!")
+
+        def _key_pressed(event): print("key pressed",event.key)
+        
+        def _key_released(event): print("key released",event.key)
+        
+
         def _brightness_mode_off():
+            
             sm.state_change(sm.state.vacate())
             self.barMode = self.barModes['default']
             self._update_bar()
             print("brightness mode off!")
+            
         self.bar.pack(fill=Tk.Y,ipadx=5,ipady=5,side=Tk.LEFT)
-        m.bind("<MouseWheel>",_scroll_delta)
-        m.bind("<Button-2>",_middle_click)
-        m.bind("<Button-4>",_scroll_up)
-        m.bind("<Button-5>",_scroll_down)
-        m.bind("<Button-3>",_right_click)
-        m.bind("<Control-Button-4>",_brightness_up)
-        m.bind("<Control-Button-5>",_brightness_down)
-        m.bind("<Double-Button-3>",self._exit_app)
-        barContainer.bind("<Enter>",self._mouse_entered)
-        barContainer.bind("<Leave>",self._mouse_left)
+
+    def _adjust_bar(self, event, movement):
+        if type(movement) == int: # if movement is an integer
+            #self.barMode = self.barModes['volume']
+            notchMultiplier = 5 # impact of a single scroll notch on percentage
+            newVol = mixer.gvol() + movement*notchMultiplier
+            mixer.svol(newVol)
+            VolAs.volume = clamp(newVol,0,100)
+        
+        else: raise TypeError("Value should be an integer! Not sure what happened!")
+        
+        self._update_bar() # update the bar's graphical appearance
+        self._update_volume() # update the system volume
+        #TODO: support for Mac scrolling
+
+    def _brightness_up(self): print("WIP:"+"UP")
+    
+    def _brightness_down(self): print("WIP:"+"DOWN")
+    
+    def _right_click(self, event):
+
+        if sm.state == BrightnessMode:
+            sm.change_state(sm.state().vacate())
+
+        else:
+            sm.change_state(BrightnessMode)
+        
+        self._update_bar()
+        #print("brightness mode!")
+
+    def _scroll_up(self, event):
+        
+        if sm.state == VolumeMode:
+            self._adjust_bar(event,+1)
+
+        elif sm.state == BrightnessMode:
+            _brightness_up()
+
+        elif sm.state == MuteMode:
+            sm.change_state(VolumeMode)
+
+        self._update_bar()
+        
+    def _scroll_down(self, event):
+
+        if sm.state == VolumeMode:
+            self._adjust_bar(event,-1)
+
+        elif sm.state == BrightnessMode:
+            _brightness_down()
+
+        elif sm.state == MuteMode:
+            sm.change_state(VolumeMode)
+
+        self._update_bar()
+
+    def _middle_click(self, event):
+
+        if sm.state == VolumeMode: # if unmuted
+            sm.change_state(MuteMode) # change to muted
+            self._update_bar()
+
+        elif sm.state == MuteMode: # if unmuted
+            sm.change_state(VolumeMode) # change to muted
+
+        self._update_bar()
+
+    def _scroll_delta(self, event):
+
+        movement = event.delta/120
+
+        if movement == 1:
+            _scroll_up(event)
+
+        elif movement == -1:
+            _scroll_down(event)
+
+        else:
+            raise ValueError("movement should be 1 or -1")
+        
+    def _init_bindings(self):
+        self.barContainer.bind("<Enter>",self._mouse_entered)
+        self.barContainer.bind("<Leave>",self._mouse_left)
+        self.master.bind("<MouseWheel>",self._scroll_delta)
+        self.master.bind("<Button-2>",self._middle_click)
+        self.master.bind("<Button-4>",self._scroll_up)
+        self.master.bind("<Button-5>",self._scroll_down)
+        self.master.bind("<Button-3>",self._right_click)
+        self.master.bind("<Control-Button-4>",self._brightness_up)
+        self.master.bind("<Control-Button-5>",self._brightness_down)
+        self.master.bind("<Double-Button-3>",self._exit_app)
 
     def _update_loop(self,ms_per_loop=1000):
         root.lift() # ensure window on top of others
@@ -209,7 +261,7 @@ class Window(Tk.Frame):
 #             app_icon=program_icon,
 #             timeout=10)
         exit()
-        
+
 app = Window(root)
 dispSize = VolAs._get_display_size(root)
 overlay_w = dispSize['x']
@@ -224,6 +276,7 @@ root.wait_visibility(root) # required for window transparency
 root.wm_attributes("-alpha",outside_zone_opacity) # make window transparent
 root.title(program_title)
 
+print("sys.argv[0]:")
 print(sys.argv[0])
 if '__main__.py' in sys.argv[0]:
     app._update_loop() # must be before main loop
