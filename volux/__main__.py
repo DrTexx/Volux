@@ -18,12 +18,14 @@
 # pip3 install psutil --user
 
 # BUILTIN MODULES
-import sys
+import sys # for processing CLI arguments
 import tkinter as Tk # for generating UI
-from os.path import realpath
+from os.path import realpath # for loading files (e.g. icons)
 
 # SITE PACKAGES #
 #from plyer import notification
+import cpaudio
+mixer = cpaudio.MixerController()
 
 # LOCAL MODULES
 #import volux.temperatures as temps
@@ -31,8 +33,7 @@ from volux.dp_datatools import LivePercentage, clamp
 from volux.VolumeAssistant import VolumeAssistant
 from volux.VolumeBar import VolumeBar
 
-import cpaudio
-mixer = cpaudio.MixerController()
+
 
 ### ---- PREFERENCES ---- ###
 program_title = "Volux"
@@ -93,7 +94,11 @@ class BrightnessMode:
 from volux.StateManager import StateManager
 sm = StateManager(VolumeMode)
 
+
+
+
 ### ---- TKINTER STUFF BEGINS ---- ###
+
 root = Tk.Tk()
 
 class Window(Tk.Frame):
