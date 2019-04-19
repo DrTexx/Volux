@@ -67,6 +67,8 @@ Features in development / planned for development
 <img src="docs/Platform_Linux.svg" width="14pt"/>&nbsp;&nbsp; Linux (most distributions)
 
 ## Installation
+<img src="docs/note-icon.svg" width="14pt"/>&nbsp; ***NOTE:*** _Under some operating systems / linux distros all references to 'pip' must be replaced with 'pip3'. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters_
+
 ### Requirements
 | Platform       | External Requirements      |
 | ---            | ---                        |
@@ -82,8 +84,6 @@ Features in development / planned for development
 | wheel (.whl) (as user)             | ```pip install volux-*-py3-none-any.whl --user```   | Windows/Unix
 | wheel (.whl) (as root)             | ```$ sudo pip install volux-*-py3-none-any.whl```   | Unix
 
-_note: Under some linux distros all references to 'pip' must be replaced with 'pip3'. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters_    
-
 ### Build from source
 Clone this repository:
 
@@ -92,7 +92,7 @@ Clone this repository:
 Install pip requirements:
 
     $ cd volux
-    $ pip3 install -r requirements.txt --user
+    $ pip install -r requirements.txt --user
 
 Build:
 
@@ -106,7 +106,7 @@ In order to launch Volux, open your platform's command-line/terminal and run the
 
     python -m volux
 
-***NOTE:*** This will not be necessary in future releases (however still possible). An application launcher will be provided in addition to the option to launch at startup.
+<img src="docs/note-icon.svg" width="14pt"/>&nbsp; **NOTE:** This will not be necessary in future releases (however still possible). An application launcher will be provided in addition to the option to launch at startup.
 
 ### Modes
 To cycle between modes in Volux, _right-click_ the main bar. By default, a green bar signifies **volume mode** and a blue bar signifies **brightness mode** (wip).
@@ -141,3 +141,5 @@ Additional testing has been done under these conditions:
 <br/>
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
+Acknowledgments of work | [pencil icon](https://www.flaticon.com/free-icon/pencil-writing-tool-symbol-in-circular-button-outline_54602)
