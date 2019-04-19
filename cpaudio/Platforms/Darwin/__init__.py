@@ -4,10 +4,6 @@ class MixerController:
 
         from subprocess import call
 
-        print("mixers:",alsaaudio.mixers())
-        print("PCM:",alsaaudio.PCM().cardname())
-        self.mixer = alsaaudio.Mixer("Master")
-
     def svol(self,newvol):
         if type(newvol) == int:
             
