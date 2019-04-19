@@ -17,7 +17,7 @@ before_install:
   #- sudo apt-get install python-alsaaudio #alsaaudio pyalsaaudio
   #- pip install pyalsaaudio
   - pip install codecov
-  - pip install pytest pytest-cov
+  - pip install pytest pytest-cov==2.6.0
   - sudo dir -R
   #- pip install ./pyalsaaudio-0.8.4-cp35-cp35m-linux_x86_64.whl
 # command to install dependencies
