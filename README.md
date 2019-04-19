@@ -67,7 +67,11 @@ Features in development / planned for development
 <img src="docs/Platform_Linux.svg" width="14pt"/>&nbsp;&nbsp; Linux (most distributions)
 
 ## Installation
-<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** Under some operating systems / linux distros all references to 'pip' must be replaced with 'pip3'. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters
+<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** Under some operating systems / linux distros all references to ___'pip'___ must be replaced with ___'pip3'___. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters
+
+<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** Under some operating systems / linux distros all references to ___'python'___ must be replaced with ___'python3'___. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters
+
+<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** If you recieve the error `error: invalid command 'bdist_wheel'` when running `python setup.py bdist_wheel`, try the following: Try upgrading the wheel package `pip install wheel --upgrade`. No luck? Try reinstalling the wheel package. Failing that, instead build with the command `python setup.py build`. If you're still having issues, please submit a detailed issue on Github.
 
 ### Requirements
 | Platform       | External Requirements      |
@@ -94,11 +98,13 @@ Install pip requirements:
     $ cd volux
     $ pip install -r requirements.txt --user
     
-_Issues with pip? Read note under [Installation](#installation)_
+_Issues with pip? Please see notes under [Installation](#installation)_
 
 Build:
 
-    $ python3 setup.py bdist_wheel
+    $ python setup.py bdist_wheel
+    
+_Issues with building? Please see notes under [Installation](#installation)_
 
 ## Using Volux
 All interactions with Volux are only valid when hovering over the bar Volux produces. This allows you to interact with Volux without loosing your ability to scroll in other applications.
