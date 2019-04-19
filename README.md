@@ -67,7 +67,7 @@ Features in development / planned for development
 <img src="docs/Platform_Linux.svg" width="14pt"/>&nbsp;&nbsp; Linux (most distributions)
 
 ## Installation
-<img src="docs/note-icon.svg" width="14pt"/>&nbsp; ***NOTE:*** _Under some operating systems / linux distros all references to 'pip' must be replaced with 'pip3'. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters_
+<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** Under some operating systems / linux distros all references to 'pip' must be replaced with 'pip3'. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters
 
 ### Requirements
 | Platform       | External Requirements      |
@@ -93,6 +93,8 @@ Install pip requirements:
 
     $ cd volux
     $ pip install -r requirements.txt --user
+    
+_Issues with pip? Read note under [Installation](#installation)_
 
 Build:
 
@@ -106,7 +108,7 @@ In order to launch Volux, open your platform's command-line/terminal and run the
 
     python -m volux
 
-<img src="docs/note-icon.svg" width="14pt"/>&nbsp; **NOTE:** This will not be necessary in future releases (however still possible). An application launcher will be provided in addition to the option to launch at startup.
+<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** This will not be necessary in future releases (however still possible). An application launcher will be provided in addition to the option to launch at startup.
 
 ### Modes
 To cycle between modes in Volux, _right-click_ the main bar. By default, a green bar signifies **volume mode** and a blue bar signifies **brightness mode** (wip).
