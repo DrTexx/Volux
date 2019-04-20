@@ -190,7 +190,7 @@ class Window(Frame):
             self._adjust_bar(event,+1)
 
         elif sm.state == BrightnessMode:
-            _brightness_up()
+            self._brightness_up()
 
         elif sm.state == MuteMode:
             sm.change_state(VolumeMode)
@@ -203,7 +203,7 @@ class Window(Frame):
             self._adjust_bar(event,-1)
 
         elif sm.state == BrightnessMode:
-            _brightness_down()
+            self._brightness_down()
 
         elif sm.state == MuteMode:
             sm.change_state(VolumeMode)
@@ -226,10 +226,10 @@ class Window(Frame):
         movement = event.delta/120
 
         if movement == 1:
-            _scroll_up(event)
+            self._scroll_up(event)
 
         elif movement == -1:
-            _scroll_down(event)
+            self._scroll_down(event)
 
         else:
             raise ValueError("movement should be 1 or -1")
@@ -253,6 +253,8 @@ class Window(Frame):
 
     def _update_bar(self):
 
+        self._update_volume()
+
         mode_style_id = VolBar.mode.style_id # set background based on mode color
 
         print(mode_style_id)
@@ -262,6 +264,7 @@ class Window(Frame):
         newWidth = self.barWidth.getNum() # get a numerical version of the percentage
 
         self.bar.configure(style=mode_style_id, width=str(newWidth)) # update the bar with these settings
+        
 
     def _update_volume(self): mixer.svol(VolAs.volume)
 
