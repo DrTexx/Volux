@@ -2,33 +2,35 @@ class MixerController:
 
     def __init__(self):
 
-        from subprocess import call
+        import os
+        self.os = os
 
     def svol(self,newvol):
         if type(newvol) == int:
             
             if (newvol >= 0) and (newvol <= 100):
                 try:
-                    call(["osascript -e 'set volume output volume {}'".format(newvol)], shell=True)
+                    self.os.system("osascript -e 'set volume output volume {}'".format(newvol))
                 except:
                     raise Exception
             else:
                 raise ValueError("volume must be between 0 and 100")
+            pass
         else:
             raise TypeError("volume must be an integer")
 
     def gvol(self):
 
-        return(call(["osascript -e 'set ovol to output volume of (get volume settings)'"], shell=True)) # return average across channels
+        return(self.os.system("osascript -e 'set ovol to output volume of (get volume settings)'")) # return average across channels
 
     def smute(self,newstate):
         
         if type(newstate) == bool:
             
             if newstate == False:
-                call(["osascript -e 'set volume with output muted'"], shell=True)
+                self.os.system("osascript -e 'set volume with output muted'")
             elif newstate == True:
-                call(["osascript -e 'set volume without output muted'"], shell=True)
+                self.os.system("osascript -e 'set volume without output muted'")
             else:
                 raise Exception("WHAT?")
         
@@ -37,7 +39,7 @@ class MixerController:
 
     def gmute(self):
         
-        ismuted_string = call(["osascript -e 'output muted of (get volume settings)'"], shell=True)
+        ismuted_string = self.os.system("osascript -e 'output muted of (get volume settings)'")
         
         if ismuted_string == "true":
             return(True)
