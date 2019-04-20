@@ -102,9 +102,14 @@ _Issues with pip? Please see notes under [Installation](#installation)_
 
 Build:
 
+    $ pip install wheel --upgrade
     $ python setup.py bdist_wheel
     
 _Issues with building? Please see notes under [Installation](#installation)_
+
+Install:
+
+    Check the 'dist' folder for volux-x.x.x-py3-*.whl, then see "Installation" above
 
 ## Using Volux
 All interactions with Volux are only valid when hovering over the bar Volux produces. This allows you to interact with Volux without loosing your ability to scroll in other applications.
@@ -144,7 +149,7 @@ Additional testing has been done under these conditions:
 | 64 bit | Ubuntu _ver=?_   | Gnome _ver=?_ | 3.6    |         | Working |                              |
 | 64 bit | Windows 10       | N/A           | 3.7    | 0.8.16  | Working | Reimplementation successful! |
 | 64 bit | Windows 10       | N/A           | 3.7.2  | 0.8.16  | Working |                              |
-| 64 bit | Mac OS           | N/A           | 3.x    |         | Broken  | Dependencies missing         |
+| 64 bit | OSX 10.13.5      | N/A           | 3.7.3  | 0.8.16  | Broken  | Ironing out the creases      |
 
 <br/>
 
