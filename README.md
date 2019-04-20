@@ -83,9 +83,9 @@ Features in development / planned for development
 ### Installation
 | Installation Method                | Command/s                                           | Platforms
 | ---                                | ---                                                 | ---
-| pip (as user) ***recommended!***   | ```pip install volux --user```                      | Windows/Unix
+| pip (as user) ***recommended!***   | ```> pip install volux --user```                    | Windows/Unix
 | pip (as root)                      | ```$ sudo pip install volux```                      | Unix
-| wheel (.whl) (as user)             | ```pip install volux-*-py3-none-any.whl --user```   | Windows/Unix
+| wheel (.whl) (as user)             | ```> pip install volux-*-py3-none-any.whl --user``` | Windows/Unix
 | wheel (.whl) (as root)             | ```$ sudo pip install volux-*-py3-none-any.whl```   | Unix
 
 ### Build from source
