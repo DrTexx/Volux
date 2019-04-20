@@ -77,7 +77,7 @@ Features in development / planned for development
 | Platform       | External Requirements      |
 | ---            | ---                        |
 | Windows        | ```> pip install https://github.com/AndreMiras/pycaw/archive/master.zip``` |
-| Darwin (MacOS) | _no external requirements_ |
+| Darwin (MacOS) | ```$ brew install tcl-tk``` ```$ brew link tcl-tk --force``` |
 | Linux          | ```$ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev``` |
 
 ### Installation
