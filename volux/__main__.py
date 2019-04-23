@@ -257,7 +257,7 @@ class Window(Frame):
 
         mode_style_id = VolBar.mode.style_id # set background based on mode color
 
-        print(mode_style_id)
+        #print(mode_style_id)
 
         self.barWidth.setPerc(VolAs.volume) # set the width as a percentage
 
@@ -272,13 +272,13 @@ class Window(Frame):
 
     def _mouse_entered(self,event): root.wm_attributes("-alpha",preferences["default_opacity"])
     def _mouse_left(self,event): root.wm_attributes("-alpha",preferences["outside_zone_opacity"])
-    def _open_message(self):
-        notification.notify(
-            title=program_title,
-            message="{} launched!".format(program_title),
-            app_name=program_title,
-            app_icon=program_icon,
-            timeout=5)
+#     def _open_message(self):
+#         notification.notify(
+#             title=program_title,
+#             message="{} launched!".format(program_title),
+#             app_name=program_title,
+#             app_icon=program_icon,
+#             timeout=5)
 
     def _exit_app(self,event):
 #         notification.notify(
