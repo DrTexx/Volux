@@ -40,7 +40,8 @@ mixer = cpaudio.MixerController()
 
 ### ---- PREFERENCES ---- ###
 program_icon = realpath('icon.png')
-with open("preferences.json") as f:
+program_preferences = realpath('preferences.json')
+with open(program_preferences) as f:
     preferences = json.load(f)
 
 
@@ -142,17 +143,17 @@ class Window(Frame):
         self._update_bar() # update bar values
 
         def _key_pressed(event): print("key pressed",event.key)
-        
+
         def _key_released(event): print("key released",event.key)
-        
+
 
         def _brightness_mode_off():
-            
+
             sm.state_change(sm.state.vacate())
             self.barMode = self.barModes['default']
             self._update_bar()
             print("brightness mode off!")
-            
+
         self.bar.pack(fill=Y,ipadx=5,ipady=5,side=LEFT)
 
     def _adjust_bar(self, event, movement):
@@ -162,17 +163,17 @@ class Window(Frame):
             newVol = mixer.gvol() + movement*notchMultiplier
             mixer.svol(newVol)
             VolAs.volume = clamp(newVol,0,100)
-        
+
         else: raise TypeError("Value should be an integer! Not sure what happened!")
-        
+
         self._update_bar() # update the bar's graphical appearance
         self._update_volume() # update the system volume
         #TODO: support for Mac scrolling
 
     def _brightness_up(self): print("WIP:"+"UP")
-    
+
     def _brightness_down(self): print("WIP:"+"DOWN")
-    
+
     def _right_click(self, event):
 
         if sm.state == BrightnessMode:
@@ -180,12 +181,12 @@ class Window(Frame):
 
         else:
             sm.change_state(BrightnessMode)
-        
+
         self._update_bar()
         #print("brightness mode!")
 
     def _scroll_up(self, event):
-        
+
         if sm.state == VolumeMode:
             self._adjust_bar(event,+1)
 
@@ -196,7 +197,7 @@ class Window(Frame):
             sm.change_state(VolumeMode)
 
         self._update_bar()
-        
+
     def _scroll_down(self, event):
 
         if sm.state == VolumeMode:
@@ -233,7 +234,7 @@ class Window(Frame):
 
         else:
             raise ValueError("movement should be 1 or -1")
-        
+
     def _init_bindings(self):
         self.barContainer.bind("<Enter>",self._mouse_entered)
         self.barContainer.bind("<Leave>",self._mouse_left)
@@ -264,7 +265,7 @@ class Window(Frame):
         newWidth = self.barWidth.getNum() # get a numerical version of the percentage
 
         self.bar.configure(style=mode_style_id, width=str(newWidth)) # update the bar with these settings
-        
+
 
     def _update_volume(self): mixer.svol(VolAs.volume)
 
@@ -287,6 +288,7 @@ class Window(Frame):
 #             app_name=program_title,
 #             app_icon=program_icon,
 #             timeout=10)
+        print("exiting...")
         exit()
 
 app = Window(root)
