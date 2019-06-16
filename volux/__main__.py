@@ -40,7 +40,7 @@ mixer = cpaudio.MixerController()
 
 ### ---- PREFERENCES ---- ###
 program_icon = realpath('icon.png')
-program_preferences = realpath('preferences.json')
+program_preferences = realpath('volux/preferences.json')
 with open(program_preferences) as f:
     preferences = json.load(f)
 
