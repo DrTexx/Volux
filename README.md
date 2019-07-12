@@ -78,7 +78,7 @@ Features in development / planned for development
 | ---            | ---                        |
 | Windows        | ```> pip install https://github.com/AndreMiras/pycaw/archive/master.zip``` |
 | Darwin (MacOS) | ```$ brew install tcl-tk``` ```$ brew link tcl-tk --force``` |
-| Linux          | ```$ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev``` |
+| Linux (Debian) | ```$ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev python3-dev``` |
 
 ### Installation
 | Installation Method                | Command/s                                           | Platforms
