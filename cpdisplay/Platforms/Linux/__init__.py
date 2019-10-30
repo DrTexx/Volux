@@ -23,7 +23,7 @@ class Display:
 
     def sbrightness(self,displayname,new_brightness):
 
-        "xrandr --output {} --brightness {}".format(displayname,new_brightness)
+        "xrandr --output {} --brightness {}".format(displayname,new_brightness) # NOTE: CONTROLS LITERAL BRIGHTNESS, NOT BACKLIGHT BRIGHTNESS!!!
 
     def gbrightness(self):
 
