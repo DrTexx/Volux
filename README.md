@@ -1,10 +1,15 @@
-***CRUCIAL NOTE***: This project is currently undergoing a massive overhaul and this readme doesn't yet highlight a lot of the big changes made. To get an idea of how the workflow has changed, take a look at [demo_volvar.py](demo_volbar.py).
-
 [![PyPI Version](https://img.shields.io/pypi/v/volux.svg)](https://pypi.python.org/pypi/volux/)
 [![GitHub release](https://img.shields.io/github/release-pre/drtexxofficial/volux.svg)](https://GitHub.com/DrTexx/volux/releases/)
 [![GitHub license](https://img.shields.io/github/license/DrTexx/volux.svg?branch=master)](https://github.com/DrTexx/volux/blob/master/LICENSE)
 [![Github all releases](https://img.shields.io/github/downloads/DrTexx/volux/total.svg)](https://GitHub.com/DrTexx/volux/releases/)
 [![Platform: Windows,Mac,Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20Mac%20%7C%20Linux-blue.svg)](#)
+
+# CRUCIAL NOTE
+***This project is currently undergoing a massive overhaul***.
+
+This readme doesn't yet highlight a lot of the big changes made.
+
+To get an idea of how the workflow has changed, take a look at [`demo_volbar.py`](demo_volbar.py).
 
 Table of contents
 =================
