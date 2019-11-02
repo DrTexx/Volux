@@ -99,7 +99,7 @@ sm = StateManager(VolumeMode)
 
 ### ---- TKINTER STUFF BEGINS ---- ###
 
-class Window(Frame):
+class MainApplication(Frame):
 
     def __init__(self,master=None):
 
@@ -290,12 +290,12 @@ class Window(Frame):
         exit()
 
 root = Tk()
-app = Window(root)
+mainApp = MainApplication(root)
 dispSize = VolAs._get_display_size(root)
 overlay_w = dispSize['x']
-overlay_h = app.barHeight
+overlay_h = mainApp.barHeight
 windowOffsets = {'x': 0,
-                 'y': dispSize['y']-app.barHeight}
+                 'y': dispSize['y']-mainApp.barHeight}
 root.geometry("{}x{}+{}+{}".format(overlay_w,overlay_h,
                                    windowOffsets['x'],windowOffsets['y'])) # define the size of the window
 root.attributes("-topmost",True) # force window to stay on top (doesn't work in full screen applications)
@@ -307,5 +307,5 @@ root.title(preferences["program_title"])
 print("sys.argv[0]:")
 print(sys.argv[0])
 if '__main__.py' in sys.argv[0]:
-    app._update_loop() # must be before main loop
+    mainApp._update_loop() # must be before main loop
     root.mainloop()
