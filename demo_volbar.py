@@ -11,8 +11,10 @@ vlx.add_module(VoluxDemoModule())
 
 vlx.bar.add_mode("default",vlx.demo)
 
-vlx.bar.modes['default'].set(20)
+vlx.bar.modes['default'].set(30)
 print(vlx.demo.get())
+
+vlx.bar.init_window()
 
 # list loaded modules
 # vlx.list_modules()

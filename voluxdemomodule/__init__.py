@@ -8,6 +8,7 @@ class VoluxDemoModule(VoluxModule):
             module_get=self.get,
             module_set=self.set
         )
+        self.demo_val = None
 
     def get(self):
         return self.demo_val
