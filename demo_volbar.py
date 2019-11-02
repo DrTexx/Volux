@@ -16,9 +16,6 @@ vlx.add_module(VoluxLight("Bob's Lamp"))
 vlx.bar.add_mode("default",vlx.volume)
 vlx.bar.add_mode("light",vlx.light)
 
-# vlx.bar.modes['default'].set(30)
-# print(vlx.demo.get())
-
 vlx.bar.init_window()
 
 # list loaded modules
