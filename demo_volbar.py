@@ -1,7 +1,12 @@
 import volux
 from voluxbar import VoluxBar
 
-vlx = volux.VoluxCore()
+# create Volux Operator object (hub for communication between modules)
+vlx = volux.VoluxOperator()
 
-vlx.add_module(VoluxBar)
-vlx.bar.get_module_info()
+# # load Volux Bar module
+# vlx.add_module(VoluxBar())
+
+# vlx.add_module(VoluxBar())
+#
+# vlx.bar.get_module_info()
