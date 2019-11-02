@@ -1,7 +1,6 @@
 from volux import VoluxModule
 import tkinter as tk
 from tkinter import ttk
-from time import sleep
 
 class VoluxBar(VoluxModule):
     def __init__(self,*args,**kwargs):
