@@ -99,8 +99,6 @@ sm = StateManager(VolumeMode)
 
 ### ---- TKINTER STUFF BEGINS ---- ###
 
-root = Tk()
-
 class Window(Frame):
 
     def __init__(self,master=None):
@@ -291,6 +289,7 @@ class Window(Frame):
         print("exiting...")
         exit()
 
+root = Tk()
 app = Window(root)
 dispSize = VolAs._get_display_size(root)
 overlay_w = dispSize['x']
