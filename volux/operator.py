@@ -4,18 +4,27 @@ from .module import VoluxModule
 
 class VoluxOperator:
     def __init__(self):
+        self.modules = []
         self.add_module(VoluxCore())
 
     def add_module(self, module):
 
         if self.validate_module(module):  # if the object passed is a valid module
 
+            self.modules.append(module)
             setattr(self, module._module_attr, module)
             module._loaded()  # call module's method for when it's finished being loaded
 
         else:
 
             raise TypeError("module must be a subclass of VoluxModule")
+
+    def remove_module(self, module):
+
+        if module in self.modules:
+
+            self.modules.remove(module)
+            delattr(self, module._module_attr)
 
     def validate_module(self, module):
 
@@ -31,3 +40,11 @@ class VoluxOperator:
                 return False
 
         return True
+
+    def get_modules(self):
+
+        return self.modules
+
+    def list_modules(self):
+
+        print([module._module_name for module in self.modules])
