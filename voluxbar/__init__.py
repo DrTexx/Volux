@@ -72,7 +72,7 @@ class MainApplication(ttk.Frame):
         self.bind("<Enter>",self._mouse_entered)
         self.bind("<Leave>",self._mouse_left)
         self.parent.bind("<MouseWheel>",self._scroll_delta)
-        # self.parent.bind("<Button-2>",self._middle_click)
+        self.parent.bind("<Button-2>",self._middle_click)
         self.parent.bind("<Button-4>",self._scroll_up)
         self.parent.bind("<Button-5>",self._scroll_down)
         self.parent.bind("<Button-3>",self._right_click)
@@ -87,6 +87,19 @@ class MainApplication(ttk.Frame):
     def _mouse_left(self, event):
 
         self.parent.wm_attributes("-alpha",0.1) # make window transparent
+
+    def _middle_click(self, event):
+
+        active_module = self.VoluxBar_obj.modes[self.VoluxBar_obj.mode]
+
+        if hasattr(active_module,'toggle'):
+            new_state = active_module.toggle()
+            if new_state == True:
+                self.VoluxBar_obj.gui_style.configure('BarVal.TFrame', background="RED")
+            elif new_state == False:
+                self.VoluxBar_obj.gui_style.configure('BarVal.TFrame', background="GREEN")
+        else:
+            print("module '{}' has no toggle method!".format(active_module._module_name))
 
     def _scroll_delta(self, event):
 

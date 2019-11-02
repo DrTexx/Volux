@@ -22,3 +22,9 @@ class VoluxVolume(VoluxModule):
             new_val = 100
 
         self.mixer.svol(new_val)
+
+    def toggle(self):
+
+        new_state = not self.mixer.gmute()
+        self.mixer.smute(new_state)
+        return new_state
