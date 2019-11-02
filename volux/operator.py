@@ -28,7 +28,7 @@ class VoluxOperator:
 
     def validate_module(self, module):
 
-        for attrib in ["_module_name", "_module_attr"]:
+        for attrib in ["_module_name", "_module_attr", 'get', 'set']:
 
             if not hasattr(module, attrib):
 

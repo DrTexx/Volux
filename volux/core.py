@@ -2,7 +2,7 @@ from .module import VoluxModule
 
 class VoluxCore(VoluxModule):
     def __init__(self,*args,**kwargs):
-        super().__init__(module_name="Volux Core",module_attr="core")
+        super().__init__(module_name="Volux Core",module_attr="core",module_get=None,module_set=None)
 
     # def _get_module_data(self,module):
     #     print("print module",module)

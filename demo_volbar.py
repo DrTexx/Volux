@@ -1,11 +1,15 @@
 import volux
 from voluxbar import VoluxBar
+from voluxdemomodule import VoluxDemoModule
 
 # create Volux Operator object (hub for communication between modules)
 vlx = volux.VoluxOperator()
 
 # load Volux Bar module
 vlx.add_module(VoluxBar())
+vlx.add_module(VoluxDemoModule())
+
+vlx.bar.add_mode("default",vlx.demo)
 
 # list loaded modules
 # vlx.list_modules()
