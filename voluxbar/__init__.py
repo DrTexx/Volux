@@ -6,6 +6,7 @@ class VoluxBar(VoluxModule):
     def __init__(self,*args,**kwargs):
         super().__init__(module_name="Volux Bar",module_attr="bar", module_get=self.get, module_set=self.set)
         self.modes = {}
+        self.mode = 'default'
         self.root = tk.Tk()
         self.mainApp = MainApplication(self.root,self,style='Bar.TFrame')
 
@@ -33,12 +34,12 @@ class VoluxBar(VoluxModule):
         screen_size = (self.root.winfo_screenwidth(), self.root.winfo_screenheight())
         self.root.geometry("{}x{}+{}+{}".format(
             1920,
-            50,
+            8,
             0,
-            1080-50
+            1080-8
         )) # define the size of the window
         self.root.wait_visibility(self.root) # required for window transparency
-        self.root.wm_attributes("-alpha",0.2) # make window transparent
+        self.root.wm_attributes("-alpha",0.1) # make window transparent
         self.mainApp._update_loop()
         self.root.mainloop()
 
@@ -56,28 +57,36 @@ class MainApplication(ttk.Frame):
 
         self._init_bindings()
 
-    def _update_loop(self,ms_per_loop=1000):
+    def _update_loop(self,ms_per_loop=100):
         self.parent.lift() # ensure window on top of others
         self._refresh_bar()
-        print("refreshing...")
+        # print("refreshing...")
         self.after(ms_per_loop,self._update_loop) # repeat _update_loop()
 
     def _refresh_bar(self):
-        val = self.VoluxBar_obj.modes['default'].get()
+        val = self.VoluxBar_obj.modes[self.VoluxBar_obj.mode].get()
         self._bar.barValue.config(width=self.s_width*(val/100))
         pass
 
     def _init_bindings(self):
-        # self.barContainer.bind("<Enter>",self._mouse_entered)
-        # self.barContainer.bind("<Leave>",self._mouse_left)
+        self.bind("<Enter>",self._mouse_entered)
+        self.bind("<Leave>",self._mouse_left)
         self.parent.bind("<MouseWheel>",self._scroll_delta)
-        # self.master.bind("<Button-2>",self._middle_click)
+        # self.parent.bind("<Button-2>",self._middle_click)
         self.parent.bind("<Button-4>",self._scroll_up)
         self.parent.bind("<Button-5>",self._scroll_down)
-        # self.master.bind("<Button-3>",self._right_click)
-        # self.master.bind("<Control-Button-4>",self._brightness_up)
-        # self.master.bind("<Control-Button-5>",self._brightness_down)
-        self.master.bind("<Double-Button-3>",self._exit_app)
+        self.parent.bind("<Button-3>",self._right_click)
+        # self.parent.bind("<Control-Button-4>",self._brightness_up)
+        # self.parent.bind("<Control-Button-5>",self._brightness_down)
+        self.parent.bind("<Double-Button-3>",self._exit_app)
+
+    def _mouse_entered(self, event):
+
+        self.parent.wm_attributes("-alpha",0.8) # make window transparent
+
+    def _mouse_left(self, event):
+
+        self.parent.wm_attributes("-alpha",0.1) # make window transparent
 
     def _scroll_delta(self, event):
 
@@ -94,14 +103,32 @@ class MainApplication(ttk.Frame):
 
     def _scroll_up(self, event):
 
-        val = self.VoluxBar_obj.modes['default'].get()
-        self.VoluxBar_obj.modes['default'].set(val+5)
+        val = self.VoluxBar_obj.modes[self.VoluxBar_obj.mode].get()
+        self.VoluxBar_obj.modes[self.VoluxBar_obj.mode].set(val+5)
         self._refresh_bar()
 
     def _scroll_down(self, event):
 
-        val = self.VoluxBar_obj.modes['default'].get()
-        self.VoluxBar_obj.modes['default'].set(val-5)
+        val = self.VoluxBar_obj.modes[self.VoluxBar_obj.mode].get()
+        self.VoluxBar_obj.modes[self.VoluxBar_obj.mode].set(val-5)
+        self._refresh_bar()
+
+    def _right_click(self, event):
+
+        if self.VoluxBar_obj.mode == 'default':
+
+            self.VoluxBar_obj.mode = 'light'
+            self.VoluxBar_obj.gui_style.configure('BarVal.TFrame', background="BLUE")
+
+        elif self.VoluxBar_obj.mode == 'light':
+
+            self.VoluxBar_obj.mode = 'default'
+            self.VoluxBar_obj.gui_style.configure('BarVal.TFrame', background="GREEN")
+
+        else:
+
+            raise Exception("mode not recognized!")
+
         self._refresh_bar()
 
     def _exit_app(self, event):

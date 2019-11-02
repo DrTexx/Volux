@@ -13,4 +13,12 @@ class VoluxVolume(VoluxModule):
 
     def set(self,new_val):
 
+        if new_val < 0:
+
+            new_val = 0
+
+        elif new_val > 100:
+
+            new_val = 100
+
         self.mixer.svol(new_val)
