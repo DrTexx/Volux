@@ -95,14 +95,12 @@ class MainApplication(ttk.Frame):
 
     def _scroll_up(self, event):
 
-        print("up!")
         val = self.VoluxBar_obj.modes['default'].get()
         self.VoluxBar_obj.modes['default'].set(val+5)
         self._refresh_bar()
 
     def _scroll_down(self, event):
 
-        print("down!")
         val = self.VoluxBar_obj.modes['default'].get()
         self.VoluxBar_obj.modes['default'].set(val-5)
         self._refresh_bar()
