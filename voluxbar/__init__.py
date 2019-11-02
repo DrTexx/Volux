@@ -50,6 +50,8 @@ class MainApplication(ttk.Frame):
         self.parent = parent
         self.VoluxBar_obj = VoluxBar_obj
 
+        self.s_width = self.parent.winfo_screenwidth()
+
         self._bar = VolumeBar(self, style='Bar.TFrame')
         self._bar.pack(fill=tk.Y,side=tk.LEFT)
 
@@ -62,7 +64,8 @@ class MainApplication(ttk.Frame):
         self.after(ms_per_loop,self._update_loop) # repeat _update_loop()
 
     def _refresh_bar(self):
-        self._bar.barValue.config(width=self.VoluxBar_obj.modes['default'].get())
+        val = self.VoluxBar_obj.modes['default'].get()
+        self._bar.barValue.config(width=self.s_width*(val/100))
         pass
 
     def _init_bindings(self):
@@ -94,14 +97,14 @@ class MainApplication(ttk.Frame):
 
         print("up!")
         val = self.VoluxBar_obj.modes['default'].get()
-        self.VoluxBar_obj.modes['default'].set(val+20)
+        self.VoluxBar_obj.modes['default'].set(val+5)
         self._refresh_bar()
 
     def _scroll_down(self, event):
 
         print("down!")
         val = self.VoluxBar_obj.modes['default'].get()
-        self.VoluxBar_obj.modes['default'].set(val-20)
+        self.VoluxBar_obj.modes['default'].set(val-5)
         self._refresh_bar()
 
     def _exit_app(self, event):
