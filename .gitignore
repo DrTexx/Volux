@@ -4,3 +4,5 @@ build/
 *.egg-info
 dist/*
 venv/
+.coverage
+coverage.xml
