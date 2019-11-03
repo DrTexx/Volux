@@ -29,10 +29,10 @@ from os.path import realpath # for loading files (e.g. icons)
 
 # LOCAL MODULES
 #import volux.temperatures as temps
-from volux.dp_datatools import LivePercentage, clamp
-from volux.VolumeAssistant import VolumeAssistant
-from volux.VolumeBar import VolumeBar
-from volux.barStyle import add_bar_styles, barstyles
+from .dp_datatools import LivePercentage, clamp
+from .VolumeAssistant import VolumeAssistant
+from .VolumeBar import VolumeBar
+from .barStyle import add_bar_styles, barstyles
 import cpaudio
 mixer = cpaudio.MixerController()
 
