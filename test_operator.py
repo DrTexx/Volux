@@ -1,23 +1,23 @@
 import pytest
 import volux
-from voluxbar import VoluxBar
+from voluxdemomodule import VoluxDemoModule
 
 # create Volux Operator object (hub for communication between modules)
 vlx = volux.VoluxOperator()
-bar_module = VoluxBar()
+demo_module = VoluxDemoModule()
 
 class Test_operator:
     def test_add_module(self):
-        vlx.add_module(bar_module)
-        assert bar_module in vlx.modules
+        vlx.add_module(demo_module)
+        assert demo_module in vlx.modules
 
     def test_add_bad_module(self):
         with pytest.raises(TypeError):
             vlx.add_module(vlx)
 
     def test_remove_module(self):
-        vlx.remove_module(bar_module)
-        assert not (bar_module in vlx.modules)
+        vlx.remove_module(demo_module)
+        assert not (demo_module in vlx.modules)
 
     def test_validate_module(self):
         assert vlx.validate_module(vlx) == False
