@@ -11,7 +11,7 @@
    :caption: Volux documentation
 
    basics/intro
-   basics/demo
+   basics/python
 
 Indices and tables
 ==================

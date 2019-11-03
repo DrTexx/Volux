@@ -13,14 +13,13 @@ Installing with pip
 
     pip install volux
 
-.. warning:: Markdown doesn't support a lot of the features of Sphinx,
-          like inline markup and directives. However, it works for
-          basic prose content. reStructuredText is the preferred
-          format for technical documentation, please read this blog post
-          for motivation.
-
 Installing from source
 ======================
+
+.. warning:: If any of the code below looks unfamiliar or scary to you,
+          building from source is not a good idea. It is highly recommended to
+          install volux from pip or at least via the latest wheel release on
+          pypi.
 
 .. prompt:: bash $
 
@@ -41,12 +40,8 @@ Demo
 Running the demo
 ================
 
+Providing volux is installed, you can run the demo like so
+
 .. prompt:: bash $
 
     volux demo bar
-
-Ignore this
-===========
-.. code-block:: python
-
-   example_list = ['string']
