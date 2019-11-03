@@ -1,5 +1,6 @@
 [![PyPI Version](https://img.shields.io/pypi/v/volux.svg)](https://pypi.python.org/pypi/volux/)
 [![GitHub release](https://img.shields.io/github/release-pre/DrTexx/volux.svg)](https://GitHub.com/DrTexx/volux/releases/)
+[![Documentation Status](https://readthedocs.org/projects/volux/badge/?version=latest)](https://volux.readthedocs.io/en/latest/?badge=latest)
 [![GitHub license](https://img.shields.io/github/license/DrTexx/volux.svg?branch=master)](https://github.com/DrTexx/volux/blob/master/LICENSE)
 [![Github all releases](https://img.shields.io/github/downloads/DrTexx/volux/total.svg)](https://GitHub.com/DrTexx/volux/releases/)
 [![Platform: Windows,Mac,Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20Mac%20%7C%20Linux-blue.svg)](#)
