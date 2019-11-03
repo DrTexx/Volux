@@ -1,5 +1,7 @@
 Installation
 ============
 
-Test heading
-^^^^^^^^^^^^
+Installing from PyPi
+^^^^^^^^^^^^^^^^^^^^
+
+    pip install volux
