@@ -5,17 +5,18 @@ https://github.com/pypa/sampleproject
 """
 
 
-script_name = 'volux'
+package_name = 'volux'
 script_requirements = []
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
-script_version = '0.9.0'
+script_version = '0.9.1'
 script_description = 'High-level media/entertainment workflow automation platform'
 github_username = 'DrTexx'
 script_author = 'Denver Pallis'
 meta_dev_status='4 - Beta' # 3 - Alpha, 4 - Beta, 5 - Production/Stable
 meta_audience = 'End Users/Desktop'
 meta_topic = 'Multimedia'
+license = 'GPLv3+'
 meta_license = 'GNU General Public License v3 or later (GPLv3+)'
 meta_py_version = '3'
 meta_keywords=''
@@ -50,7 +51,7 @@ setup(
     # There are some restrictions on what makes a valid project name
     # specification here:
     # https://packaging.python.org/specifications/core-metadata/#name
-    name=script_name, # Required
+    name=package_name, # Required
 
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
@@ -81,14 +82,14 @@ setup(
     #
     # This field corresponds to the "Home-Page" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
-    url='https://github.com/{}/{}'.format(github_username,script_name),  # Optional
+    url='https://github.com/{}/{}'.format(github_username,package_name),  # Optional
 
     # This should be your name or the name of the organization which owns the
     # project.
     author=script_author,  # Optional
 
     # License isn't default in here? Let's fix that.
-    #license='GPLv3+', # Optional
+    license=license, # Optional
 
     # python_requires isn't here? Let's fix that.
 #    python_requires='>=3.2',
@@ -100,7 +101,7 @@ setup(
     # Classifiers help users find your project by categorizing it.
     #
     # For a list of valid classifiers, see
-    # https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    # https://pypi.python.org/pypi?%3Aaction=list_classifiers,
     classifiers=[  # Optional
         # How mature is this project? Common values are
         #   3 - Alpha
@@ -183,7 +184,7 @@ setup(
     # executes the function `main` from this package when invoked:
     entry_points={  # Optional
         'console_scripts': [
-            'sample=sample:main',
+            '{}={}:__main__'.format(package_name,package_name),
         ],
     },
 
@@ -197,9 +198,9 @@ setup(
     # maintainers, and where to support the project financially. The key is
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
-        'Bug Reports': 'https://github.com/{}/{}/issues'.format(github_username,script_name),
+        'Bug Reports': 'https://github.com/{}/{}/issues'.format(github_username,package_name),
         'Funding': donate_link,
 #        'Say Thanks!': 'http://saythanks.io/to/demos',
-        'Source': 'https://github.com/{}/{}/'.format(github_username,script_name),
+        'Source': 'https://github.com/{}/{}/'.format(github_username,package_name),
     },
 )
