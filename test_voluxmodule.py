@@ -27,3 +27,7 @@ class Test_VoluxTestModule:
     def test_get_modules(self):
         print(vlx.get_modules())
         assert vlx.get_modules() == vlx.modules
+
+    def test_modules_set(self):
+        vlx.test.set(20)
+        assert vlx.test.get() == 20
