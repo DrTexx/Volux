@@ -9,11 +9,13 @@ Volux Documentation
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
    license
    help
 
-    print 'hello'
-    >> hello
+
+print 'hello'
+>> hello
 
 
 
