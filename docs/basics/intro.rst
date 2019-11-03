@@ -1,9 +1,14 @@
-############
-Installation
-############
+###############
+Getting Started
+###############
 
-Install from pip
-================
+************
+Installation
+************
+
+Installing with pip
+===================
+
 .. prompt:: bash $
 
     pip install volux
@@ -11,14 +16,12 @@ Install from pip
 .. warning:: Markdown doesn't support a lot of the features of Sphinx,
           like inline markup and directives. However, it works for
           basic prose content. reStructuredText is the preferred
-          format for technical documentation, please read `this blog post`_
+          format for technical documentation, please read this blog post
           for motivation.
 
-.. _this blog post: https://ericholscher.com/blog/2016/mar/15/dont-use-markdown-for-technical-docs/
+Installing from source
+======================
 
-
-Install from source
-===================
 .. prompt:: bash $
 
     git clone https://github.com/DrTexx/Volux.git
@@ -30,6 +33,17 @@ Install from source
     python3 setup.py bdist_wheel
     cd dist
     pip install volux-*.whl
+
+****
+Demo
+****
+
+Running the demo
+================
+
+.. prompt:: bash $
+
+    volux demo
 
 Ignore this
 ===========

@@ -14,6 +14,11 @@
 ## Description
 Volux is a high-level media/entertainment workflow automation platform.
 
+## Documentation
+Volux uses readthedocs.io for it's documentation.
+
+Read it [here](https://volux.readthedocs.io/en/latest/).
+
 ### What does it do?
 Volux operates using an `Operator` object and various instances of `VoluxModule` subclasses.
 

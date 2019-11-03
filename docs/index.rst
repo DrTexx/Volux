@@ -10,8 +10,8 @@
    :maxdepth: 2
    :caption: Volux documentation
 
-   usage/installation
-   usage/demo
+   basics/intro
+   basics/demo
 
 Indices and tables
 ==================
