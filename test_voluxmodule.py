@@ -31,3 +31,9 @@ class Test_VoluxTestModule:
     def test_modules_set(self):
         vlx.test.set(20)
         assert vlx.test.get() == 20
+
+    def test_get_module_info(self):
+        assert vlx.test.get_module_info() == {
+            'name': 'Volux Test Module',
+            'attr': 'test'
+        }

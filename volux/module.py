@@ -11,5 +11,7 @@ class VoluxModule:
         print("loaded module: {}".format(self._module_name))
 
     def get_module_info(self):
-        print("_module_name =", self._module_name)
-        print("_module_attr =", self._module_attr)
+        return {
+            'name': self._module_name,
+            'attr': self._module_attr
+        }
