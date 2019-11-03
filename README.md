@@ -19,6 +19,21 @@ Volux uses readthedocs.io for it's documentation.
 
 Read it [here](https://volux.readthedocs.io/en/latest/).
 
+## Getting Started
+### Installation
+Install the latest stable build
+```bash
+$ pip install volux
+```
+
+### Demo
+Run the volume/light bar demo
+```bash
+$ volux demo bar
+```
+
+## About volux
+
 ### What does it do?
 Volux operates using an `Operator` object and various instances of `VoluxModule` subclasses.
 
@@ -37,64 +52,30 @@ The operator object acts as a hub for a standard method of communication between
 
 These modules can read/write data of the associated aspects in coordiation with each other to create seamless workflows.
 
-### Install latest stable
-```bash
-$ pip install volux
-```
-
-### Install from source
-```bash
-$ git clone https://github.com/DrTexx/Volux.git
-$ cd Volux
-$ python3 -m venv venv
-$ source venv/bin/activate
-$ pip install -r volux/demos/demo_volbar_requirements.txt
-$ pip install wheel setuptools --upgrade
-$ python3 setup.py bdist_wheel
-$ cd dist
-$ pip install volux-*.whl
-```
+### Installing from source
+See [here](https://volux.readthedocs.io/en/latest/basics/intro.html#installing-from-source).
 
 ### Demo script
-Install demo scripts [requirements](/volux/demos/demo_volbar_requirements.txt).
-```bash
-$ pip install -r volux/demos/demo_volbar_requirements.txt
-```
-
-Run the demo script
-```bash
-$ python3 -m volux
-```
 
 While hovering over the bar:
 
-| Bar color | Action       | Result                   |
-| ---       | ---          | ---                      |
-| _any_     | right-click  | change bar color         |
-| 📗 green  | scroll up    | 🔉 increase volume          |
-| 📗 green  | scroll down  | 🔉 decrease volume          |
-| 📗 green  | middle-click | 🔇 mute                     |
-| 🔴 red    | scroll up    | 🔉 increase volume          |
-| 🔴 red    | scroll down  | 🔉 decrease volume          |
-| 🔴 red    | middle-click | 🔇 unmute                   |
-| 📘 blue   | scroll up    | 💡 increase bulb brightness |
-| 📘 blue   | scroll down  | 💡 decrease bulb brightness |
-| 📘 blue   | middle-click | 💡 toggle bulb power        |
+| Bar color | Action             | Result                     |
+| ---       | ---                | ---                        |
+| _any_     | right-click        | change bar color           |
+| _any_     | double right-click | exit volux                 |
+| 📗 green  | scroll up          | 🔉 increase volume          |
+| 📗 green  | scroll down        | 🔉 decrease volume          |
+| 📗 green  | middle-click       | 🔇 mute                     |
+| 🔴 red    | scroll up          | 🔉 increase volume          |
+| 🔴 red    | scroll down        | 🔉 decrease volume          |
+| 🔴 red    | middle-click       | 🔇 unmute                   |
+| 📘 blue   | scroll up          | 💡 increase bulb brightness |
+| 📘 blue   | scroll down        | 💡 decrease bulb brightness |
+| 📘 blue   | middle-click       | 💡 toggle bulb power        |
 
 ### Features in development
 - Settings GUI
 - Interface customisation
-
-### Screenshots
-
-| Mode                | State    | Image |
-| :---:               | :---:    | :---: |
-| Volume (active)     | active   | <img src="docs/volume-active.jpg"/> |
-| Volume (inactive)   | inactive | <img src="docs/volume-inactive.jpg"/> |
-| Mute (active)       | active   | <img src="docs/mute-active.jpg"/> |
-| Brightness (active) | active   | <img src="docs/brightness-active.jpg"/> |
-
-_note: these screenshots are outdated_
 
 ### Supported platforms
 
@@ -104,88 +85,28 @@ _note: these screenshots are outdated_
 
 <img src="docs/Platform_Linux.svg" width="14pt"/>&nbsp;&nbsp; Linux (most distributions)
 
-## Installation
-<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** Under some operating systems / linux distros all references to ___'pip'___ must be replaced with ___'pip3'___. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters
-
-<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** Under some operating systems / linux distros all references to ___'python'___ must be replaced with ___'python3'___. Debian is an example of this. This is often the case to prevent confusion between Python 2.7.x interpreters and Python 3.x interpreters
-
-<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** If you recieve the error `error: invalid command 'bdist_wheel'` when running `python setup.py bdist_wheel`, try the following: Try upgrading the wheel package `pip install wheel --upgrade`. No luck? Try reinstalling the wheel package. Failing that, try upgrading pip `python3 -m pip install pip --upgrade`. Failing that, _ensure_ you installed the [requirements for your platform](#installation). Failing that, instead build with the command `python setup.py build`. If you're still having issues, please submit a detailed issue on Github.
-
-### Requirements
+### External Requirements
 | Platform       | External Requirements      |
 | ---            | ---                        |
-| Windows        | ```> pip install https://github.com/AndreMiras/pycaw/archive/master.zip``` |
 | Darwin (MacOS) | ```$ brew install tcl-tk``` ```$ brew link tcl-tk --force``` |
-| Linux (Debian) | ```$ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev python3-dev``` |
-
-### Installation
-| Installation Method                | Command/s                                           | Platforms
-| ---                                | ---                                                 | ---
-| pip (as user) ***recommended!***   | ```> pip install volux --user```                    | Windows/Unix
-| pip (as root)                      | ```$ sudo pip install volux```                      | Unix
-| wheel (.whl) (as user)             | ```> pip install volux-*-py3-none-any.whl --user``` | Windows/Unix
-| wheel (.whl) (as root)             | ```$ sudo pip install volux-*-py3-none-any.whl```   | Unix
-
-### Build from source
-Clone this repository:
-
-    $ git clone https://github.com/DrTexx/volux.git
-
-Install pip requirements:
-
-    $ cd volux
-    $ pip install -r requirements.txt --user
-
-_Issues with pip? Please see notes under [Installation](#installation)_
-
-Build:
-
-    $ pip install wheel --upgrade
-    $ python setup.py bdist_wheel
-
-_Issues with building? Please see notes under [Installation](#installation)_
-
-Install:
-
-    Check the 'dist' folder for volux-x.x.x-py3-*.whl, then see "Installation" above
-
-## Using Volux
-All interactions with Volux are only valid when hovering over the bar Volux produces. This allows you to interact with Volux without loosing your ability to scroll in other applications.
-
-### Launching
-In order to launch Volux, open your platform's command-line/terminal and run the following:
-
-    python -m volux
-
-<img src="docs/note-icon.svg" width="14pt"/> **NOTE:** This will not be necessary in future releases (however still possible). An application launcher will be provided in addition to the option to launch at startup.
-
-### Modes
-To cycle between modes in Volux, _right-click_ the main bar. By default, a green bar signifies **volume mode** and a blue bar signifies **brightness mode** (wip).
-
-### Volume/brightness
-While in volume or brightness mode, _scroll up/down_ to increase/decrease volume or brightness while hovering over the main bar.
-
-### Exit
-To exit Volux, _double right-click_ the bar at any time.
+<!-- | Linux (Debian) | ```$ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev python3-dev``` | -->
 
 ## Issues and bugs
 If you have any problems running Volux, please kindly post an issue to this repository. Issues can be solved much faster if you can provide:
 
-- Your OS
-- Your desktop environment (if using Linux)
-- Your python version
-- A Summary of issues experienced
-- Any relevant screenshot/s
-
-Volux is developed under Debian 9 Stretch (Linux) using GNOME 3.22.2 and Python 3.5. Providing you've correctly installed all dependencies, Volux is almost guranteed to work under these conditions.
+- Operating system
+- Desktop environment (if using Linux)
+- Python version
+- Summary of issues experienced
+- Relevant screenshot/s (if applicable)
 
 Additional testing has been done under these conditions:
 
 | Archi. | Operating System | Desktop Env   | Python | Verison | Status  | Notes                        |
 | ---    | ---              | ---           | ---    | ---     | ---     | ---                          |
-| 64 bit | Debian 9 Stretch | Gnome 3.22.2  | 3.5    | 0.8.16  | Working | Development conditions       |
-| 64 bit | Ubuntu _ver=?_   | Gnome _ver=?_ | 3.6    |         | Working |                              |
-| 64 bit | Windows 10       | N/A           | 3.7    | 0.8.16  | Working | Reimplementation successful! |
+| 64 bit | Debian 10 Buster | Gnome 3.30.2  | 3.7.3  | 0.9.4   | Working | Development conditions       |
+| 64 bit | Ubuntu 16.04     | N/A           | 3.7    | 0.9.4   | Working | CI Conditions                |
+| 64 bit | Windows 10       | N/A           | 3.7.3  | 0.9.4   | Working |                              |
 | 64 bit | Windows 10       | N/A           | 3.7.2  | 0.8.16  | Working |                              |
 | 64 bit | OSX 10.13.5      | N/A           | 3.7.3  | 0.8.16  | Broken  | Ironing out the creases      |
 
