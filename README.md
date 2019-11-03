@@ -49,15 +49,15 @@ While hovering over the bar:
 | Bar color | Action       | Result                   |
 | ---       | ---          | ---                      |
 | _any_   | right-click  | change bar color         |
-| <div style="background-color: green"> | scroll up    | increase volume          |
-| <div style="background-color: green"> | scroll down  | decrease volume          |
-| <div style="background-color: green"> | middle-click | mute                     |
-| red       | scroll up    | increase volume          |
-| red       | scroll down  | decrease volume          |
-| red       | middle-click | unmute                   |
-| blue      | scroll up    | increase bulb brightness |
-| blue      | scroll down  | decrease bulb brightness |
-| blue      | middle-click | toggle bulb power        |
+| <div style="background-color: green">green</div> | scroll up    | increase volume          |
+| <div style="background-color: green">green</div> | scroll down  | decrease volume          |
+| <div style="background-color: green">green</div> | middle-click | mute                     |
+| <div style="background-color: red">red</div> | scroll up    | increase volume          |
+| <div style="background-color: red">red</div> | scroll down  | decrease volume          |
+| <div style="background-color: red">red</div> | middle-click | unmute                   |
+| <div style="background-color: blue">blue</div> | scroll up    | increase bulb brightness |
+| <div style="background-color: blue">blue</div> | scroll down  | decrease bulb brightness |
+| <div style="background-color: blue">blue</div> | middle-click | toggle bulb power        |
 
 ### What _will_ it do?
 Features in development / planned for development
