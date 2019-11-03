@@ -31,10 +31,26 @@ The operator object acts as a hub for a standard method of communication between
 
 These modules can read/write data of the associated aspects in coordiation with each other to create seamless workflows.
 
-### Demo script
-In order to execute the demo script, you must installed the requirements in [`/volux/demos/demo_volbar_requirements.txt`](/volux/demos/demo_volbar_requirements.txt).
+### Install latest stable
+```bash
+$ pip install volux
+```
 
-To install these requirements:
+### Install from source
+```bash
+$ git clone https://github.com/DrTexx/Volux.git
+$ cd Volux
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r volux/demos/demo_volbar_requirements.txt
+$ pip install wheel setuptools --upgrade
+$ python3 setup.py bdist_wheel
+$ cd dist
+$ pip install volux-*.whl
+```
+
+### Demo script
+Install demo scripts [requirements](/volux/demos/demo_volbar_requirements.txt).
 ```bash
 $ pip install -r volux/demos/demo_volbar_requirements.txt
 ```
