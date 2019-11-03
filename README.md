@@ -9,7 +9,7 @@
 
 This readme doesn't yet highlight a lot of the big changes made.
 
-To get an idea of how the workflow has changed, take a look at [`demo_volbar.py`](demo_volbar.py).
+To get an idea of how the workflow has changed, take a look at [`volux/demos/demo_volbar.py`](volux/demos/demo_volbar.py).
 
 
 Table of contents
