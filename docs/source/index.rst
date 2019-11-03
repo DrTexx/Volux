@@ -10,14 +10,8 @@ Volux Documentation
    :maxdepth: 2
    :caption: Contents:
 
-   license
-   help
-
-
-print 'hello'
->> hello
-
-
+   installation
+   usage
 
 Indices and tables
 ==================
