@@ -26,6 +26,10 @@ class VoluxOperator:
             self.modules.remove(module)
             delattr(self, module._module_attr)
 
+        else:
+
+            raise AttributeError("module '{}' not loaded!".format(module._module_name))
+
     def validate_module(self, module):
 
         for attrib in ["_module_name", "_module_attr", 'get', 'set']:
@@ -44,7 +48,3 @@ class VoluxOperator:
     def get_modules(self):
 
         return self.modules
-
-    def list_modules(self):
-
-        print([module._module_name for module in self.modules])
