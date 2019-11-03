@@ -8,10 +8,6 @@ Install from pip
 
     pip install volux
 
-.. code-block:: python
-
-   extensions = ['recommonmark']
-
 .. warning:: Markdown doesn't support a lot of the features of Sphinx,
           like inline markup and directives. However, it works for
           basic prose content. reStructuredText is the preferred
@@ -34,3 +30,9 @@ Install from source
     python3 setup.py bdist_wheel
     cd dist
     pip install volux-*.whl
+
+Ignore this
+===========
+.. code-block:: python
+
+   example_list = ['string']
