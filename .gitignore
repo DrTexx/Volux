@@ -6,3 +6,4 @@ dist/*
 venv_volux/
 .coverage
 coverage.xml
+docs/_build
