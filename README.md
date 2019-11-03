@@ -59,9 +59,8 @@ While hovering over the bar:
 | 📘 blue   | scroll down  | 💡 decrease bulb brightness |
 | 📘 blue   | middle-click | 💡 toggle bulb power        |
 
-### What _will_ it do?
-Features in development / planned for development
-- Brightness control via mouse wheel
+### Features in development
+- Settings GUI
 - Interface customisation
 
 ### Screenshots
@@ -72,6 +71,8 @@ Features in development / planned for development
 | Volume (inactive)   | inactive | <img src="docs/volume-inactive.jpg"/> |
 | Mute (active)       | active   | <img src="docs/mute-active.jpg"/> |
 | Brightness (active) | active   | <img src="docs/brightness-active.jpg"/> |
+
+_note: these screenshots are outdated_
 
 ### Supported platforms
 
