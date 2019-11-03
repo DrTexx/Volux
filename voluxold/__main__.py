@@ -40,7 +40,7 @@ mixer = cpaudio.MixerController()
 
 ### ---- PREFERENCES ---- ###
 program_icon = realpath('icon.png')
-program_preferences = realpath('volux/preferences.json')
+program_preferences = realpath('voluxold/preferences.json')
 with open(program_preferences) as f:
     preferences = json.load(f)
 
@@ -92,9 +92,8 @@ class BrightnessMode:
         else: raise TypeError("_ismuted should be a bool value")
 
 ### IMPORT AND INITIALSE STATE MANAGER
-from volux.StateManager import StateManager
+from .StateManager import StateManager
 sm = StateManager(VolumeMode)
-
 
 
 ### ---- TKINTER STUFF BEGINS ---- ###
