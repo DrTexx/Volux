@@ -49,9 +49,9 @@ While hovering over the bar:
 | Bar color | Action       | Result                   |
 | ---       | ---          | ---                      |
 | _any_   | right-click  | change bar color         |
-| <div style="background-color: green">green</div> | scroll up    | increase volume          |
-| <div style="background-color: green">green</div> | scroll down  | decrease volume          |
-| <div style="background-color: green">green</div> | middle-click | mute                     |
+| 📗 green | scroll up    | increase volume          |
+| 📗 green | scroll down  | decrease volume          |
+| 📗 green | middle-click | mute                     |
 | <div style="background-color: red">red</div> | scroll up    | increase volume          |
 | <div style="background-color: red">red</div> | scroll down  | decrease volume          |
 | <div style="background-color: red">red</div> | middle-click | unmute                   |
