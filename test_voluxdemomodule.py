@@ -6,7 +6,7 @@ from voluxdemomodule import VoluxDemoModule
 vlx = volux.VoluxOperator()
 demo_module = VoluxDemoModule()
 
-class Test_operator:
+class Test_voluxdemomodule:
     def test_add_module(self):
         vlx.add_module(demo_module)
         assert demo_module in vlx.modules
