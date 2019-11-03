@@ -49,15 +49,15 @@ While hovering over the bar:
 | Bar color | Action       | Result                   |
 | ---       | ---          | ---                      |
 | _any_     | right-click  | change bar color         |
-| 📗 green  | scroll up    | increase volume          |
-| 📗 green  | scroll down  | decrease volume          |
-| 📗 green  | middle-click | mute                     |
-| 🔴 red    | scroll up    | increase volume          |
-| 🔴 red    | scroll down  | decrease volume          |
-| 🔴 red    | middle-click | unmute                   |
-| 📘 blue   | scroll up    | increase bulb brightness |
-| 📘 blue   | scroll down  | decrease bulb brightness |
-| 📘 blue   | middle-click | toggle bulb power        |
+| 📗 green  | scroll up    | 🔉 increase volume          |
+| 📗 green  | scroll down  | 🔉 decrease volume          |
+| 📗 green  | middle-click | 🔇 mute                     |
+| 🔴 red    | scroll up    | 🔉 increase volume          |
+| 🔴 red    | scroll down  | 🔉 decrease volume          |
+| 🔴 red    | middle-click | 🔇 unmute                   |
+| 📘 blue   | scroll up    | 💡 increase bulb brightness |
+| 📘 blue   | scroll down  | 💡 decrease bulb brightness |
+| 📘 blue   | middle-click | 💡 toggle bulb power        |
 
 ### What _will_ it do?
 Features in development / planned for development
