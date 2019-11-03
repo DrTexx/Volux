@@ -43,7 +43,7 @@ Running the demo
 
 .. prompt:: bash $
 
-    volux demo
+    volux demo bar
 
 Ignore this
 ===========
