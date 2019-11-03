@@ -18,7 +18,7 @@ while True:
         mixer.svol(newvol)
     elif option == "m":
         newmute = str(input("muted?:"))
-        
+
         print(type(newmute))
         mixer.smute(newmute)
     elif option == "e":
@@ -26,4 +26,3 @@ while True:
         break
     else:
         print("invalid option!")
-        
