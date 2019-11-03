@@ -25,6 +25,8 @@ omit =
     voluxbar/*
     voluxdisplay/*
     voluxlight/*
+    voluxold/*
     voluxvolume/*
+    demo_*.py
 
 #ignore_errors = True
