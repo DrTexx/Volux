@@ -4,28 +4,34 @@ https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
 """
 
+github_username = 'DrTexx'
+donate_link = 'https://paypal.me/denverpallis'
 
 package_name = 'volux'
-script_requirements = []
+package_version = '0.9.1'
+package_description = 'High-level media/entertainment workflow automation platform'
+package_requirements = ['lifxlan==1.2.5','pyalsaaudio==0.8.4']
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
-script_version = '0.9.1'
-script_description = 'High-level media/entertainment workflow automation platform'
-github_username = 'DrTexx'
-script_author = 'Denver Pallis'
+long_description_content_type = 'text/markdown'
+url = 'https://github.com/{}/{}'.format(github_username,package_name)
+package_author = 'Denver Pallis'
 meta_dev_status='4 - Beta' # 3 - Alpha, 4 - Beta, 5 - Production/Stable
 meta_audience = 'End Users/Desktop'
 meta_topic = 'Multimedia'
 license = 'GPLv3+'
 meta_license = 'GNU General Public License v3 or later (GPLv3+)'
 meta_py_version = '3'
-meta_keywords=''
-long_description_content_type='text/markdown'
-donate_link = 'https://paypal.me/denverpallis'
+meta_keywords='volux media interface workflow automation platform iot lifx volume sound light tk tkinter'
+project_urls = {
+    'Bug Reports': 'https://github.com/{}/{}/issues'.format(github_username,package_name),
+    'Source': 'https://github.com/{}/{}/'.format(github_username,package_name),
+    'Funding': donate_link
+}
 
 
 # Always prefer setuptools over distutils
-from setuptools import setup, find_packages
+import setuptools
 # To use a consistent encoding
 from codecs import open
 from os import path
@@ -39,7 +45,36 @@ with open(path.join(here, readme_filename), encoding=readme_encoding) as f:
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
 
-setup(
+setuptools.setup(
+    name=package_name, # Required
+    version=package_version, # Required
+    description=package_description, # Required
+    packages=setuptools.find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
+    install_requires=package_requirements, # Optional
+    long_description=long_description, # Optional
+    long_description_content_type=long_description_content_type, # Optional
+    url=url, # Optional
+    author=package_author, # Optional
+    license=license, # Optional
+    classifiers=[  # Optional
+        'Development Status :: {}'.format(meta_dev_status),
+        'Intended Audience :: {}'.format(meta_audience),
+        'Topic :: {}'.format(meta_topic),
+        'License :: OSI Approved :: {}'.format(meta_license),
+        'Programming Language :: Python :: {}'.format(meta_py_version),
+    ],
+    keywords=meta_keywords, # Optional (note that this is a string of words separated by whitespace, not a list.)
+    package_data={ # Optional
+        'sample': ['package_data.dat'],
+    },
+    entry_points={ # Optional
+        'console_scripts': [
+            '{}={}:__main__'.format(package_name,package_name),
+        ],
+    },
+    project_urls=project_urls, # Optional
+
+# ---------------
     # This is the name of your project. The first time you publish this
     # package, this name will be registered for you. It will determine how
     # users can install this project, e.g.:
@@ -51,7 +86,7 @@ setup(
     # There are some restrictions on what makes a valid project name
     # specification here:
     # https://packaging.python.org/specifications/core-metadata/#name
-    name=package_name, # Required
+    # name=package_name, # Required
 
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
@@ -59,12 +94,12 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version=script_version,  # Required
+    # version=script_version,  # Required
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
-    description=script_description,  # Required
+    # description=script_description,  # Required
 
     # This is an optional longer description of y    our project that represents
     # the body of text which users will see when they visit PyPI.
@@ -74,22 +109,22 @@ setup(
     #
     # This field corresponds to the "Description" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-optional
-    long_description=long_description,  # Optional
+    # long_description=long_description,  # Optional
 
-    long_description_content_type=long_description_content_type,
+    # long_description_content_type=long_description_content_type,
 
     # This should be a valid link to your project's main homepage.
     #
     # This field corresponds to the "Home-Page" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
-    url='https://github.com/{}/{}'.format(github_username,package_name),  # Optional
+    # url='https://github.com/{}/{}'.format(github_username,package_name),  # Optional
 
     # This should be your name or the name of the organization which owns the
     # project.
-    author=script_author,  # Optional
+    # author=script_author,  # Optional
 
     # License isn't default in here? Let's fix that.
-    license=license, # Optional
+    # license=license, # Optional
 
     # python_requires isn't here? Let's fix that.
 #    python_requires='>=3.2',
@@ -102,30 +137,30 @@ setup(
     #
     # For a list of valid classifiers, see
     # https://pypi.python.org/pypi?%3Aaction=list_classifiers,
-    classifiers=[  # Optional
-        # How mature is this project? Common values are
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
-        'Development Status :: {}'.format(meta_dev_status),
-
-        # Indicate who your project is intended for
-        'Intended Audience :: {}'.format(meta_audience),
-        'Topic :: {}'.format(meta_topic),
-
-        # Pick your license as you wish
-        'License :: OSI Approved :: {}'.format(meta_license),
-
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: {}'.format(meta_py_version),
-    ],
+    # classifiers=[  # Optional
+    #     # How mature is this project? Common values are
+    #     #   3 - Alpha
+    #     #   4 - Beta
+    #     #   5 - Production/Stable
+    #     'Development Status :: {}'.format(meta_dev_status),
+    #
+    #     # Indicate who your project is intended for
+    #     'Intended Audience :: {}'.format(meta_audience),
+    #     'Topic :: {}'.format(meta_topic),
+    #
+    #     # Pick your license as you wish
+    #     'License :: OSI Approved :: {}'.format(meta_license),
+    #
+    #     # Specify the Python versions you support here. In particular, ensure
+    #     # that you indicate whether you support Python 2, Python 3 or both.
+    #     'Programming Language :: Python :: {}'.format(meta_py_version),
+    # ],
 
     # This field adds keywords for your project which will appear on the
     # project page. What does your project relate to?
     #
     # Note that this is a string of words separated by whitespace, not a list.
-    keywords=meta_keywords,  # Optional
+    # keywords=meta_keywords,  # Optional
 
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().
@@ -136,7 +171,7 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
+    # packages=setuptools.find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
 
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
@@ -144,7 +179,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=script_requirements,  # Optional
+    # install_requires=script_requirements,  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
@@ -164,9 +199,9 @@ setup(
     #
     # If using Python 2.6 or earlier, then these have to be included in
     # MANIFEST.in as well.
-    package_data={  # Optional
-        'sample': ['package_data.dat'],
-    },
+    # package_data={  # Optional
+    #     'sample': ['package_data.dat'],
+    # },
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:
@@ -182,11 +217,11 @@ setup(
     #
     # For example, the following would provide a command called `sample` which
     # executes the function `main` from this package when invoked:
-    entry_points={  # Optional
-        'console_scripts': [
-            '{}={}:__main__'.format(package_name,package_name),
-        ],
-    },
+    # entry_points={  # Optional
+    #     'console_scripts': [
+    #         '{}={}:__main__'.format(package_name,package_name),
+    #     ],
+    # },
 
     # List additional URLs that are relevant to your project as a dict.
     #
@@ -197,10 +232,10 @@ setup(
     # issues, where the source is hosted, where to say thanks to the package
     # maintainers, and where to support the project financially. The key is
     # what's used to render the link text on PyPI.
-    project_urls={  # Optional
-        'Bug Reports': 'https://github.com/{}/{}/issues'.format(github_username,package_name),
-        'Funding': donate_link,
-#        'Say Thanks!': 'http://saythanks.io/to/demos',
-        'Source': 'https://github.com/{}/{}/'.format(github_username,package_name),
-    },
+#     project_urls={  # Optional
+#         'Bug Reports': 'https://github.com/{}/{}/issues'.format(github_username,package_name),
+#         'Funding': donate_link,
+# #        'Say Thanks!': 'http://saythanks.io/to/demos',
+#         'Source': 'https://github.com/{}/{}/'.format(github_username,package_name),
+#     },
 )
