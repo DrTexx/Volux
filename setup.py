@@ -20,6 +20,7 @@ readme_filename = 'README.md'
 readme_encoding = 'utf-8'
 long_description_content_type = 'text/markdown'
 url = 'https://github.com/{}/{}'.format(github_username,package_name)
+docs_url = 'https://{}.readthedocs.io'.format(package_name)
 package_author = 'Denver Pallis'
 meta_dev_status='4 - Beta' # 3 - Alpha, 4 - Beta, 5 - Production/Stable
 meta_audience = 'End Users/Desktop'
@@ -31,7 +32,8 @@ meta_keywords='volux media interface workflow automation platform iot lifx volum
 project_urls = {
     'Bug Reports': 'https://github.com/{}/{}/issues'.format(github_username,package_name),
     'Source': 'https://github.com/{}/{}/'.format(github_username,package_name),
-    'Funding': donate_link
+    'Funding': donate_link,
+    'Docs': docs_url
 }
 
 
