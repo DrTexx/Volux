@@ -8,7 +8,7 @@ github_username = 'DrTexx'
 donate_link = 'https://paypal.me/denverpallis'
 
 package_name = 'volux'
-package_version = '0.9.2'
+package_version = '0.9.3'
 package_description = 'High-level media/entertainment workflow automation platform'
 package_requirements = ['lifxlan==1.2.5','pyalsaaudio==0.8.4']
 readme_filename = 'README.md'
