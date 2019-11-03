@@ -27,3 +27,8 @@ class VoluxLight(VoluxModule):
         new_color = (color[0], color[1], new_val*65535, color[3])
 
         self.device.set_color(new_color)
+
+    def toggle(self):
+
+        power = self.device.get_power()
+        self.device.set_power(not power)
