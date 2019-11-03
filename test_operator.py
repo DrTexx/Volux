@@ -19,6 +19,10 @@ class Test_operator:
         vlx.remove_module(demo_module)
         assert not (demo_module in vlx.modules)
 
+    def test_remove_missing_module(self):
+        with pytest.raises(AttributeError):
+            vlx.remove_module(demo_module)
+
     def test_validate_module(self):
         assert vlx.validate_module(vlx) == False
 
