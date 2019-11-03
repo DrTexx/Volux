@@ -22,5 +22,11 @@ exclude_lines =
 show_missing = True
 omit =
     cpaudio/*
+    voluxbar/*
+    voluxdisplay/*
+    voluxlight/*
+    voluxold/*
+    voluxvolume/*
+    demo_*.py
 
 #ignore_errors = True

@@ -6,22 +6,21 @@ https://github.com/pypa/sampleproject
 
 
 script_name = 'volux'
-script_requirements = ["pyalsaaudio==0.8.4 ; platform_system == 'Linux'",
-                       "plyer==1.3.2",
-                       "psutil==5.4.8",
-                       "comtypes==1.1.7 ; platform_system == 'Windows'"]
+script_requirements = []
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
-script_version = '0.8.16'
-script_description = 'Audio Control Interface'
-github_username = 'DrTexxOfficial'
-script_author = 'Denver P'
+script_version = '0.9.0'
+script_description = 'High-level media/entertainment workflow automation platform'
+github_username = 'DrTexx'
+script_author = 'Denver Pallis'
 meta_dev_status='4 - Beta' # 3 - Alpha, 4 - Beta, 5 - Production/Stable
 meta_audience = 'End Users/Desktop'
-meta_topic = 'Multimedia :: Sound/Audio'
-meta_license = 'MIT License'
-meta_py_version = '3.5'
+meta_topic = 'Multimedia'
+meta_license = 'GNU General Public License v3 or later (GPLv3+)'
+meta_py_version = '3'
 meta_keywords=''
+long_description_content_type='text/markdown'
+donate_link = 'https://paypal.me/denverpallis'
 
 
 # Always prefer setuptools over distutils
@@ -76,6 +75,8 @@ setup(
     # https://packaging.python.org/specifications/core-metadata/#description-optional
     long_description=long_description,  # Optional
 
+    long_description_content_type=long_description_content_type,
+
     # This should be a valid link to your project's main homepage.
     #
     # This field corresponds to the "Home-Page" metadata field:
@@ -85,10 +86,10 @@ setup(
     # This should be your name or the name of the organization which owns the
     # project.
     author=script_author,  # Optional
-    
+
     # License isn't default in here? Let's fix that.
     #license='GPLv3+', # Optional
-    
+
     # python_requires isn't here? Let's fix that.
 #    python_requires='>=3.2',
 
@@ -197,7 +198,7 @@ setup(
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
         'Bug Reports': 'https://github.com/{}/{}/issues'.format(github_username,script_name),
-#        'Funding': 'https://donate.pypi.org',
+        'Funding': donate_link,
 #        'Say Thanks!': 'http://saythanks.io/to/demos',
         'Source': 'https://github.com/{}/{}/'.format(github_username,script_name),
     },
