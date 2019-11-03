@@ -13,7 +13,7 @@ def run_demo():
     vlx.add_module(VoluxBar())
     vlx.add_module(VoluxDemoModule())
     vlx.add_module(VoluxVolume())
-    vlx.add_module(VoluxLight("Bob's Lamp"))
+    vlx.add_module(VoluxLight("Demo Bulb"))
 
     # for module in vlx.get_modules():
     #
