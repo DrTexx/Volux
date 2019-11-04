@@ -1,2 +1,0 @@
-lifxlan==1.2.5
-pyalsaaudio==0.8.4
