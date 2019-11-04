@@ -19,6 +19,6 @@ class Test_voluxcliprint:
         vlx.demo.set(20)
         assert vlx.demo.get() == 20
 
-    def test_set_nonsense(self):
+    def test_set_invalid_values(self):
         with pytest.raises(TypeError):
             vlx.demo.set('2') # number as string
