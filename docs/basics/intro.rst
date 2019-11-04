@@ -13,35 +13,55 @@ Installing with pip
 
     pip install volux
 
-Installing from source
-======================
 
-.. warning:: If any of the code below looks unfamiliar or scary to you,
-          building from source is not a good idea. It is highly recommended to
-          install volux from pip or at least via the latest wheel release on
-          pypi.
+Congratulations, you've just installed Volux!
 
-.. prompt:: bash $
+.. note:: If you would rather build the module yourself, see "Installing from source"
 
-    git clone https://github.com/DrTexx/Volux.git
-    cd Volux
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -r volux/demos/demo_volbar_requirements.txt
-    pip install wheel setuptools --upgrade
-    python3 setup.py bdist_wheel
-    cd dist
-    pip install volux-*.whl
+Next, let's try running the 'bar' demo.
 
-****
-Demo
-****
 
-Running the demo
-================
+Running the bar demo
+====================
 
-Providing volux is installed, you can run the demo like so
+Once volux is finished installing, you can run the bar demo like so:
 
 .. prompt:: bash $
 
-    volux demo bar
+    volux --demo bar
+
+You should now see a transparent bar at the bottom of your screen.
+
+Bar demo explained
+------------------
+
+In different modes, performing identical actions on the bar produce different results.
+
+Below, you'll see a table of representing the result of performing
+certain actions on the bar in a given mode.
+
+=========  ==================  ================
+Bar Color  Action              Result
+=========  ==================  ================
+Any        Right-click         Change bar mode
+
+           Double right-click  Exit demo
+
+Green      Scroll up           Increase volume
+
+           Scroll down         Decrease volume
+
+           Middle-click        Mute
+
+Red        Scroll up           Increase volume
+
+           Scroll down         Decrease volume
+
+           Middle-click        Unmute
+
+Blue       Scroll up           Increase bulb brightness
+
+           Scroll down         Decrease bulb brightness
+
+           Middle-click        Toggle bulb power
+=========  ==================  ================

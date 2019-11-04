@@ -8,11 +8,19 @@
 
 .. toctree::
    :maxdepth: 2
-   :caption: Volux
+   :caption: Volux Basics
 
    basics/intro
    basics/examples
    basics/python
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Advanced Topics
+
+   advanced/install-source
+   advanced/user-modules
 
 
 .. toctree::

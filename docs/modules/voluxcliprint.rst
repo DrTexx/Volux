@@ -1,10 +1,10 @@
-voluxdemomodule package
-=======================
+voluxcliprint package
+=====================
 
 Module contents
 ---------------
 
-.. automodule:: voluxdemomodule
+.. automodule:: voluxcliprint
    :members:
    :undoc-members:
    :show-inheritance:

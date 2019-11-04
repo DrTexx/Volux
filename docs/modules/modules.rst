@@ -6,7 +6,7 @@ volux
 
    volux
    voluxbar
-   voluxdemomodule
+   voluxcliprint
    voluxdisplay
    voluxlight
    voluxvolume
