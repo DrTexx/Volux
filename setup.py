@@ -4,17 +4,22 @@ https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
 """
 
+# personal note: to refresh auto-documentation
+# (navigate to repo root first)
+# sphinx-apidoc -o docs/modules . test_* cpaudio setup.py voluxdisplay/cpdisplay
+
 github_username = 'DrTexx'
 donate_link = 'https://paypal.me/denverpallis'
 
 package_name = 'volux'
-package_version = '0.9.4'
+package_version = '0.9.5'
 package_description = 'High-level media/entertainment workflow automation platform'
 package_requirements = [
     'lifxlan==1.2.5',
     'pycaw; platform_system == "Windows"',
     'comtypes==1.1.7; platform_system == "Windows"',
-    'pyalsaaudio==0.8.4; platform_system == "Linux"'
+    'pyalsaaudio==0.8.4; platform_system == "Linux"',
+    'colorama==0.4.1'
 ]
 readme_filename = 'README.md'
 readme_encoding = 'utf-8'
@@ -76,7 +81,7 @@ setuptools.setup(
     },
     entry_points={ # Optional
         'console_scripts': [
-            '{}={}:__main__'.format(package_name,package_name),
+            '{}={}:__main__.main'.format(package_name,package_name),
         ],
     },
     project_urls=project_urls, # Optional
