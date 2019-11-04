@@ -11,9 +11,15 @@ class VoluxOperator:
 
         if self.validate_module(module):  # if the object passed is a valid module
 
-            self.modules.append(module)
-            setattr(self, module._module_attr, module)
-            module._loaded()  # call module's method for when it's finished being loaded
+            if not module in self.modules:
+
+                self.modules.append(module)
+                setattr(self, module._module_attr, module)
+                module._loaded()  # call module's method for when it's finished being loaded
+
+            else:
+
+                raise Exception("module '{}' is already loaded!".format(module._module_name))
 
         else:
 
