@@ -57,6 +57,7 @@ See [here](https://volux.readthedocs.io/en/latest/advanced/install-source.html#i
 
 ### Demo script
 See [here](https://volux.readthedocs.io/en/latest/basics/intro.html#bar-demo)
+
 While hovering over the bar:
 
 | Bar color | Action             | Result                     |
