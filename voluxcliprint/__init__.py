@@ -17,9 +17,8 @@ class VoluxCliPrint(VoluxModule):
 
         return self.demo_val
 
-    def set(self, new_val, verbose=True):
+    def set(self, new_val):
 
         self.demo_val = new_val
 
-        if verbose == True:
-            print("demo_val: {}".format(self.demo_val))
+        print("demo_val: {}".format(self.demo_val))
