@@ -11,13 +11,16 @@
    :caption: Volux
 
    basics/intro
+   basics/examples
    basics/python
+
 
 .. toctree::
    :maxdepth: 2
    :caption: Modules
 
    modules/modules
+
 
 Indices and tables
 ==================
