@@ -21,8 +21,12 @@ Congratulations, you've just installed Volux!
 Next, let's try running the 'bar' demo.
 
 
-Running the bar demo
-====================
+*************
+Running demos
+*************
+
+Bar demo
+========
 
 Once volux is finished installing, you can run the bar demo like so:
 

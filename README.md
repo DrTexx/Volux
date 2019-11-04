@@ -53,10 +53,10 @@ The operator object acts as a hub for a standard method of communication between
 These modules can read/write data of the associated aspects in coordiation with each other to create seamless workflows.
 
 ### Installing from source
-See [here](https://volux.readthedocs.io/en/latest/basics/intro.html#installing-from-source).
+See [here](https://volux.readthedocs.io/en/latest/advanced/install-source.html#installing-from-source).
 
 ### Demo script
-
+See [here](https://volux.readthedocs.io/en/latest/basics/intro.html#bar-demo)
 While hovering over the bar:
 
 | Bar color | Action             | Result                     |
