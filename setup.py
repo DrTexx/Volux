@@ -12,7 +12,7 @@ github_username = 'DrTexx'
 donate_link = 'https://paypal.me/denverpallis'
 
 package_name = 'volux'
-package_version = '0.9.5'
+package_version = '0.9.6'
 package_description = 'High-level media/entertainment workflow automation platform'
 package_requirements = [
     'lifxlan==1.2.5',
