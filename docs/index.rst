@@ -8,10 +8,16 @@
 
 .. toctree::
    :maxdepth: 2
-   :caption: Volux documentation
+   :caption: Volux
 
    basics/intro
    basics/python
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Modules
+
+   modules/voluxlight
 
 Indices and tables
 ==================
