@@ -28,5 +28,6 @@ omit =
     voluxold/*
     voluxvolume/*
     demo_*.py
+    volux/__main__.py
 
 #ignore_errors = True
