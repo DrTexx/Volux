@@ -2,6 +2,7 @@
 
 import argparse
 import colorama
+colorama.init()
 
 def get_python_module_items(module):
 
