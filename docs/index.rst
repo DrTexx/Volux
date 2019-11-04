@@ -17,7 +17,7 @@
    :maxdepth: 2
    :caption: Modules
 
-   modules/voluxlight
+
 
 Indices and tables
 ==================
