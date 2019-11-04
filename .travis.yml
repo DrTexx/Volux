@@ -29,7 +29,7 @@ install:
 script:
   #- xvfb-run --server-args="-screen 0 1920x1080x32" make test
   # - export AUDIODEV=null
-  - pytest --cov=./ --ignore=test_cpaudio.py
+  - pytest --cov=./
 # coverage testing
 after_success:
 - codecov
