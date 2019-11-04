@@ -71,12 +71,13 @@ def main():
 
         else:
 
-            print("'{}' is not a valid demo".format(arguments.demo))
+            print("{}Error: '{}' is not a valid demo{}".format(colorama.Fore.RED,arguments.demo,colorama.Style.RESET_ALL))
+            print("{}Tip: Type 'volux --list demos' for a list of available demos{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
 
     else:
 
-        print("{}error: not enough arguments{}".format(colorama.Fore.RED,colorama.Style.RESET_ALL))
-        print("{}tip: type 'volux --help' for a list of commands{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
+        print("{}Error: Not enough arguments{}".format(colorama.Fore.RED,colorama.Style.RESET_ALL))
+        print("{}Tip: Type 'volux --help' for a list of commands{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
 
     # for i in range(0, arguments.repeat):
     #
