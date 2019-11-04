@@ -9,8 +9,10 @@ Classes
 VoluxLight
 ==========
 
-Adding a new light
-------------------
+.. warning:: This section is a work-in-progress
+
+Adding New Lights
+-----------------
 
 .. code-block:: python
 

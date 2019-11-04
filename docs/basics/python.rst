@@ -9,7 +9,7 @@ Classes
 VoluxOperator
 =============
 
-Instantiating a new operator
+Instantiating a New Operator
 ----------------------------
 
 .. code-block:: python
@@ -19,7 +19,7 @@ Instantiating a new operator
 
 .. note:: ``vlx`` will serve as the name of the operator instance in the following examples
 
-Adding modules to an operator
+Adding Modules to an Operator
 -----------------------------
 
 .. code-block:: python

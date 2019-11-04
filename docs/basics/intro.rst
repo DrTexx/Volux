@@ -6,7 +6,7 @@ Getting Started
 Installation
 ************
 
-Installing with pip
+Installing with Pip
 ===================
 
 .. prompt:: bash $
@@ -22,10 +22,10 @@ Next, let's try running the 'bar' demo.
 
 
 *************
-Running demos
+Running Demos
 *************
 
-Bar demo
+Bar Demo
 ========
 
 Once volux is finished installing, you can run the bar demo like so:
@@ -36,7 +36,7 @@ Once volux is finished installing, you can run the bar demo like so:
 
 You should now see a transparent bar at the bottom of your screen.
 
-Bar demo explained
+Bar Demo Explained
 ------------------
 
 In different modes, performing identical actions on the bar produce different results.
