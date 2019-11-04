@@ -9,7 +9,7 @@ class VoluxTestDemo(volux.VoluxDemo):
         super().__init__(
             demo_name="Test Demo",
             demo_method=self.run_demo,
-            alias="demo",
+            alias="test",
         )
 
     def run_demo(self):
@@ -21,3 +21,6 @@ demo = VoluxTestDemo()
 class Test_VoluxDemo:
     def test_run_demo(self):
         demo.run()
+
+    def test_repr(self):
+        assert repr(demo) == "<VoluxDemo 'test'>"
