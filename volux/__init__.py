@@ -3,9 +3,9 @@ from .module import *
 from .core import *
 from .demo import *
 
-__version__     = '0.0.1'
-__description__ = 'Core for Volux media tools.'
-__url__         = 'http://github.com/drtexx/volux'
-__author__      = 'Denver P'
+__version__ = "0.9.6"
+__description__ = "High-level media/entertainment workflow automation platform"
+__url__ = "http://github.com/drtexx/volux"
+__author__ = "Denver Pallis"
 # __authoremail__ = ''
-__license__     = 'GPLv3+'
+__license__ = "GPLv3+"

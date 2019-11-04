@@ -8,11 +8,17 @@ https://github.com/pypa/sampleproject
 # (navigate to repo root first)
 # sphinx-apidoc -o docs/modules . test_* cpaudio setup.py voluxdisplay/cpdisplay
 
+import volux
+
+
 github_username = 'DrTexx'
 donate_link = 'https://paypal.me/denverpallis'
 
-package_name = 'volux'
-package_version = '0.9.6'
+mypackage = volux
+package_name = mypackage.__name__
+package_version = mypackage.__version__
+package_author = mypackage.__author__
+package_license = mypackage.__license__
 package_description = 'High-level media/entertainment workflow automation platform'
 package_requirements = [
     'lifxlan==1.2.5',
@@ -26,11 +32,9 @@ readme_encoding = 'utf-8'
 long_description_content_type = 'text/markdown'
 url = 'https://github.com/{}/{}'.format(github_username,package_name)
 docs_url = 'https://{}.readthedocs.io'.format(package_name)
-package_author = 'Denver Pallis'
 meta_dev_status='4 - Beta' # 3 - Alpha, 4 - Beta, 5 - Production/Stable
 meta_audience = 'End Users/Desktop'
 meta_topic = 'Multimedia'
-license = 'GPLv3+'
 meta_license = 'GNU General Public License v3 or later (GPLv3+)'
 meta_py_version = '3'
 meta_keywords='volux media interface workflow automation platform iot lifx volume sound light tk tkinter'
@@ -67,7 +71,7 @@ setuptools.setup(
     long_description_content_type=long_description_content_type, # Optional
     url=url, # Optional
     author=package_author, # Optional
-    license=license, # Optional
+    license=package_license, # Optional
     classifiers=[  # Optional
         'Development Status :: {}'.format(meta_dev_status),
         'Intended Audience :: {}'.format(meta_audience),
