@@ -4,7 +4,7 @@ from voluxcliprint import VoluxCliPrint
 
 # create Volux Operator object (hub for communication between modules)
 vlx = volux.VoluxOperator()
-cli_module   = VoluxCliPrint()
+cli_module = VoluxCliPrint()
 
 class Test_operator:
     def test_add_module(self):
