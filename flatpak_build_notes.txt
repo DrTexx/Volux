@@ -1,0 +1,183 @@
+flatpak-builder --repo=volux-repo --force-clean build-dir org.volux.Volux.json
+
+### GUIDE TO COMPILING TCL/TK
+http://www.tcl.tk/doc/howto/compile.html
+
+### TO ENTER A SANDBOX FOR TESTING ###
+flatpak run --command=sh --devel org.volux.Volux
+
+### WORKING META (AS OF 05/11/2019)
+{
+    "app-id": "org.volux.Volux",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "18.08",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "volux",
+    "finish-args": [
+        "--socket=fallback-x11",
+        "--socket=pulseaudio"
+    ],
+    "modules": [
+        {
+            "name": "tcl8.6",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tcl8.6.9-src.tar.gz",
+                    "sha256": "ad0cd2de2c87b9ba8086b43957a0de3eb2eb565c7159d5f53ccbba3feb915f4e"
+                }
+            ],
+            "subdir": "unix",
+            "build-options": {
+                "no-debuginfo": false
+            },
+            "post-install": [
+                "chmod 755 /app/lib/libtcl8.6.so"
+            ]
+        },
+        {
+            "name": "tk",
+            "sources": [
+                {
+                  "type": "archive",
+                  "url": "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tk8.6.9.1-src.tar.gz",
+                  "sha256": "8fcbcd958a8fd727e279f4cac00971eee2ce271dc741650b1fc33375fb74ebb4"
+                }
+            ],
+            "subdir": "unix",
+            "build-options": {
+                "no-debuginfo": false
+            },
+            "post-install": [
+                "chmod 755 /app/lib/libtk8.6.so"
+            ]
+        },
+        {
+            "name": "cpython",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz",
+                    "sha256": "b356244e13fb5491da890b35b13b2118c3122977c2cd825e3eb6e7d462030d84"
+                }
+            ]
+        },
+        {
+            "name": "pip-install-volux",
+            "buildsystem": "simple",
+            "build-options": {
+              "build-args": [
+                "--share=network"
+              ]
+            },
+            "build-commands": [
+                "pip3 install volux"
+            ]
+        },
+        {
+            "name": "runner",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -D runner.sh /app/bin/runner.sh"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "path": "runner.sh"
+                }
+            ]
+        },
+        {
+            "name": "desktop-items",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -D icon.png /app/share/icons/hicolor/128x128/apps/org.volux.Volux.png",
+                "install -D org.volux.Volux.desktop /app/share/applications/org.volux.Volux.desktop",
+                "install -D org.volux.Volux.appdata.xml /app/share/metainfo/org.volux.Volux.appdata.xml"
+            ],
+            "sources": [
+                {"type": "file","path": "icon.png"},
+                {"type": "file","path": "org.volux.Volux.desktop"},
+                {"type": "file","path": "org.volux.Volux.appdata.xml"}
+            ]
+        }
+    ]
+}
+
+
+### ERROR FROM EARLIER ###
+stripping /home/denver/github/volux/.flatpak-builder/rofiles/rofiles-nbJ4qx/files/usr/local/lib/libtcl8.6.so
+       to /home/denver/github/volux/.flatpak-builder/rofiles/rofiles-nbJ4qx/files/lib/debug/usr/local/lib/libtcl8.6.so.debug
+eu-strip: while opening
+         '/home/denver/github/volux/.flatpak-builder/rofiles/rofiles-nbJ4qx/files/usr/local/lib/libtcl8.6.so':
+         Permission denied
+
+### OLD ###
+{
+    "name": "python-setup.py",
+    "sources": [
+        {
+            "type": "file",
+            "url": "https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz",
+            "sha256": "da60b54064d4cfcd9c26576f6df2690e62085123826cff2e667e72a91952d318"
+        }
+    ],
+    "buildsystem": "simple",
+    "build-options": {
+      "build-args": [
+        "--share=network",
+        "--filesystem=host:ro"
+      ]
+    },
+    "build-commands": [
+        "tar xzf Python-3.7.2.tgz && cd Python-3.7.2",
+        "ls",
+        "export LD_LIBRARY_PATH=/usr/local/lib && export LD_RUN_PATH=/usr/local/lib && ./Python-3.7.2/configure --enable-optimizations --prefix=/usr/ --with-ensurepip=install --enable-shared LDFLAGS=\"-L/usr/local/lib\" CPPFLAGS=\"-I /usr/local/lib/libffi-3.2.1/include\"",
+        "make",
+        "make install"
+    ],
+    "sources": [
+        {
+            "type": "file",
+            "url": "https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz",
+            "sha256": "f09d83c773b9cc72421abba2c317e4e6e05d919f9bcf34468e192b6a6c8e328d"
+        }
+    ]
+},
+
+
+### SUCCESFULLY INSTALLS TCL/TK ###
+{
+    "name": "tcl8.6",
+    "sources": [
+        {
+            "type": "archive",
+            "url": "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tcl8.6.9-src.tar.gz",
+            "sha256": "ad0cd2de2c87b9ba8086b43957a0de3eb2eb565c7159d5f53ccbba3feb915f4e"
+        }
+    ],
+    "subdir": "unix",
+    "build-options": {
+        "no-debuginfo": false
+    },
+    "post-install": [
+        "chmod 755 /app/lib/libtcl8.6.so"
+    ]
+},
+{
+    "name": "tk",
+    "sources": [
+        {
+          "type": "archive",
+          "url": "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tk8.6.9.1-src.tar.gz",
+          "sha256": "8fcbcd958a8fd727e279f4cac00971eee2ce271dc741650b1fc33375fb74ebb4"
+        }
+    ],
+    "subdir": "unix",
+    "build-options": {
+        "no-debuginfo": false
+    },
+    "post-install": [
+        "chmod 755 /app/lib/libtk8.6.so"
+    ]
+},

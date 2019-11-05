@@ -7,3 +7,6 @@ venv_volux/
 .coverage
 coverage.xml
 docs/_build
+.flatpak-builder
+build-dir
+volux-repo

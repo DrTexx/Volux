@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component>
+    <id>org.volux.Volux</id>
+    <metadata_license>CC-BY-SA-3.0</metadata_license>
+    <name>Volux</name>
+    <summary>High-level media/entertainment workflow automation platform</summary>
+    <icon type="cached">org.volux.Volux.png</icon>
+    <description>
+        <p>High-level media/entertainment workflow automation platform</p>
+    </description>
+    <categories>
+        <catagory>Development</catagory>
+    </categories>
+    <url type="homepage">https://github.com/DrTexx/Volux</url>
+    <url type="bugtracker">https://github.com/DrTexx/Volux/issues</url>
+    <url type="help">https://volux.readthedocs.io/</url>
+    <url type="donation">https://paypal.me/denverpallis</url>
+    <launchable type="desktop-id">org.volux.Volux.desktop</launchable>
+    <!-- <releases></releases> -->
+    <provides>
+        <binary>volux</binary>
+        <python3>volux</python3>
+    </provides>
+    <project_license>GPL-3.0-or-later</project_license>
+    <developer_name>Denver Pallis</developer_name>
+    <!-- <screenshots></screenshots> -->
+    <content_rating type="oars-1.0"></content_rating>
+</component>

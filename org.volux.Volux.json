@@ -1,0 +1,83 @@
+{
+    "app-id": "org.volux.Volux",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "18.08",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "volux",
+    "finish-args": [
+        "--socket=fallback-x11",
+        "--socket=pulseaudio"
+    ],
+    "modules": [
+        {
+            "name": "tcl8.6",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tcl8.6.9-src.tar.gz",
+                    "sha256": "ad0cd2de2c87b9ba8086b43957a0de3eb2eb565c7159d5f53ccbba3feb915f4e"
+                }
+            ],
+            "subdir": "unix",
+            "build-options": {
+                "no-debuginfo": false
+            },
+            "post-install": [
+                "chmod 755 /app/lib/libtcl8.6.so"
+            ]
+        },
+        {
+            "name": "tk",
+            "sources": [
+                {
+                  "type": "archive",
+                  "url": "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tk8.6.9.1-src.tar.gz",
+                  "sha256": "8fcbcd958a8fd727e279f4cac00971eee2ce271dc741650b1fc33375fb74ebb4"
+                }
+            ],
+            "subdir": "unix",
+            "build-options": {
+                "no-debuginfo": false
+            },
+            "post-install": [
+                "chmod 755 /app/lib/libtk8.6.so"
+            ]
+        },
+        {
+            "name": "cpython",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz",
+                    "sha256": "b356244e13fb5491da890b35b13b2118c3122977c2cd825e3eb6e7d462030d84"
+                }
+            ]
+        },
+        {
+            "name": "pip-install-volux",
+            "buildsystem": "simple",
+            "build-options": {
+              "build-args": [
+                "--share=network"
+              ]
+            },
+            "build-commands": [
+                "pip3 install volux"
+            ]
+        },
+        {
+            "name": "desktop-items",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -D icon.png /app/share/icons/hicolor/128x128/apps/org.volux.Volux.png",
+                "install -D org.volux.Volux.desktop /app/share/applications/org.volux.Volux.desktop",
+                "install -D org.volux.Volux.appdata.xml /app/share/metainfo/org.volux.Volux.appdata.xml"
+            ],
+            "sources": [
+                {"type": "file","path": "icon.png"},
+                {"type": "file","path": "org.volux.Volux.desktop"},
+                {"type": "file","path": "org.volux.Volux.appdata.xml"}
+            ]
+        }
+    ]
+}
