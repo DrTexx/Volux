@@ -10,14 +10,20 @@ def main():
     parser = argparse.ArgumentParser(description="High-level media/entertainment workflow automation platform")
 
     # Add the positional parameter
-    parser.add_argument('-l','--list', action="store", choices=['demos','modules'], help="return a list of avaiable items", default=None)
-    parser.add_argument('-d','--demo', action="store", help="run the specified demo")
+    parser.add_argument('-l','--list', action="store", help="prints a list of available demos/modules", default=None)
+    parser.add_argument('-d','--demo', action="store", help="run the specified demo", default=None)
+    parser.add_argument('-i','--info', action="store", help="show info for installed volux module", default=None)
+    parser.add_argument('-V','--version', action="store_true", help="Print version information and exit")
 
     # Parse the arguments
     arguments = parser.parse_args()
 
-    # Finally print the passed string
-    if arguments.list == 'demos':
+    if arguments.version == True:
+
+        from volux import __name__, __version__
+        print(__name__,__version__)
+
+    elif arguments.list == 'demos':
 
         from volux import demos, VoluxDemo, VoluxCore
 
@@ -51,10 +57,14 @@ def main():
             print("{}Error: '{}' is not a valid demo{}".format(colorama.Fore.RED,arguments.demo,colorama.Style.RESET_ALL))
             print("{}Tip: Type 'volux --list demos' for a list of available demos{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
 
+    elif not arguments.info == None:
+
+        raise NotImplementedError()
+
     else:
 
-        print("{}Error: Not enough arguments{}".format(colorama.Fore.RED,colorama.Style.RESET_ALL))
-        print("{}Tip: Type 'volux --help' for a list of commands{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
+        print("{}Error: No command specified{}".format(colorama.Fore.RED,colorama.Style.RESET_ALL))
+        print("{}Tip: See 'volux --help'{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
 
     # for i in range(0, arguments.repeat):
     #
