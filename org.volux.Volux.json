@@ -6,11 +6,12 @@
     "command": "volux",
     "finish-args": [
         "--socket=fallback-x11",
-        "--socket=pulseaudio"
+        "--socket=pulseaudio",
+        "--share=network"
     ],
     "modules": [
         {
-            "name": "tcl8.6",
+            "name": "tcl8.6.9",
             "sources": [
                 {
                     "type": "archive",
@@ -27,7 +28,7 @@
             ]
         },
         {
-            "name": "tk",
+            "name": "tk8.6.9.1",
             "sources": [
                 {
                   "type": "archive",
