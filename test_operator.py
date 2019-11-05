@@ -14,7 +14,6 @@ class Test_operator:
     def test_add_module_twice(self):
         with pytest.raises(Exception):
             vlx.add_module(cli_module)
-            vlx.add_module(cli_module)
 
     def test_add_bad_module(self):
         with pytest.raises(TypeError):
