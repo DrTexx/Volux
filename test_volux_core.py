@@ -19,8 +19,9 @@ class Test_operator:
 
     def test_filter_by_superclass(self):
 
+        global module_items
         global demos_collected
-        demos_collected = vlx.core.filter_by_superclass(demos_collected,volux.VoluxDemo)
+        demos_collected = vlx.core.filter_by_superclass(module_items,volux.VoluxDemo)
 
     def test_gen_demo_dict(self):
 
