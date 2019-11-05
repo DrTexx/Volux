@@ -1,4 +1,5 @@
-flatpak-builder --repo=volux-repo --force-clean build-dir org.volux.Volux.json
+### BUILDING PACKAGE
+flatpak-builder --repo=volux-repo --force-clean build-dir org.volux.Volux.json --gpg-sign=7F1E41E1
 
 ### GUIDE TO COMPILING TCL/TK
 http://www.tcl.tk/doc/howto/compile.html
