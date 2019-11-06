@@ -29,5 +29,6 @@ omit =
     voluxvolume/*
     demo_*.py
     volux/__main__.py
+    volux/demos
 
 #ignore_errors = True
