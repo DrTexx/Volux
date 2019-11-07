@@ -3,13 +3,14 @@ import tkinter as tk
 from tkinter import ttk
 
 class VoluxBar(VoluxModule):
-    def __init__(self,shared_modules=[],*args,**kwargs):
+    def __init__(self,shared_modules=[],pollrate=100,*args,**kwargs):
         super().__init__(
             module_name="Volux Bar",
             module_attr="bar",
             module_get=self.get,
             module_set=self.set,
-            shared_modules=shared_modules
+            shared_modules=shared_modules,
+            pollrate=pollrate
         )
         self.modes = {}
         self.mode = 'default'
@@ -63,11 +64,11 @@ class MainApplication(ttk.Frame):
 
         self._init_bindings()
 
-    def _update_loop(self,ms_per_loop=100):
+    def _update_loop(self):
         self.parent.lift() # ensure window on top of others
         self._refresh_bar()
         # print("refreshing...")
-        self.after(ms_per_loop,self._update_loop) # repeat _update_loop()
+        self.after(ms_per_loop,self._pollrate) # repeat _update_loop()
 
     def _refresh_bar(self):
         val = self.VoluxBar_obj.modes[self.VoluxBar_obj.mode].get()

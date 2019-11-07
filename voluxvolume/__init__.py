@@ -3,13 +3,14 @@ import cpaudio
 
 
 class VoluxVolume(VoluxModule):
-    def __init__(self,shared_modules=[],*args,**kwargs):
+    def __init__(self,shared_modules=[],pollrate=100,*args,**kwargs):
         super().__init__(
             module_name="Volux Volume",
             module_attr="volume",
             module_get=self.get,
             module_set=self.set,
-            shared_modules=shared_modules
+            shared_modules=shared_modules,
+            pollrate=pollrate
         )
         self.mixer = cpaudio.MixerController()
 

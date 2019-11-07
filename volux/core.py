@@ -8,7 +8,8 @@ class VoluxCore(VoluxModule):
             module_attr="core",
             module_get=None,
             module_set=None,
-            shared_modules=[]
+            shared_modules=[],
+            pollrate=None
         )
 
     def get_python_module_items(self,module):

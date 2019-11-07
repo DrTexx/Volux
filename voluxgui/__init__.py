@@ -3,13 +3,14 @@ import tkinter as tk
 from tkinter import ttk
 
 class VoluxGui(VoluxModule):
-    def __init__(self, shared_modules=[], *args, **kwargs):
+    def __init__(self, shared_modules=[], pollrate=None, *args, **kwargs):
         super().__init__(
             module_name="Volux GUI",
             module_attr="gui",
             module_get=self.get,
             module_set=self.set,
-            shared_modules=shared_modules
+            shared_modules=shared_modules,
+            pollrate=pollrate
         )
 
         self.root = tk.Tk()
@@ -18,7 +19,7 @@ class VoluxGui(VoluxModule):
 
     def get(self):
 
-        return self.decoy_val
+        return self.example_val
 
     def set(self, new_val):
 
@@ -89,15 +90,23 @@ class MainApplication(ttk.Frame):
 
     def _get_test(self):
 
-        i = self.input_listbox.curselection()[0]
-        get_result = self.ext_modules[i].get()
-        print("(VoluxGui) get method response:",get_result)
+        sel = self.input_listbox.curselection()
+        if len(sel) > 0:
+            i = sel[0]
+            get_result = self.ext_modules[i].get()
+            print("(VoluxGui) get method response:",get_result)
+        else:
+            raise ValueError("no input selected!")
 
     def _set_test(self):
 
-        i = self.output_listbox.curselection()[0]
-        get_result = self.ext_modules[i].set(int(self.output_testset_data.get()))
-        print("(VoluxGui) set method response:",get_result)
+        sel = self.output_listbox.curselection()
+        if len(sel) > 0:
+            i = self.output_listbox.curselection()[0]
+            get_result = self.ext_modules[i].set(int(self.output_testset_data.get()))
+            print("(VoluxGui) set method response:",get_result)
+        else:
+            raise ValueError("no output selected!")
 
     def _update_input_listbox(self):
 
