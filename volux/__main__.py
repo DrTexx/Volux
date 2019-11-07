@@ -14,6 +14,7 @@ def main():
     parser.add_argument('-d','--demo', action="store", help="run the specified demo", default=None)
     parser.add_argument('-i','--info', action="store", help="show info for installed volux module", default=None)
     parser.add_argument('-V','--version', action="store_true", help="Print version information and exit")
+    parser.add_argument('-g','--gui', action="store_true", help="Launches volux GUI")
 
     # Parse the arguments
     arguments = parser.parse_args()
@@ -22,6 +23,11 @@ def main():
 
         from volux import __name__, __version__
         print(__name__,__version__)
+
+    if arguments.gui == True:
+
+        from volux.scripts import launch_gui
+        launch_gui()
 
     elif arguments.list == 'demos':
 
