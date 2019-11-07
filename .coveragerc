@@ -21,14 +21,15 @@ exclude_lines =
     if __name__ == .__main__.:
 show_missing = True
 omit =
-    cpaudio/*
-    voluxbar/*
-    voluxdisplay/*
-    voluxlight/*
-    voluxold/*
-    voluxvolume/*
-    demo_*.py
-    volux/__main__.py
-    volux/demos
+    cpaudio/*  # can't test due to no audio
+    voluxbar/*  # can't test due to tkinter
+    voluxdisplay/*  # can't test because no display
+    voluxgui/*  # can't test due to tkinter
+    voluxlight/*  # can't test due to no network devices
+    voluxold/*  # not appropriate for testing
+    voluxvolume/*  # can't test because no audio
+    demo_*.py  # not appropriate for testing
+    volux/__main__.py  # not appropriate for testing
+    volux/demos  # not appropriate for testing
 
 #ignore_errors = True
