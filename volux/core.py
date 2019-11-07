@@ -3,7 +3,13 @@ from .module import VoluxModule
 class VoluxCore(VoluxModule):
     """provides a set of utilities for use in other modules"""
     def __init__(self,*args,**kwargs):
-        super().__init__(module_name="Volux Core",module_attr="core",module_get=None,module_set=None)
+        super().__init__(
+            module_name="Volux Core",
+            module_attr="core",
+            module_get=None,
+            module_set=None,
+            shared_modules=[]
+        )
 
     def get_python_module_items(self,module):
 
