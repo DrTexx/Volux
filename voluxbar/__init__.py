@@ -3,8 +3,14 @@ import tkinter as tk
 from tkinter import ttk
 
 class VoluxBar(VoluxModule):
-    def __init__(self,*args,**kwargs):
-        super().__init__(module_name="Volux Bar",module_attr="bar", module_get=self.get, module_set=self.set)
+    def __init__(self,shared_modules=[],*args,**kwargs):
+        super().__init__(
+            module_name="Volux Bar",
+            module_attr="bar",
+            module_get=self.get,
+            module_set=self.set,
+            shared_modules=shared_modules
+        )
         self.modes = {}
         self.mode = 'default'
         self.root = tk.Tk()
