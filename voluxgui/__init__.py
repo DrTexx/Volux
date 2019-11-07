@@ -50,13 +50,16 @@ class MainApplication(ttk.Frame):
 
         print("(VoluxGUI) shared modules:",self.ext_modules)
 
+        self.wip_notice = ttk.Label(self,text="NOTE: GUI IS A WORK-IN-PROGRESS",anchor=tk.CENTER)
+        self.wip_notice.pack(side="top",fill=tk.X)
+
         self.input_frame = ttk.Frame(self)
         self.input_frame.pack(side="left",fill=tk.Y,padx="14px",pady="14px")
 
         self.input_label = ttk.Label(self.input_frame,text="INPUTS")
         self.input_label.pack(side="top",fill=tk.BOTH)
 
-        self.input_listbox = tk.Listbox(self.input_frame, selectmode=tk.SINGLE)
+        self.input_listbox = tk.Listbox(self.input_frame, selectmode=tk.SINGLE, exportselection=False)
         self.input_listbox.pack()
 
         self.input_testget = ttk.Button(self.input_frame,text="Get Test",command=self._get_test)
@@ -68,7 +71,7 @@ class MainApplication(ttk.Frame):
         self.output_label = ttk.Label(self.output_frame,text="OUTPUTS")
         self.output_label.pack(side="top",fill=tk.BOTH)
 
-        self.output_listbox = tk.Listbox(self.output_frame, selectmode=tk.SINGLE)
+        self.output_listbox = tk.Listbox(self.output_frame, selectmode=tk.SINGLE, exportselection=False)
         self.output_listbox.pack()
 
         self.output_testset = ttk.Button(self.output_frame,text="Set Test",command=self._set_test)
@@ -88,13 +91,13 @@ class MainApplication(ttk.Frame):
 
         i = self.input_listbox.curselection()[0]
         get_result = self.ext_modules[i].get()
-        print("(VoluxGui) get method result:",get_result)
+        print("(VoluxGui) get method response:",get_result)
 
     def _set_test(self):
 
         i = self.output_listbox.curselection()[0]
         get_result = self.ext_modules[i].set(int(self.output_testset_data.get()))
-        print("(VoluxGui) set method test:",get_result)
+        print("(VoluxGui) set method response:",get_result)
 
     def _update_input_listbox(self):
 
