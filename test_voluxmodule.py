@@ -39,3 +39,13 @@ class Test_VoluxTestModule:
             'name': 'Volux Test Module',
             'attr': 'test'
         }
+
+    def test_bad_shared_modules(self):
+        with pytest.raises(TypeError):
+            vlx.add_module(VoluxTestModule(shared_modules={'key': 'value'}))
+        with pytest.raises(TypeError):
+            vlx.add_module(VoluxTestModule(shared_modules=None))
+        with pytest.raises(TypeError):
+            vlx.add_module(VoluxTestModule(shared_modules="o hai mark"))
+        with pytest.raises(TypeError):
+            vlx.add_module(VoluxTestModule(shared_modules=24))
