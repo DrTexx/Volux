@@ -5,12 +5,13 @@ import volux
 vlx = volux.VoluxOperator()
 
 class VoluxTestModule(volux.VoluxModule):
-    def __init__(self,*args,**kwargs):
+    def __init__(self,shared_modules=[],*args,**kwargs):
         super().__init__(
             module_name="Volux Test Module",
             module_attr="test",
             module_get=self.get,
-            module_set=self.set
+            module_set=self.set,
+            shared_modules=shared_modules
         )
         self.val = 0
 

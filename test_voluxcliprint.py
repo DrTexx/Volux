@@ -16,5 +16,5 @@ class Test_voluxcliprint:
         assert vlx.get_modules() == vlx.modules
 
     def test_set_value(self):
-        vlx.demo.set(20)
-        assert vlx.demo.get() == 20
+        vlx.cli.set(20)
+        assert vlx.cli.get() == 20
