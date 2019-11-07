@@ -48,8 +48,9 @@ class MainApplication(ttk.Frame):
         self.module_root = module_root
         self.ext_modules = self.module_root._shared_modules
 
-        self.input_frame = ttk.Frame(self)
+        print("(VoluxGUI) shared modules:",self.ext_modules)
 
+        self.input_frame = ttk.Frame(self)
         self.input_frame.pack(side="left",fill=tk.Y,padx="14px",pady="14px")
 
         self.input_label = ttk.Label(self.input_frame,text="INPUTS")
@@ -61,10 +62,23 @@ class MainApplication(ttk.Frame):
         self.input_testget = ttk.Button(self.input_frame,text="Get Test",command=self._get_test)
         self.input_testget.pack()
 
-        print("(VoluxGUI) shared modules:",self.ext_modules)
+        self.output_frame = ttk.Frame(self)
+        self.output_frame.pack(side="left",fill=tk.Y,padx="14px",pady="14px")
+
+        self.output_label = ttk.Label(self.output_frame,text="OUTPUTS")
+        self.output_label.pack(side="top",fill=tk.BOTH)
+
+        self.output_listbox = tk.Listbox(self.output_frame, selectmode=tk.SINGLE)
+        self.output_listbox.pack()
+
+        self.output_testset = ttk.Button(self.output_frame,text="Set Test",command=self._set_test)
+        self.output_testset.pack()
+
+        self.output_testset_data = ttk.Entry(self.output_frame)
+        self.output_testset_data.pack()
 
         self._update_input_listbox()
-
+        self._update_output_listbox()
 
     def _update_loop(self):
 
@@ -76,27 +90,31 @@ class MainApplication(ttk.Frame):
         get_result = self.ext_modules[i].get()
         print("(VoluxGui) get method result:",get_result)
 
+    def _set_test(self):
+
+        i = self.output_listbox.curselection()[0]
+        get_result = self.ext_modules[i].set(int(self.output_testset_data.get()))
+        print("(VoluxGui) set method test:",get_result)
+
     def _update_input_listbox(self):
 
         for i in range(len(self.ext_modules)):
-            module_name = self.ext_modules[i]._module_name
-            self.input_listbox.insert(tk.END,module_name)
 
-        # for key in self.get_method_dict:
-        #
-        #     item = self.get_method_dict[key]
-        #     print(key,item)
-        #
-        # self.input_listbox_dict = {}
-        #
-        # for index, module_name in enumerate(self.get_methods, 0): # add each found device to the GUI list
-        #     print(index,module_name)
-        #     self.input_listbox_dict.update({index: self.get_methods[module_name]})
-        #
-        # for key in self.input_listbox_dict:
-        #
-        #     item = self.input_listbox_dict[key]
-        #     self.input_listbox.insert(key,item)
+            module = self.ext_modules[i]
+
+            if hasattr(module,'get'):
+
+                self.input_listbox.insert(tk.END,module._module_name)
+
+    def _update_output_listbox(self):
+
+        for i in range(len(self.ext_modules)):
+
+            module = self.ext_modules[i]
+
+            if hasattr(module,'set'):
+
+                self.output_listbox.insert(tk.END,module._module_name)
 
     def _get_selected_mdevices(self):
         devices_to_return = [self.parent.mlifx.managed_devices[device_i] for device_i in device_indexes]
