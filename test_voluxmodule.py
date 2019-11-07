@@ -11,7 +11,8 @@ class VoluxTestModule(volux.VoluxModule):
             module_attr="test",
             module_get=self.get,
             module_set=self.set,
-            shared_modules=shared_modules
+            shared_modules=shared_modules,
+            pollrate=None
         )
         self.val = 0
 
