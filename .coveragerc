@@ -40,6 +40,6 @@ omit =
     # not appropriate for testing
     volux/__main__.py
     # not appropriate for testing
-    volux/demos
+    volux/demos/*
 
 #ignore_errors = True
