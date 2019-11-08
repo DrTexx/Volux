@@ -26,6 +26,16 @@ Install the latest stable build
 $ pip install volux
 ```
 
+### Launch GUI (in alpha)
+```bash
+$ volux launch
+```
+
+### Commands
+```bash
+$ volux --help
+```
+
 ### Demo
 Run the volume/light bar demo
 ```bash
