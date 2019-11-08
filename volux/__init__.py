@@ -11,7 +11,7 @@ from .demo import *
 
 __metadata_version__ = "2.1"
 __name__ = "volux"
-__version__ = "0.9.9"
+__version__ = "0.9.10"
 # __platform__ = "" # (multiple-use) only if the platform is not listed in the “Operating System” Trove classifiers
 # __supported_platform__ = #
 __summary__ = "High-level media/entertainment workflow automation platform"
@@ -52,7 +52,9 @@ __requires_dist__ = [  # requirements
     "pycaw; platform_system == 'Windows'",
     "comtypes==1.1.7; platform_system == 'Windows'",
     "pyalsaaudio==0.8.4; platform_system == 'Linux'",
+    "PyAudio==0.2.11; platform_system == 'Linux'",
     "colorama==0.4.1",
+    "numpy==1.17.0"
 ]
 __requires_python__ = [">=3"]  # required python version
 __requires_external__ = []  # external requirements
