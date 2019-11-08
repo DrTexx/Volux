@@ -8,7 +8,13 @@ class VoluxBar(VoluxModule):
             module_name="Volux Bar",
             module_attr="bar",
             module_get=self.get,
+            get_type=int,
+            get_min=0,
+            get_max=100,
             module_set=self.set,
+            set_type=int,
+            set_min=0,
+            set_max=100,
             shared_modules=shared_modules,
             pollrate=pollrate
         )
