@@ -68,7 +68,7 @@ class MainApplication(ttk.Frame):
         self.parent.lift() # ensure window on top of others
         self._refresh_bar()
         # print("refreshing...")
-        self.after(ms_per_loop,self._pollrate) # repeat _update_loop()
+        self.after(self.VoluxBar_obj._pollrate,self._update_loop) # repeat _update_loop()
 
     def _refresh_bar(self):
         val = self.VoluxBar_obj.modes[self.VoluxBar_obj.mode].get()
