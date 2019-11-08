@@ -6,15 +6,39 @@ colorama.init()
 
 def main():
 
-    # Initialize the parser
-    parser = argparse.ArgumentParser(description="High-level media/entertainment workflow automation platform")
+    list_choices = ['demos','modules','scripts']
+    wip_string = "{}not yet implemented{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL)
 
-    # Add the positional parameter
-    parser.add_argument('-l','--list', action="store", help="prints a list of available demos/modules", default=None)
-    parser.add_argument('-d','--demo', action="store", help="run the specified demo", default=None)
-    parser.add_argument('-i','--info', action="store", help="show info for installed volux module", default=None)
-    parser.add_argument('-V','--version', action="store_true", help="Print version information and exit")
-    parser.add_argument('-g','--gui', action="store_true", help="Launches volux GUI")
+    # create the top-level parser
+    parser = argparse.ArgumentParser()
+
+    # optional arguments before sub-commands
+    parser.add_argument('-V','--version', action="store_true", help="print version information and exit")
+    parser.add_argument('--lists', action="store_true", help="show available lists")
+
+    # create subparsers object
+    subparsers = parser.add_subparsers(dest="subcommand",help='available sub-commands')
+
+    # create the parser for the "list" command
+    parser_list = subparsers.add_parser('list', help='list available demos, modules or scripts')
+    parser_list.add_argument('LIST', action="store", help='name of list to retrieve')
+
+    # create the parser for the "demo" command
+    parser_demo = subparsers.add_parser('demo', help='run the specified demo')
+    parser_demo.add_argument('DEMO', action="store", help='name of the demo to run')
+    parser_demo.add_argument('--baz', choices='XYZ', help='baz help')
+
+    # create the parser for the "script" command
+    parser_script = subparsers.add_parser('script', help="run the specified script")
+    parser_script.add_argument("SCRIPT", action="store", help="name of script to run")
+
+    # create the parser for the "info" command
+    parser_info = subparsers.add_parser('info', help="show information for a specified module")
+    parser_info.add_argument("MODULE", action="store", help="name of the module to get info for")
+
+    # create the parser for the "launch" command
+    parser_launch = subparsers.add_parser('launch', help="launch the volux GUI", description="launches the volux GUI")
+    parser_launch.add_argument("--foo", action="store_true", help="a test optional argument")
 
     # Parse the arguments
     arguments = parser.parse_args()
@@ -23,58 +47,73 @@ def main():
 
         from volux import __name__, __version__
         print(__name__,__version__)
+        exit()
 
-    if arguments.gui == True:
+    elif arguments.lists == True:
 
+        print("Available lists:",", ".join(list_choices))
+        exit()
+
+    if arguments.subcommand == 'launch':
+
+        print("launching...")
         from volux.scripts import launch_gui
         launch_gui()
+        exit()
 
-    elif arguments.list == 'demos':
+    elif arguments.subcommand == 'list':
 
-        from volux import demos, VoluxDemo, VoluxCore
+        if arguments.LIST == 'demos':
+            from volux import VoluxCore
+            _core = VoluxCore()
+            demos_string = ",".join(_core.get_demo_aliases())
+            print("Available demos:",demos_string)
 
-        _core = VoluxCore()
+        elif arguments.LIST == 'modules':
+            print("Available modules:",wip_string)
 
-        items = _core.get_python_module_items(demos) # for each item in the demos module
-        demos_collected = _core.filter_by_superclass(items,VoluxDemo) # filter out items not inherited from VoluxDemo class
-        demo_aliases = [demo._alias for demo in demos_collected]
-        print("available demos:",demo_aliases)
-
-    elif arguments.list == 'modules':
-
-        raise NotImplementedError()
-
-    elif not arguments.demo == None:
-
-        from volux import demos, VoluxDemo, VoluxCore
-
-        _core = VoluxCore()
-
-        items = _core.get_python_module_items(demos) # for each item in the demos module
-        demos_collected = _core.filter_by_superclass(items,VoluxDemo) # filter out items not inherited from VoluxDemo class
-        demo_dict = _core.gen_demo_dict(demos_collected)
-
-        if arguments.demo in demo_dict:
-
-            demo_dict[arguments.demo].run_demo()
+        elif arguments.LIST == 'scripts':
+            print("Available scripts:",wip_string)
 
         else:
 
-            print("{}Error: '{}' is not a valid demo{}".format(colorama.Fore.RED,arguments.demo,colorama.Style.RESET_ALL))
-            print("{}Tip: Type 'volux --list demos' for a list of available demos{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
+            print("{}Error: '{}' is not a valid list name{}".format(colorama.Fore.RED,arguments.LIST,colorama.Style.RESET_ALL))
+            print("{}Tip: See 'volux --lists'{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
 
-    elif not arguments.info == None:
+        exit()
 
-        raise NotImplementedError()
+    elif arguments.subcommand == 'demo':
+
+        from volux import demos, VoluxDemo, VoluxCore
+
+        _core = VoluxCore()
+        demo_dict = _core.get_demo_dict()
+        if arguments.DEMO in demo_dict:
+            demo_dict[arguments.DEMO].run_demo()
+        else:
+            print("{}Error: '{}' is not a valid demo{}".format(colorama.Fore.RED,arguments.DEMO,colorama.Style.RESET_ALL))
+            print("{}Tip: See 'volux list demos'{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
+
+        exit()
+
+    elif arguments.subcommand == 'script':
+
+        print("script launching is {}".format(wip_string))
+
+        exit()
+
+    elif arguments.subcommand == 'info':
+
+        print("module info is {}".format(wip_string))
+
+        exit()
 
     else:
 
         print("{}Error: No command specified{}".format(colorama.Fore.RED,colorama.Style.RESET_ALL))
         print("{}Tip: See 'volux --help'{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
 
-    # for i in range(0, arguments.repeat):
-    #
-    #     print(arguments.printme)
+        exit()
 
 if __name__ == '__main__':
 
