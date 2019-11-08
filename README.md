@@ -29,7 +29,7 @@ $ pip install volux
 ### Demo
 Run the volume/light bar demo
 ```bash
-$ volux --demo bar
+$ volux demo bar
 ```
 
 ## About volux

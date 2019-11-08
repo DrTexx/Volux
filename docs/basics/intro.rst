@@ -32,7 +32,7 @@ Once volux is finished installing, you can run the bar demo like so:
 
 .. prompt:: bash $
 
-    volux --demo bar
+    volux demo bar
 
 You should now see a transparent bar at the bottom of your screen.
 
