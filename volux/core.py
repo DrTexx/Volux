@@ -7,7 +7,13 @@ class VoluxCore(VoluxModule):
             module_name="Volux Core",
             module_attr="core",
             module_get=None,
+            get_type=None,
+            get_min=None,
+            get_max=None,
             module_set=None,
+            set_type=None,
+            set_min=None,
+            set_max=None,
             shared_modules=[],
             pollrate=None
         )
@@ -41,3 +47,20 @@ class VoluxCore(VoluxModule):
 
         demo_dict = {demo._alias: demo for demo in demo_list}
         return demo_dict
+
+    def get_demos(self):
+
+        from volux import demos, VoluxDemo, VoluxCore
+        items = self.get_python_module_items(demos) # for each item in the demos module
+        demos_collected = self.filter_by_superclass(items,VoluxDemo) # filter out items not inherited from VoluxDemo class
+        return demos_collected
+
+    def get_demo_aliases(self):
+
+        demos_collected = self.get_demos()
+        demo_aliases = [demo._alias for demo in demos_collected]
+        return demo_aliases
+
+    def get_demo_dict(self):
+
+        return {demo._alias: demo for demo in self.get_demos()}
