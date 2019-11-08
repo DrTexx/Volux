@@ -2,7 +2,13 @@ from ..demo import VoluxDemo
 
 class DemoVolLuxBar(VoluxDemo):
     def __init__(self,*args,**kwargs):
-        super().__init__(demo_name='Demo Vol Lux Bar',demo_method=self.run_demo,alias="bar",*args,**kwargs)
+        super().__init__(
+            demo_name='Demo Vol Lux Bar',
+            demo_method=self.run_demo,
+            alias="bar",
+            *args,
+            **kwargs
+        )
         self.superclass = VoluxDemo
 
     def run_demo(self):
