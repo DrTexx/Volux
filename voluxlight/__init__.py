@@ -8,7 +8,13 @@ class VoluxLight(VoluxModule):
             module_name="Volux Light",
             module_attr="light",
             module_get=self.get,
+            get_type=float,
+            get_min=0,
+            get_max=65535,
             module_set=self.set,
+            set_type=float,
+            set_min=0,
+            set_max=65535,
             shared_modules=shared_modules,
             pollrate=pollrate
         )
@@ -48,6 +54,8 @@ class VoluxLight(VoluxModule):
         for device in self.devices:
             device.set_power(True)
 
+        print("devices: {}".format(self.devices))
+
     def get(self):
 
         for device in self.devices:
@@ -71,6 +79,12 @@ class VoluxLight(VoluxModule):
             color = device.get_color()
             new_color = (color[0], color[1], new_val * 65535, color[3])
             device.set_color(new_color)
+
+    def set_color(self, new_color):
+
+        for device in self.devices:
+
+            device.set_color(new_color,rapid=True)
 
     def toggle(self):
 

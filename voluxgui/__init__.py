@@ -8,7 +8,13 @@ class VoluxGui(VoluxModule):
             module_name="Volux GUI",
             module_attr="gui",
             module_get=self.get,
+            get_type=None,
+            get_min=None,
+            get_max=None,
             module_set=self.set,
+            set_type=None,
+            set_min=None,
+            set_max=None,
             shared_modules=shared_modules,
             pollrate=pollrate
         )
@@ -48,6 +54,7 @@ class MainApplication(ttk.Frame):
         self.parent = parent
         self.module_root = module_root
         self.ext_modules = self.module_root._shared_modules
+        self.vis_on = tk.IntVar()
 
         print("(VoluxGUI) shared modules:",self.ext_modules)
 
@@ -80,6 +87,12 @@ class MainApplication(ttk.Frame):
 
         self.output_testset_data = ttk.Entry(self.output_frame)
         self.output_testset_data.pack()
+
+        self.demo_slider = ttk.Scale(self.output_frame, from_=0, to=100)
+        self.demo_slider.pack()
+
+        self.visualiser_checkbox = ttk.Checkbutton(self.output_frame, text="Enable Visualiser", variable=self.vis_on)
+        self.visualiser_checkbox.pack()
 
         self._update_input_listbox()
         self._update_output_listbox()
