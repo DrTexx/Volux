@@ -39,11 +39,13 @@ def launch_gui():
 
         _vis_func_thread = threading.Thread(target=vis_func,args=(visHz,))
         _vis_func_thread.start()
-        vlx.gui.init_window()
-        vis_thread.stop()
     except Exception as err:
         print("error with vis:",err)
         vlx.add_module(VoluxGui(shared_modules=[vlx.light,vlx.cli,vlx.audio]))
-        vlx.gui.init_window()
-        vis_thread.stop()
+    vlx.gui.init_window()
     vlx.audio.stop()
+
+    try:
+        vlx.vis.stop()
+    except:
+        print("warning: couldn't stop vlx.vis")
