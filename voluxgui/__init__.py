@@ -54,7 +54,7 @@ class MainApplication(ttk.Frame):
         self.parent = parent
         self.module_root = module_root
         self.ext_modules = self.module_root._shared_modules
-        self.vis_on = tk.IntVar()
+        self.vis_on = tk.BooleanVar()
 
         print("(VoluxGUI) shared modules:",self.ext_modules)
 
@@ -91,8 +91,12 @@ class MainApplication(ttk.Frame):
         self.demo_slider = ttk.Scale(self.output_frame, from_=0, to=100)
         self.demo_slider.pack()
 
-        self.visualiser_checkbox = ttk.Checkbutton(self.output_frame, text="Enable Visualiser", variable=self.vis_on)
-        self.visualiser_checkbox.pack()
+        for smodule in self.ext_modules:
+            if hasattr(smodule,'tk_frame'):
+                setattr(self,smodule.frame_attr,smodule.tk_frame(self))
+                this_frame = getattr(self,smodule.frame_attr)
+                smodule._set_gui_instance(self.module_root)
+                this_frame.pack(side="left",fill=tk.Y,padx="14px",pady="14px")
 
         self._update_input_listbox()
         self._update_output_listbox()

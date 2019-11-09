@@ -3,10 +3,10 @@ import lifxlan
 
 
 class VoluxLight(VoluxModule):
-    def __init__(self, init_mode, init_mode_args=[], group=None, shared_modules=[], pollrate=None, *args, **kwargs):
+    def __init__(self, instance_label, init_mode, init_mode_args=[], group=None, shared_modules=[], pollrate=None, *args, **kwargs):
         super().__init__(
-            module_name="Volux Light",
-            module_attr="light",
+            module_name="Volux Light ({})".format(instance_label),
+            module_attr="light_{}".format(instance_label),
             module_get=self.get,
             get_type=float,
             get_min=0,
@@ -19,6 +19,7 @@ class VoluxLight(VoluxModule):
             pollrate=pollrate
         )
         init_mode_options = ["all_devices","device"]
+        self.instance_label = instance_label
         self.init_mode = init_mode
         self.init_mode_args = init_mode_args
         self.group = group  # note: group labels are caps sensitive
