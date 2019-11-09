@@ -57,5 +57,5 @@ setuptools.setup(
             '{}={}:__main__.main'.format(mypackage.__name__,mypackage.__name__),
         ],
     },
-    packages=setuptools.find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
+    packages=setuptools.find_packages(exclude=mypackage.__exclude_packages__),  # Required
 )

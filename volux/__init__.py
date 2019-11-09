@@ -11,7 +11,7 @@ from .demo import *
 
 __metadata_version__ = "2.1"
 __name__ = "volux"
-__version__ = "0.9.11"
+__version__ = "0.9.12"
 # __platform__ = "" # (multiple-use) only if the platform is not listed in the “Operating System” Trove classifiers
 # __supported_platform__ = #
 __summary__ = "High-level media/entertainment workflow automation platform"
@@ -64,5 +64,6 @@ __project_urls__ = {  # a browsable URL for the project and a label for it, sepa
     "Funding": "https://paypal.me/denverpallis",
     "Docs": "https://{}.readthedocs.io".format(__name__),
 }
+__exclude_packages__ = ['contrib', 'docs', 'tests', 'voluxlightvisualiser']
 
 # metadata standard: https://packaging.python.org/specifications/core-metadata/
