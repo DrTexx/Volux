@@ -91,11 +91,11 @@ class VoluxLight(VoluxModule):
             new_color = (color[0], color[1], new_val * 65535, color[3])
             device.set_color(new_color)
 
-    def set_color(self, new_color):
+    def set_color(self, new_color, duration=20, rapid=True):
 
         for device in self.devices:
 
-            device.set_color(new_color,rapid=True)
+            device.set_color(new_color, duration=duration, rapid=rapid)
 
     def toggle(self):
 

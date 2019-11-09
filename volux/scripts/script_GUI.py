@@ -49,7 +49,10 @@ def launch_gui():
                     while vlx.gui.mainApp.vis_frame.vis_on.get() == True:
                         vlx.vis.set(vlx.audio.get())
                         vis_get = vlx.vis.get_from_gui()
-                        vlx.light_office.set_color(vis_get)
+                        vlx.light_office.set_color(
+                            vis_get,
+                            # duration=50
+                        )
                         sleep(1/loop_hz)
                     vlx.vis.stop()
 
