@@ -18,11 +18,11 @@ class VoluxLight(VoluxModule):
             shared_modules=shared_modules,
             pollrate=pollrate
         )
-        init_mode_options = ["all_devices","device"]
+        init_mode_options = ["all_devices","device","group"]  # note: all types of labels are caps-sensitive
         self.instance_label = instance_label
         self.init_mode = init_mode
         self.init_mode_args = init_mode_args
-        self.group = group  # note: group labels are caps sensitive
+        # self.group = group  # note: group labels are caps sensitive
 
         self.lifx = lifxlan.LifxLAN(None)
 
@@ -45,12 +45,22 @@ class VoluxLight(VoluxModule):
                 else:
                     raise TypeError("mode_args must be of type 'dict'")
 
-        if not self.group == None:
-            for device in self.devices:
-                if not device.get_group_label() == self.group:
-                    device.set_power(False)
-                    self.devices.remove(device)
-                    print("removed '{}' from selected devices because it's not in group '{}'".format(device.get_label(),self.group))
+            elif self.init_mode == "group":
+                if 'group_label' in self.init_mode_args:
+                    devices = self.lifx.get_devices_by_group(self.init_mode_args['group_label']).devices
+                    if len(devices) > 0:
+                        self.devices = devices
+                    else:
+                        raise Exception("no devices found for group_label {}! Please note group_label is caps-sensitive!".format(self.init_mode_args['group_label']))
+                else:
+                    raise KeyError("'group_label' not specified in mode_args")
+
+        # if not self.group == None:
+        #     for device in self.devices:
+        #         if not device.get_group_label() == self.group:
+        #             device.set_power(False)
+        #             self.devices.remove(device)
+        #             print("removed '{}' from selected devices because it's not in group '{}'".format(device.get_label(),self.group))
 
         for device in self.devices:
             device.set_power(True)
