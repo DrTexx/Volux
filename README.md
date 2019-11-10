@@ -25,6 +25,7 @@ Install system requirements
 | OS | Command |
 | --- | --- |
 | Debian 10 | `$ sudo apt install python3 python3-tk python3-dev python3-venv libasound2-dev portaudio19-dev` |
+| Darwin (MacOS) | `$ brew install tcl-tk` `$ brew link tcl-tk --force` |
 
 Install the latest stable build
 ```bash
@@ -104,7 +105,6 @@ While hovering over the bar:
 ### External Requirements
 | Platform       | External Requirements      |
 | ---            | ---                        |
-| Darwin (MacOS) | ```$ brew install tcl-tk``` ```$ brew link tcl-tk --force``` |
 <!-- | Linux (Debian) | ```$ sudo apt-get install python3-tk python3-xlib python3-dbus libasound2-dev python3-dev``` | -->
 
 ## Issues and bugs
