@@ -9,7 +9,6 @@
 | BRANCH  | BUILD | COVERAGE | REQUIREMENTS | ISSUES | OPEN PRs |
 | ---     | ---          | ---      | ---          | ---    | ---      |
 | Master  | [![Build Status](https://travis-ci.org/DrTexx/Volux.svg?branch=master)](https://travis-ci.org/DrTexx/Volux) | [![codecov](https://codecov.io/gh/DrTexx/Volux/branch/master/graph/badge.svg)](https://codecov.io/gh/DrTexx/Volux) | [![Requirements Status](https://requires.io/github/DrTexx/Volux/requirements.svg?branch=master)](https://requires.io/github/DrTexx/Volux/requirements/?branch=master) | [![GitHub issues](https://img.shields.io/github/issues/DrTexx/volux.svg?branch=master)](https://GitHub.com/DrTexx/volux/issues/) | [![GitHub pull-requests](https://img.shields.io/github/issues-pr/DrTexx/volux.svg?branch=master)](https://GitHub.com/DrTexx/volux/pull/) |
-| Develop | ![Build Status](https://travis-ci.org/DrTexx/Volux.svg?branch=develop) | [![codecov](https://codecov.io/gh/DrTexx/Volux/branch/develop/graph/badge.svg)](https://codecov.io/gh/DrTexx/Volux/branch/develop) | [![Requirements Status](https://requires.io/github/DrTexx/Volux/requirements.svg?branch=develop)](https://requires.io/github/DrTexx/Volux/requirements/?branch=develop) |
 
 ## Description
 Volux is a high-level media/entertainment workflow automation platform.

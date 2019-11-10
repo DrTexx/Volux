@@ -54,7 +54,7 @@ __requires_dist__ = [  # requirements
     "pyalsaaudio==0.8.4; platform_system == 'Linux'",
     "PyAudio==0.2.11; platform_system == 'Linux'",
     "colorama==0.4.1",
-    "numpy==1.17.0"
+    "numpy==1.17.3"
 ]
 __setup_requires__ = ['wheel','setuptools']
 __requires_python__ = [">=3"]  # required python version
