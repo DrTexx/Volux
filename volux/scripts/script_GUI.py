@@ -24,8 +24,10 @@ def launch_gui():
 
     # try adding voluxlight module
     try:
-        vlx.add_module(VoluxLight(instance_label="office",init_mode="group",init_mode_args={'group_label': 'Office'}))
-        gui_shared_modules.append(vlx.light_office)
+        vlx.add_module(VoluxLight(instance_label="ceiling",init_mode="device",init_mode_args={'label': 'Office Ceiling'}))
+        vlx.add_module(VoluxLight(instance_label="strip",init_mode="device",init_mode_args={'label': 'Strip'}))
+        gui_shared_modules.append(vlx.light_ceiling)
+        gui_shared_modules.append(vlx.light_strip)
     except Exception as err:
         print("{}WARNING: couldn't add light module/s... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
 
@@ -49,8 +51,14 @@ def launch_gui():
                     while vlx.gui.mainApp.vis_frame.vis_on.get() == True:
                         vlx.vis.set(vlx.audio.get())
                         vis_get = vlx.vis.get_from_gui()
-                        vlx.light_office.set_color(
+                        vlx.vis.set(100-vlx.audio.get())
+                        vis_get_invert = vlx.vis.get_from_gui()
+                        vlx.light_ceiling.set_color(
                             vis_get,
+                            # duration=50
+                        )
+                        vlx.light_strip.set_color(
+                            vis_get_invert,
                             # duration=50
                         )
                         sleep(1/loop_hz)
