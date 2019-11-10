@@ -42,6 +42,7 @@ setuptools.setup(
     license=mypackage.__license__,
     classifiers=mypackage.__classifiers__,
     install_requires=mypackage.__requires_dist__,
+    setup_requires=mypackage.__setup_requires__,
     requires_python=mypackage.__requires_python__,
     requires_external=mypackage.__requires_external__,
     project_urls=mypackage.__project_urls__,

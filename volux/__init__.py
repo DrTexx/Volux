@@ -56,6 +56,7 @@ __requires_dist__ = [  # requirements
     "colorama==0.4.1",
     "numpy==1.17.0"
 ]
+__setup_requires__ = ['wheel','setuptools']
 __requires_python__ = [">=3"]  # required python version
 __requires_external__ = []  # external requirements
 __project_urls__ = {  # a browsable URL for the project and a label for it, separated by a comma
