@@ -64,3 +64,12 @@ class VoluxCore(VoluxModule):
     def get_demo_dict(self):
 
         return {demo._alias: demo for demo in self.get_demos()}
+
+    def get_script_names(self):
+
+        from volux import scripts
+        script_names = []
+        for item_name in dir(scripts):
+            if 'script_' in item_name:
+                script_names.append(item_name)
+        return script_names

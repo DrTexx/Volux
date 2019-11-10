@@ -66,14 +66,17 @@ def main():
         if arguments.LIST == 'demos':
             from volux import VoluxCore
             _core = VoluxCore()
-            demos_string = ",".join(_core.get_demo_aliases())
+            demos_string = ", ".join(_core.get_demo_aliases())
             print("Available demos:",demos_string)
 
         elif arguments.LIST == 'modules':
             print("Available modules:",wip_string)
 
         elif arguments.LIST == 'scripts':
-            print("Available scripts:",wip_string)
+            from volux import VoluxCore
+            _core = VoluxCore()
+            scripts_string = ", ".join(_core.get_script_names())
+            print("Available scripts:",scripts_string)
 
         else:
 
