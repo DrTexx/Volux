@@ -25,12 +25,14 @@ Install system requirements
 | OS | Command |
 | --- | --- |
 | Debian 10 | `$ sudo apt install python3 python3-tk python3-dev python3-venv libasound2-dev portaudio19-dev` |
+| Windows 10 | Install [python3.x](https://www.python.org/downloads/) (if not already installed). Install Microsoft Visual C++ 14.0 from [this installer](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16). Check the 'C++ build tools' checkbox and click 'Install' |
 | Darwin (MacOS) | `$ brew install tcl-tk` `$ brew link tcl-tk --force` |
 
 Install the latest stable build
-```bash
-$ pip3 install volux
-```
+
+| OS  | Command |
+| --- | --- |
+| Any | `$ pip3 install volux --user` |
 
 List available commands
 ```bash
