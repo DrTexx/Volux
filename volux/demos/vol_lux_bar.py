@@ -27,7 +27,6 @@ class DemoVolLuxBar(VoluxDemo):
         vlx.bar.add_mode("default",vlx.volume)
 
         try:
-            raise Exception("OH SHIT")
             from voluxlight import VoluxLight
             vlx.add_module(VoluxLight(instance_label="demo", init_mode="device", init_mode_args={'label': 'Demo Bulb'}))
             vlx.bar.add_mode("light",vlx.light_demo)
