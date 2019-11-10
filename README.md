@@ -19,13 +19,17 @@ Volux uses readthedocs.io for it's documentation.
 Read it [here](https://volux.readthedocs.io/en/latest/).
 
 ## Getting Started
+### Important Notes
+#### Incompatibilities
+Please note that pyaudio - a requirement of the voluxaudio module - does not support python 3.8 on windows 10. Any version of Python 3.6.x should work fine.
+
 ### Installation
 Install system requirements
 
 | OS | Command |
 | --- | --- |
 | Debian 10 | `$ sudo apt install python3 python3-tk python3-dev python3-venv libasound2-dev portaudio19-dev` |
-| Windows 10 | Install [python3.x](https://www.python.org/downloads/) (if not already installed). Install Microsoft Visual C++ 14.0 from [this installer](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16). Check the 'C++ build tools' checkbox and click 'Install' |
+| Windows 10 | Install [python3.7.x](https://www.python.org/downloads/) (if not already installed). Install Microsoft Visual C++ 14.0 from [this installer](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16). Check the 'C++ build tools' checkbox and click 'Install' |
 | Darwin (MacOS) | `$ brew install tcl-tk` `$ brew link tcl-tk --force` |
 
 Install the latest stable build

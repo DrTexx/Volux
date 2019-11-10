@@ -52,7 +52,7 @@ __requires_dist__ = [  # requirements
     "pycaw; platform_system == 'Windows'",
     "comtypes==1.1.7; platform_system == 'Windows'",
     "pyalsaaudio==0.8.4; platform_system == 'Linux'",
-    "PyAudio==0.2.11; platform_system == 'Linux'",
+    "PyAudio==0.2.11",
     "colorama==0.4.1",
     "numpy"
 ]
