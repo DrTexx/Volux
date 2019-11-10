@@ -1,4 +1,5 @@
 from ..demo import VoluxDemo
+import colorama
 
 class DemoVolLuxBar(VoluxDemo):
     def __init__(self,*args,**kwargs):
@@ -16,17 +17,24 @@ class DemoVolLuxBar(VoluxDemo):
         import volux
         from voluxbar import VoluxBar
         from voluxvolume import VoluxVolume
-        from voluxlight import VoluxLight
 
         # create Volux Operator object (hub for communication between modules)
         vlx = volux.VoluxOperator()
 
-        # load Volux Bar module
         vlx.add_module(VoluxBar())
         vlx.add_module(VoluxVolume())
-        vlx.add_module(VoluxLight("all_devices", init_mode_args={'label': 'Strip'}, group="Office"))
+
         vlx.bar.add_mode("default",vlx.volume)
-        vlx.bar.add_mode("light",vlx.light)
+
+        try:
+            raise Exception("OH SHIT")
+            from voluxlight import VoluxLight
+            vlx.add_module(VoluxLight(instance_label="demo", init_mode="device", init_mode_args={'label': 'Demo Bulb'}))
+            vlx.bar.add_mode("light",vlx.light_demo)
+        except Exception as err:
+            print("{}WARNING: couldn't add light module/s... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
+
+        # load Volux Bar module
         vlx.bar.init_window()
 
 vol_lux_bar_demo = DemoVolLuxBar()
