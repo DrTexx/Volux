@@ -18,7 +18,7 @@ class VoluxLight(VoluxModule):
             shared_modules=shared_modules,
             pollrate=pollrate
         )
-        init_mode_options = ["all_devices","device","group"]  # note: all types of labels are caps-sensitive
+        init_mode_options = ["all_devices","device","group"]  # note: all types of labels are case-sensitive
         self.instance_label = instance_label
         self.init_mode = init_mode
         self.init_mode_args = init_mode_args
