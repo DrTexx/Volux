@@ -11,7 +11,7 @@ from .demo import *
 
 __metadata_version__ = "2.1"
 __name__ = "volux"
-__version__ = "0.9.14"
+__version__ = "0.9.15"
 # __platform__ = "" # (multiple-use) only if the platform is not listed in the “Operating System” Trove classifiers
 # __supported_platform__ = #
 __summary__ = "High-level media/entertainment workflow automation platform"

@@ -1,5 +1,6 @@
 *.pyc
 venv_dev/
+venv_testing/
 .coverage
 coverage.xml
 docs/_build
