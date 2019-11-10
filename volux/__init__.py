@@ -48,8 +48,6 @@ __classifiers__ = [
     "Topic :: Software Development :: User Interfaces",
 ]
 __requires_dist__ = [  # requirements
-    "setuptools", 
-    "wheel",
     "lifxlan==1.2.5",
     "pycaw; platform_system == 'Windows'",
     "comtypes==1.1.7; platform_system == 'Windows'",
