@@ -49,6 +49,12 @@ class Test_operator:
         for demo_x in vlx.core.get_demos():
             assert demo_x.superclass == volux.VoluxDemo
 
+    def test_get_demo_aliases(self):
+
+        raw_demo_aliases = [d._alias for d in vlx.core.get_demos()]
+        for demo_alias in vlx.core.get_demo_aliases():
+            assert demo_alias in raw_demo_aliases
+
     def test_get_script_names(self):
 
         script_names = vlx.core.get_script_names()
