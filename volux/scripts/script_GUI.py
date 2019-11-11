@@ -31,6 +31,12 @@ def launch_gui():
     except Exception as err:
         print("{}WARNING: couldn't add light module/s... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
 
+    try:
+        while hasattr(vlx,'light_all') == False:
+            vlx.add_module(VoluxLight(instance_label="all",init_mode="all_devices"))
+            gui_shared_modules.append(vlx.light_all)
+    except:
+        pass
     # try adding voluxlightvisualiser module
     try:
         from voluxlightvisualiser import VoluxLightVisualiser, INTENSE_MODE
@@ -68,8 +74,12 @@ def launch_gui():
                         vlx.vis.set(100-amp)
                         vis_get_invert = vlx.vis.get_from_gui()
 
-                        vlx.light_strip.set_color(vis_get)
-                        vlx.light_ceiling.set_color(vis_get_invert)
+                        if hasattr(vlx,'light_strip'):
+                            vlx.light_strip.set_color(vis_get)
+                        if hasattr(vlx,'light_ceiling'):
+                            vlx.light_ceiling.set_color(vis_get_invert)
+                        if hasattr(vlx,'light_all'):
+                            vlx.light_all.set_color(vis_get)
 
                         sleep(1/loop_hz)
 
