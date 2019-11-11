@@ -44,5 +44,7 @@ omit =
     volux/demos/*
     # not appropriate for testing
     volux/scripts/*
+    # major wip
+    voluxaudio/*
 
 #ignore_errors = True
