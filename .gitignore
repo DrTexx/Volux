@@ -7,5 +7,4 @@ docs/_build
 .flatpak-builder
 build-dir
 volux-repo
-voluxaudio
 voluxlightvisualiser
