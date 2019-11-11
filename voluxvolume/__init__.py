@@ -1,5 +1,5 @@
 from volux import VoluxModule
-import cpaudio
+from voluxvolume import cpaudio
 
 
 class VoluxVolume(VoluxModule):

@@ -6,13 +6,13 @@ platform = platform.system()
 # load the necessary classes / packages / whatever
 
 if platform == "Windows":
-    from cpaudio.Platforms.Windows import MixerController
+    from voluxvolume.cpaudio.Platforms.Windows import MixerController
 
 elif platform == "Darwin":
-    from cpaudio.Platforms.Darwin import MixerController
+    from voluxvolume.cpaudio.Platforms.Darwin import MixerController
 
 elif platform == "Linux":
-    from cpaudio.Platforms.Linux import MixerController
+    from voluxvolume.cpaudio.Platforms.Linux import MixerController
 
 else:
     raise Exception("Platform not recognised!")

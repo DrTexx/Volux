@@ -23,7 +23,7 @@ exclude_lines =
 show_missing = True
 omit =
     # can't test due to no audio
-    cpaudio/*
+    voluxaudio/*
     # can't test due to tkinter
     voluxbar/*
     # can't test because no display
@@ -44,7 +44,5 @@ omit =
     volux/demos/*
     # not appropriate for testing
     volux/scripts/*
-    # major wip
-    voluxaudio/*
 
 #ignore_errors = True
