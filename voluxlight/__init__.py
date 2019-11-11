@@ -43,7 +43,7 @@ class VoluxLight(VoluxModule):
                     else:
                         raise KeyError("'label' not specified in mode_args")
                 else:
-                    raise TypeError("mode_args must be of type 'dict'")
+                    raise TypeError("init_mode_args must be of type 'dict'")
 
             elif self.init_mode == "group":
                 if 'group_label' in self.init_mode_args:

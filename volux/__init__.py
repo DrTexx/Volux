@@ -1,7 +1,7 @@
 #!/usr/bin/env python -e
 
 """
-docstring
+High-level media/entertainment workflow automation platform
 """
 
 from .operator import *
