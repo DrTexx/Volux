@@ -35,6 +35,8 @@ class VoluxGui(VoluxModule):
 
         self.gui_style = ttk.Style()
         self.gui_style.configure('mainApp.TFrame', background="#19191B")
+        self.gui_style.configure('visualiser_bar.TFrame', background="BLACK")
+        self.gui_style.configure('visuliser_bar_fill.TFrame', background="RED")
 
         self.mainApp.pack(side="top", fill=tk.BOTH, expand=True)
         self.root.title("Volux")

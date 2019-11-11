@@ -43,37 +43,42 @@ def launch_gui():
     vlx.add_module(VoluxGui(shared_modules=gui_shared_modules))
 
     if vis_added == True:
-        visHz = 240
-        def vis_func(loop_hz):
-            while True:
-                if vlx.gui.mainApp.vis_frame.vis_on.get() == True:
-                    vlx.vis.start()
-                    while vlx.gui.mainApp.vis_frame.vis_on.get() == True:
-                        vlx.vis.set(vlx.audio.get())
-                        vis_get = vlx.vis.get_from_gui()
-                        vlx.vis.set(100-vlx.audio.get())
-                        vis_get_invert = vlx.vis.get_from_gui()
-                        vlx.light_ceiling.set_color(
-                            vis_get,
-                            # duration=50
-                        )
-                        vlx.light_strip.set_color(
-                            vis_get_invert,
-                            # duration=50
-                        )
-                        sleep(1/loop_hz)
-                    vlx.vis.stop()
 
-                        # print("START VISUALISER")
-                        # vlx.vis.start()
-                        # while vlx.vis._enabled == True:
-                        #     vlx.vis.set(vlx.audio.get())
-                        #     vlx.light.set_color(vlx.vis.get())
-                        #     sleep(1/loop_hz)
+        visHz = 240
+
+        def vis_func(loop_hz):
+
+            while True:
+
+                if vlx.gui.mainApp.vis_frame.vis_on.get() == True:
+
+                    vlx.vis.start()
+                    print("vis threads started...")
+
+                    while vlx.gui.mainApp.vis_frame.vis_on.get() == True:
+
+                        amp = vlx.audio.get()
+
+                        container_width = vlx.gui.mainApp.vis_frame.visualiser_bar.winfo_width()
+                        vlx.gui.mainApp.vis_frame.visualiser_bar_fill.config(width=container_width*(amp/100))
+
+                        vlx.vis.set(amp)
+                        vis_get = vlx.vis.get_from_gui()
+
+                        vlx.vis.set(100-amp)
+                        vis_get_invert = vlx.vis.get_from_gui()
+
+                        vlx.light_strip.set_color(vis_get)
+                        vlx.light_ceiling.set_color(vis_get_invert)
+
+                        sleep(1/loop_hz)
+
+                    vlx.vis.stop()
+                    print("vis threads stopped...")
+
                 sleep(1)
 
-        _vis_func_thread = threading.Thread(target=vis_func,args=(visHz,))
-        _vis_func_thread.start()
+        threading.Thread(target=vis_func,args=(visHz,)).start()
 
     vlx.gui.init_window()
     vlx.audio.stop()
