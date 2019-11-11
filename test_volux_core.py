@@ -55,6 +55,16 @@ class Test_operator:
         for demo_alias in vlx.core.get_demo_aliases():
             assert demo_alias in raw_demo_aliases
 
+    def test_get_demo_dict(self):
+
+        dict = vlx.core.get_demo_dict()
+        all_demo_names = vlx.core.get_demo_aliases()
+        all_demos = vlx.core.get_demos()
+
+        for key in dict:
+            assert key in all_demo_names
+            assert dict[key] in all_demos
+
     def test_get_script_names(self):
 
         script_names = vlx.core.get_script_names()
