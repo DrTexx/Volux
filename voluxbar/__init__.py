@@ -18,6 +18,7 @@ class VoluxBar(VoluxModule):
             shared_modules=shared_modules,
             pollrate=pollrate
         )
+        self.bar_height = 8
         self.modes = {}
         self.mode = 'default'
         self.root = tk.Tk()
@@ -46,10 +47,10 @@ class VoluxBar(VoluxModule):
         self.root.overrideredirect(1) # remove frame of window
         screen_size = (self.root.winfo_screenwidth(), self.root.winfo_screenheight())
         self.root.geometry("{}x{}+{}+{}".format(
-            1920,
-            8,
+            screen_size[0],
+            self.bar_height,
             0,
-            1080-8
+            screen_size[1]-self.bar_height
         )) # define the size of the window
         self.root.wait_visibility(self.root) # required for window transparency
         self.root.wm_attributes("-alpha",0.1) # make window transparent
