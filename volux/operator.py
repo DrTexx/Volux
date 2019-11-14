@@ -5,16 +5,18 @@ from .broker import VoluxBroker
 class VoluxOperator:
     def __init__(self):
         self.modules = {}
-        self.broker = VoluxBroker()
+        self.broker = VoluxBroker(self)
         self.add_module(VoluxCore())
+        self.connections = {}
 
-    def add_module(self, module, ):
+    def add_module(self, module, req_permissions=[]):
 
         if self.validate_module(module):  # if the object passed is a valid module
 
             if not module in self.modules:
 
                 setattr(module,'broker',self.broker)  # add broker to module
+                setattr(module,'req_permissions',req_permissions)  # add broker to module
                 self.modules.update({module.UUID: module})  # add module to operator
                 setattr(self, module._module_attr, module)
                 module._loaded()  # call module's method for when it's finished being loaded
@@ -66,3 +68,4 @@ class VoluxOperator:
 
         else:
             self.connections.update({connection.UUID: connection})
+            print("CONNECTION ADDED: UUID={}".format(connection.UUID))

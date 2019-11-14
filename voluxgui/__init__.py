@@ -16,7 +16,9 @@ class VoluxGui(VoluxModule):
             set_min=None,
             set_max=None,
             shared_modules=shared_modules,
-            pollrate=pollrate
+            pollrate=pollrate,
+            *args,
+            **kwargs
         )
 
         self.root = tk.Tk()
@@ -179,7 +181,8 @@ class MainApplication(ttk.Frame):
             self._get_selected_input_module(),
             self._get_selected_output_module()
         )
-        request = self.broker.create_request()
+        request = RequestNewConnection(self.module_root,connection=connection)
+        self.module_root.broker.process_request(request)
 
         # request = VoluxBrokerRequest(self,action="add_connection",connection)
         # self.broker.process_request(request)

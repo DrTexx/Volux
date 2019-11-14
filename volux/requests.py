@@ -1,5 +1,12 @@
-from .broker import VoluxBrokerRequest
+class VoluxBrokerRequest:
+    def __init__(self,module):
+        self.module = module
 
-class RequestNewConnection:
-    def __init__(self,connection):
+class RequestNewConnection(VoluxBrokerRequest):
+    def __init__(self,module,connection,*args,**kwargs):
+        super().__init__(
+            module=module,
+            *args,
+            **kwargs
+        )
         self.connection = connection
