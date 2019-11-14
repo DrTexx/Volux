@@ -1,14 +1,12 @@
 import volux
-import threading
-from time import sleep
-from voluxcliprint import VoluxCliPrint
-from voluxaudio import VoluxAudio
-from voluxgui import VoluxGui
+from voluxcliprint import VoluxCliPrint  # import CLI module
+from voluxaudio import VoluxAudio  # import audio module
+from voluxgui import VoluxGui  # import GUI module
 
-vlx = volux.VoluxOperator()
+vlx = volux.VoluxOperator()  # create operator class
 
-cli_UUID = vlx.add_module(VoluxCliPrint())
-audio_UUID = vlx.add_module(VoluxAudio())
+cli_UUID = vlx.add_module(VoluxCliPrint())  # load the CLI module
+audio_UUID = vlx.add_module(VoluxAudio())  # load the audio module
 gui_UUID = vlx.add_module(
     VoluxGui(shared_modules=[vlx.audio,vlx.cli]),
     req_permissions=[
@@ -16,7 +14,8 @@ gui_UUID = vlx.add_module(
         volux.RequestGetConnections,
         volux.RequestStartSync
     ]
-)
+)  # add GUI module
 
-vlx.modules[gui_UUID].init_window()  # init GUI
+vlx.modules[gui_UUID].init_window()  # init the GUI
+
 vlx.stop_sync()  # stop syncing connections

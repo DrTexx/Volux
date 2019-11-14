@@ -75,20 +75,26 @@ class VoluxOperator:
 
     def start_sync(self):
 
-        for cUUID in self.connections:
+        if len(self.connections) > 0:
 
-            connection = self.connections[cUUID]
+            for cUUID in self.connections:
 
-            wrapped_sync = self._wrap_sync(connection.sync)
+                connection = self.connections[cUUID]
 
-            self.threads.append(
-                Thread(target=wrapped_sync)
-            )
+                wrapped_sync = self._wrap_sync(connection.sync)
 
-        self.running = True
+                self.threads.append(
+                    Thread(target=wrapped_sync)
+                )
 
-        for thread in self.threads:
-            thread.start()
+            self.running = True
+
+            for thread in self.threads:
+                thread.start()
+
+        else:
+
+            raise Exception("volux operator has no connections to start sync on!")
 
     def _wrap_sync(self,sync_method):
 

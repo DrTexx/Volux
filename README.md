@@ -100,6 +100,40 @@ While hovering over the bar:
 - Settings GUI
 - Interface customisation
 
+### Basic script for creating a workflow
+#### Breakdown of setup
+1. Import the framework + essentials
+  ```python
+  import volux
+  ```
+2. Import modules for use
+  ```python
+  from voluxcliprint import VoluxCliPrint
+  from voluxaudio import VoluxAudio
+  from voluxGui import VoluxGui
+  ```
+3. Create operator object
+  ```python
+  vlx = VoluxOperator()
+  ```
+4. Load the modules into the operator
+  ```python
+  vlx.add_module(VoluxCliPrint())
+  vlx.add_module(VoluxAudio())
+  vlx.add_module(
+      VoluxGui(shared_modules=[vlx.audio,vlx.cli]),
+      req_permissions=[
+          volux.RequestNewConnection,
+          volux.RequestGetConnections,
+          volux.RequestStartSync
+      ]
+  )
+  ```
+5. Launch the GUI!
+  ```python
+  vlx.gui.init_window()
+  ```
+
 ### Supported platforms
 
 <img src="docs/Platform_Windows.svg" width="14pt"/>&nbsp;&nbsp; Windows 7 or later
