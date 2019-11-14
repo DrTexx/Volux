@@ -1,4 +1,4 @@
-from volux import VoluxModule, VoluxConnection
+from volux import VoluxModule, VoluxConnection, RequestNewConnection
 import tkinter as tk
 from tkinter import ttk
 
