@@ -31,14 +31,16 @@ class VoluxGui(VoluxModule):
 
     def set(self, new_val):
 
-        self.example_val = new_val
+        container_width = self.mainApp.value_bar.winfo_width()  # note: wasteful, find alternative or remove in future
+
+        self.mainApp.value_bar_fill.config(width=container_width*(new_val/100))
 
     def init_window(self):
 
         self.gui_style = ttk.Style()
         self.gui_style.configure('mainApp.TFrame', background="#19191B")
-        self.gui_style.configure('visualiser_bar.TFrame', background="BLACK")
-        self.gui_style.configure('visuliser_bar_fill.TFrame', background="RED")
+        self.gui_style.configure('value_bar.TFrame', background="BLACK")
+        self.gui_style.configure('value_bar_fill.TFrame', background="RED")
 
         self.mainApp.pack(side="top", fill=tk.BOTH, expand=True)
         self.root.title("Volux")
@@ -122,6 +124,12 @@ class MainApplication(ttk.Frame):
                 this_frame = getattr(self,smodule.frame_attr)
                 smodule._set_gui_instance(self.module_root)
                 this_frame.pack(side="left",fill=tk.Y,padx="14px",pady="14px")
+
+        self.value_bar = ttk.Frame(self.parent,height=14,width=100,pad="1px")
+        self.value_bar.pack(side="bottom",fill=tk.X)
+
+        self.value_bar_fill = ttk.Frame(self.value_bar,height=14,width=0,style="value_bar_fill.TFrame")
+        self.value_bar_fill.pack(fill=tk.Y)
 
         self._update_input_listbox()
         self._update_output_listbox()
