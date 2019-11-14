@@ -1,4 +1,4 @@
-from volux import VoluxModule, VoluxConnection, RequestNewConnection
+from volux import VoluxModule, VoluxConnection, RequestNewConnection, RequestGetConnections
 import tkinter as tk
 from tkinter import ttk
 
@@ -104,6 +104,9 @@ class MainApplication(ttk.Frame):
         self.connections_create_button = ttk.Button(self.connections_frame,text="CREATE CONNECTIONS",command=self._create_connection)
         self.connections_create_button.pack()
 
+        self.connections_refresh = ttk.Button(self.connections_frame,text="REFRESH CONNECTIONS",command=self._refresh_connections)
+        self.connections_refresh.pack()
+
         self.demo_slider = ttk.Scale(self.output_frame, from_=0, to=100)
         self.demo_slider.pack()
 
@@ -183,6 +186,18 @@ class MainApplication(ttk.Frame):
         )
         request = RequestNewConnection(self.module_root,connection=connection)
         self.module_root.broker.process_request(request)
+
+    def _refresh_connections(self):
+
+        request = RequestGetConnections(self.module_root)
+        connections = self.module_root.broker.process_request(request)
+
+        print("CONNECTIONS:")
+
+        for cUUID in connections:
+
+            connection = connections[cUUID]
+            print(connection)
 
         # request = VoluxBrokerRequest(self,action="add_connection",connection)
         # self.broker.process_request(request)

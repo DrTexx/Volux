@@ -10,3 +10,11 @@ class RequestNewConnection(VoluxBrokerRequest):
             **kwargs
         )
         self.connection = connection
+
+class RequestGetConnections(VoluxBrokerRequest):
+    def __init__(self,module,*args,**kwargs):
+        super().__init__(
+            module=module,
+            *args,
+            **kwargs
+        )
