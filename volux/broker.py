@@ -47,6 +47,21 @@ class VoluxBroker:
                 print("{} request permissions: {}".format(request.module._module_name,request.module.req_permissions))
                 raise PermissionError("{} is not allowed to add new connections".format(request.module._module_name))
 
+        elif type(request) == RequestStartSync:
+
+            print("{} is requesting to start sync...".format(request.module._module_name))
+
+            if type(request) in request.module.req_permissions:
+
+                print("{} has permission to start sync".format(request.module._module_name))
+
+                self.operator.start_sync()
+
+            else:
+
+                print("{} request permissions: {}".format(request.module._module_name,request.module.req_permissions))
+                raise PermissionError("{} is not allowed to start sync".format(request.module._module_name))
+
         else:
 
             raise TypeError("volux broker recieved an invalid request type: {}".format(type(request)))

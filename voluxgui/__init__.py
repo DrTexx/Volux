@@ -1,4 +1,4 @@
-from volux import VoluxModule, VoluxConnection, RequestNewConnection, RequestGetConnections
+from volux import VoluxModule, VoluxConnection, RequestNewConnection, RequestGetConnections, RequestStartSync
 import tkinter as tk
 from tkinter import ttk
 
@@ -107,6 +107,12 @@ class MainApplication(ttk.Frame):
         self.connections_refresh = ttk.Button(self.connections_frame,text="REFRESH CONNECTIONS",command=self._refresh_connections)
         self.connections_refresh.pack()
 
+        self.connections_start = ttk.Button(self.connections_frame, text="start sync", command=self._start_connection_sync)
+        self.connections_start.pack()
+
+        # self.connections_checkbutton = ttk.Checkbutton(self.connections_frame, text="Enable", variable=self.vis_on)
+        # self.connections_checkbutton.pack()
+
         self.demo_slider = ttk.Scale(self.output_frame, from_=0, to=100)
         self.demo_slider.pack()
 
@@ -182,7 +188,8 @@ class MainApplication(ttk.Frame):
 
         connection = VoluxConnection(
             self._get_selected_input_module(),
-            self._get_selected_output_module()
+            self._get_selected_output_module(),
+            1  # todo: this MUST be dynamic
         )
         request = RequestNewConnection(self.module_root,connection=connection)
         self.module_root.broker.process_request(request)
@@ -198,6 +205,12 @@ class MainApplication(ttk.Frame):
 
             connection = connections[cUUID]
             print(connection)
+
+    def _start_connection_sync(self):
+
+        request = RequestStartSync(self.module_root)
+
+        self.module_root.broker.process_request(request)
 
         # request = VoluxBrokerRequest(self,action="add_connection",connection)
         # self.broker.process_request(request)

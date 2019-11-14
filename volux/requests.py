@@ -18,3 +18,11 @@ class RequestGetConnections(VoluxBrokerRequest):
             *args,
             **kwargs
         )
+
+class RequestStartSync(VoluxBrokerRequest):
+    def __init__(self,module,*args,**kwargs):
+        super().__init__(
+            module=module,
+            *args,
+            **kwargs
+        )

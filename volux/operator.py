@@ -1,6 +1,7 @@
 from .core import VoluxCore
 from .module import VoluxModule
 from .broker import VoluxBroker
+from threading import Thread
 
 class VoluxOperator:
     def __init__(self):
@@ -8,6 +9,8 @@ class VoluxOperator:
         self.broker = VoluxBroker(self)
         self.add_module(VoluxCore())
         self.connections = {}
+        self.threads = []
+        self.running = False
 
     def add_module(self, module, req_permissions=[]):
 
@@ -69,3 +72,30 @@ class VoluxOperator:
         else:
             self.connections.update({connection.UUID: connection})
             print("CONNECTION ADDED: UUID={}".format(connection.UUID))
+
+    def start_sync(self):
+
+        for cUUID in self.connections:
+
+            connection = self.connections[cUUID]
+
+            wrapped_sync = self._wrap_sync(connection.sync)
+
+            self.threads.append(
+                Thread(target=wrapped_sync)
+            )
+
+        self.running = True
+
+        for thread in self.threads:
+            thread.start()
+
+    def _wrap_sync(self,sync_method):
+
+        def wrapped_sync():
+
+            while self.running == True:
+
+                sync_method()
+
+        return wrapped_sync
