@@ -1,3 +1,6 @@
+import uuid
+import colorama
+
 class VoluxModule:
     """Provides common metadata for every Volux module. All modules (including core) are a subclass of VoluxModule"""
 
@@ -8,6 +11,7 @@ class VoluxModule:
         if not type(shared_modules) == list:
             raise TypeError("VoluxModule: kwarg 'shared_modules' must be of type list")
 
+        self.UUID = uuid.uuid4()
         self._module_name = module_name
         self._module_attr = module_attr
         self.get = module_get
@@ -22,7 +26,13 @@ class VoluxModule:
         self._pollrate = pollrate
 
     def _loaded(self):
-        print("loaded module: {} (pollrate={})".format(self._module_name,self._pollrate))
+        print("loaded module: {} (pollrate={}) [{color_UUID}{UUID}{color_reset}]".format(
+            self._module_name,
+            self._pollrate,
+            color_UUID=colorama.Fore.GREEN,
+            UUID=self.UUID,
+            color_reset=colorama.Style.RESET_ALL
+        ))
 
     def get_module_info(self):
         return {

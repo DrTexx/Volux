@@ -61,9 +61,15 @@ class VoluxLight(VoluxModule):
         #             device.set_power(False)
         #             self.devices.remove(device)
         #             print("removed '{}' from selected devices because it's not in group '{}'".format(device.get_label(),self.group))
-
-        for device in self.devices:
-            device.set_power(True)
+        if len(self.devices) > 0:
+            print(self.devices)
+            for device in self.devices:
+                if not device == None:
+                    device.set_power(True)
+                else:
+                    raise Exception("No lights with specified conditions found!")
+        else:
+            raise Exception("No lights with specified conditions found!")
 
         print("devices: {}".format(self.devices))
 

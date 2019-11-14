@@ -8,6 +8,7 @@ from .operator import *
 from .module import *
 from .core import *
 from .demo import *
+from .connection import *
 
 __metadata_version__ = "2.1"
 __name__ = "volux"

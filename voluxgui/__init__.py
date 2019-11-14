@@ -1,4 +1,4 @@
-from volux import VoluxModule
+from volux import VoluxModule, VoluxConnection
 import tkinter as tk
 from tkinter import ttk
 
@@ -90,6 +90,18 @@ class MainApplication(ttk.Frame):
         self.output_testset_data = ttk.Entry(self.output_frame)
         self.output_testset_data.pack()
 
+        self.connections_frame = ttk.Frame(self)
+        self.connections_frame.pack(side="left",fill=tk.Y,padx="14px",pady="14px")
+
+        self.connections_label = ttk.Label(self.connections_frame,text="CONNECTIONS")
+        self.connections_label.pack(side="top",fill=tk.BOTH)
+
+        self.connections_listbox = tk.Listbox(self.connections_frame, selectmode=tk.EXTENDED, exportselection=True)
+        self.connections_listbox.pack()
+
+        self.connections_create_button = ttk.Button(self.connections_frame,text="CREATE CONNECTIONS",command=self._create_connection)
+        self.connections_create_button.pack()
+
         self.demo_slider = ttk.Scale(self.output_frame, from_=0, to=100)
         self.demo_slider.pack()
 
@@ -109,13 +121,9 @@ class MainApplication(ttk.Frame):
 
     def _get_test(self):
 
-        sel = self.input_listbox.curselection()
-        if len(sel) > 0:
-            i = sel[0]
-            get_result = self.ext_modules[i].get()
-            print("(VoluxGui) get method response:",get_result)
-        else:
-            raise ValueError("no input selected!")
+        input_module = self._get_selected_input_module()
+        get_result = input_module.get()
+        print("(VoluxGui) get method response:",get_result)
 
     def _set_test(self):
 
@@ -126,6 +134,20 @@ class MainApplication(ttk.Frame):
             print("(VoluxGui) set method response:",get_result)
         else:
             raise ValueError("no output selected!")
+
+    def _get_selected_input_module(self):
+
+        sel = self.input_listbox.curselection()
+        if len(sel) > 0:
+            i = sel[0]
+        return self.ext_modules[i]
+
+    def _get_selected_output_module(self):
+
+        sel = self.output_listbox.curselection()
+        if len(sel) > 0:
+            i = sel[0]
+        return self.ext_modules[i]
 
     def _update_input_listbox(self):
 
@@ -150,3 +172,14 @@ class MainApplication(ttk.Frame):
     def _get_selected_mdevices(self):
         devices_to_return = [self.parent.mlifx.managed_devices[device_i] for device_i in device_indexes]
         return devices_to_return # return a tuple of indexes for selected items
+
+    def _create_connection(self):
+
+        connection = VoluxConnection(
+            self._get_selected_input_module(),
+            self._get_selected_output_module()
+        )
+        request = self.broker.create_request()
+
+        # request = VoluxBrokerRequest(self,action="add_connection",connection)
+        # self.broker.process_request(request)

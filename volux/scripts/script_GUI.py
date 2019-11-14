@@ -23,20 +23,34 @@ def launch_gui():
     gui_shared_modules = [vlx.cli,vlx.audio]
 
     # try adding voluxlight module
-    try:
-        vlx.add_module(VoluxLight(instance_label="ceiling",init_mode="device",init_mode_args={'label': 'Office Ceiling'}))
-        vlx.add_module(VoluxLight(instance_label="strip",init_mode="device",init_mode_args={'label': 'Strip'}))
-        gui_shared_modules.append(vlx.light_ceiling)
-        gui_shared_modules.append(vlx.light_strip)
-    except Exception as err:
-        print("{}WARNING: couldn't add light module/s... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
 
-    try:
-        while hasattr(vlx,'light_all') == False:
-            vlx.add_module(VoluxLight(instance_label="all",init_mode="all_devices"))
-            gui_shared_modules.append(vlx.light_all)
-    except:
-        pass
+
+    def try_adding_light(**kwargs):
+        try:
+            return VoluxLight(**kwargs)
+        except Exception as err:
+            print("{}WARNING: couldn't init light module/s... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
+
+    lightmodules = [
+        try_adding_light(instance_label="strip",init_mode="device",init_mode_args={'label': 'Strip'}),
+        try_adding_light(instance_label="demo",init_mode="device",init_mode_args={'label': 'Demo Bulb'})
+    ]
+
+
+    for lightmodule in lightmodules:
+        try:
+            vlx.add_module(lightmodule)
+            gui_shared_modules.append(getattr(vlx,lightmodule._module_attr))
+        except Exception as err:
+            print("{}WARNING: couldn't add light module/s... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
+
+    # try:
+    #     while hasattr(vlx,'light_all') == False:
+    #         vlx.add_module(VoluxLight(instance_label="all",init_mode="all_devices"))
+    #         gui_shared_modules.append(vlx.light_all)
+    # except:
+    #     pass
+
     # try adding voluxlightvisualiser module
     try:
         from voluxlightvisualiser import VoluxLightVisualiser, INTENSE_MODE
@@ -50,7 +64,7 @@ def launch_gui():
 
     if vis_added == True:
 
-        visHz = 240
+        visHz = 120
 
         def vis_func(loop_hz):
 
@@ -76,10 +90,10 @@ def launch_gui():
 
                         if hasattr(vlx,'light_strip'):
                             vlx.light_strip.set_color(vis_get)
-                        if hasattr(vlx,'light_ceiling'):
-                            vlx.light_ceiling.set_color(vis_get_invert)
-                        if hasattr(vlx,'light_all'):
-                            vlx.light_all.set_color(vis_get)
+                        # if hasattr(vlx,'light_ceiling'):
+                        #     vlx.light_ceiling.set_color(vis_get_invert)
+                        # if hasattr(vlx,'light_all'):
+                        #     vlx.light_all.set_color(vis_get)
 
                         sleep(1/loop_hz)
 

@@ -1,21 +1,24 @@
 from .core import VoluxCore
 from .module import VoluxModule
-
+from .broker import VoluxBroker
 
 class VoluxOperator:
     def __init__(self):
-        self.modules = []
+        self.modules = {}
+        self.broker = VoluxBroker()
         self.add_module(VoluxCore())
 
-    def add_module(self, module):
+    def add_module(self, module, ):
 
         if self.validate_module(module):  # if the object passed is a valid module
 
             if not module in self.modules:
 
-                self.modules.append(module)
+                setattr(module,'broker',self.broker)  # add broker to module
+                self.modules.update({module.UUID: module})  # add module to operator
                 setattr(self, module._module_attr, module)
                 module._loaded()  # call module's method for when it's finished being loaded
+                return module.UUID
 
             else:
 
@@ -24,6 +27,7 @@ class VoluxOperator:
         else:
 
             raise TypeError("module must be a subclass of VoluxModule")
+
 
     def remove_module(self, module):
 
@@ -38,7 +42,7 @@ class VoluxOperator:
 
     def validate_module(self, module):
 
-        for attrib in ["_module_name", "_module_attr", 'get', 'set']:
+        for attrib in ["_module_name", "_module_attr", 'get', 'set', 'UUID']:
 
             if not hasattr(module, attrib):
 
@@ -54,3 +58,11 @@ class VoluxOperator:
     def get_modules(self):
 
         return self.modules
+
+    def add_connection(self,connection):
+
+        if connection.UUID in self.connections:
+            print("CONNECTION ALREADY EXISTS!")
+
+        else:
+            self.connections.update({connection.UUID: connection})
