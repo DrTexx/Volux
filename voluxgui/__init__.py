@@ -1,4 +1,4 @@
-from volux import VoluxModule, VoluxConnection, RequestNewConnection, RequestGetConnections, RequestStartSync
+from volux import VoluxModule, VoluxConnection, RequestNewConnection, RequestGetConnections, RequestStartSync, RequestSyncState
 import tkinter as tk
 from tkinter import ttk
 
@@ -61,6 +61,7 @@ class MainApplication(ttk.Frame):
         self.module_root = module_root
         self.ext_modules = self.module_root._shared_modules
         self.vis_on = tk.BooleanVar()
+        self.sync_running = tk.BooleanVar()
 
         print("(VoluxGUI) shared modules:",self.ext_modules)
 
@@ -103,17 +104,14 @@ class MainApplication(ttk.Frame):
         self.connections_listbox = tk.Listbox(self.connections_frame, selectmode=tk.EXTENDED, exportselection=True)
         self.connections_listbox.pack()
 
+        self.connections_checkbutton = ttk.Checkbutton(self.connections_frame, text="Enable Sync", variable=self.sync_running)
+        self.connections_checkbutton.pack()
+
         self.connections_create_button = ttk.Button(self.connections_frame,text="CREATE CONNECTIONS",command=self._create_connection)
         self.connections_create_button.pack()
 
         self.connections_refresh = ttk.Button(self.connections_frame,text="REFRESH CONNECTIONS",command=self._refresh_connections)
         self.connections_refresh.pack()
-
-        self.connections_start = ttk.Button(self.connections_frame, text="start sync", command=self._start_connection_sync)
-        self.connections_start.pack()
-
-        # self.connections_checkbutton = ttk.Checkbutton(self.connections_frame, text="Enable", variable=self.vis_on)
-        # self.connections_checkbutton.pack()
 
         self.demo_slider = ttk.Scale(self.output_frame, from_=0, to=100)
         self.demo_slider.pack()
@@ -136,7 +134,27 @@ class MainApplication(ttk.Frame):
 
     def _update_loop(self):
 
-        pass
+        if self.sync_running.get() == True:
+
+            if self._get_sync_state() == False:
+
+                print("starting sync...")
+                self._start_connection_sync()
+
+            else:
+
+                print("SYNC ALREADY RUNNING!")
+
+        else:
+
+            print("not clicked")
+
+            if self._get_sync_state() == True:
+
+                print("stopping sync...")
+                self._stop_connection_sync()
+
+        self.after(1000,self._update_loop)
 
     def _get_test(self):
 
@@ -222,3 +240,9 @@ class MainApplication(ttk.Frame):
 
         # request = VoluxBrokerRequest(self,action="add_connection",connection)
         # self.broker.process_request(request)
+
+    def _get_sync_state(self):
+
+        request = RequestSyncState(self.module_root)
+
+        return self.module_root.broker.process_request(request)

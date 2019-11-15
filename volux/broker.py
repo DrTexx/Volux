@@ -62,6 +62,21 @@ class VoluxBroker:
                 print("{} request permissions: {}".format(request.module._module_name,request.module.req_permissions))
                 raise PermissionError("{} is not allowed to start sync".format(request.module._module_name))
 
+        elif type(request) == RequestSyncState:
+
+            print("{} is requesting to get sync state...".format(request.module._module_name))
+
+            if type(request) in request.module.req_permissions:
+
+                print("{} has permission to get sync state.".format(request.module._module_name))
+
+                return self.operator.running
+
+            else:
+
+                print("{} request permissions: {}".format(request.module._module_name,request.module.req_permissions))
+                raise PermissionError("{} is not allowed to get sync state".format(request.module._module_name))
+
         else:
 
             raise TypeError("volux broker recieved an invalid request type: {}".format(type(request)))

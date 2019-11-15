@@ -26,3 +26,11 @@ class RequestStartSync(VoluxBrokerRequest):
             *args,
             **kwargs
         )
+
+class RequestSyncState(VoluxBrokerRequest):
+    def __init__(self,module,*args,**kwargs):
+        super().__init__(
+            module=module,
+            *args,
+            **kwargs
+        )

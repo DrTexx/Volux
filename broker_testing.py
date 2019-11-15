@@ -12,7 +12,8 @@ gui_UUID = vlx.add_module(
     req_permissions=[
         volux.RequestNewConnection,
         volux.RequestGetConnections,
-        volux.RequestStartSync
+        volux.RequestStartSync,
+        volux.RequestSyncState
     ]
 )  # add GUI module
 
