@@ -23,7 +23,7 @@ class VoluxModule:
         self._set_min = set_min
         self._set_max = set_max
         self._shared_modules = shared_modules
-        self._pollrate = pollrate
+        self._pollrate = pollrate  # todo: change this to be an optional module limit (a max polling rate the module is capable of)
 
     def _loaded(self):
         print("loaded module: {} (pollrate={}) [{color_UUID}{UUID}{color_reset}]".format(

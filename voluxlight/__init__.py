@@ -3,7 +3,7 @@ import lifxlan
 
 
 class VoluxLight(VoluxModule):
-    def __init__(self, instance_label, init_mode, init_mode_args=[], group=None, shared_modules=[], pollrate=None, *args, **kwargs):
+    def __init__(self, instance_label, init_mode, init_mode_args={}, group=None, shared_modules=[], pollrate=None, *args, **kwargs):
         super().__init__(
             module_name="Volux Light ({})".format(instance_label),
             module_attr="light_{}".format(instance_label),
@@ -83,19 +83,33 @@ class VoluxLight(VoluxModule):
 
     def set(self, new_val):
 
-        if new_val < 0:
-            new_val = 0
+        input_type = type(new_val)
 
-        elif new_val > 100:
-            new_val = 100
+        if input_type == int:
 
-        new_val = new_val / 100
+            if new_val < 0:
+                new_val = 0
 
-        for device in self.devices:
+            elif new_val > 100:
+                new_val = 100
 
-            color = device.get_color()
-            new_color = (color[0], color[1], new_val * 65535, color[3])
-            device.set_color(new_color)
+            new_val = new_val / 100
+
+            for device in self.devices:
+
+                color = device.get_color()
+                new_color = (color[0], color[1], new_val * 65535, color[3])
+                device.set_color(new_color)
+
+        elif input_type == tuple:
+
+            for device in self.devices:
+
+                device.set_color(new_val,rapid=True)
+
+        else:
+
+            raise TypeError("input for set must be int or HSBK tuple")
 
     def set_color(self, new_color, duration=20, rapid=True):
 

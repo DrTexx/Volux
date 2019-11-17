@@ -5,100 +5,62 @@ class VoluxBroker:
     def __init__(self,operator):
         self.operator = operator
 
-    def process_request(self,request):
+    def process_request(self,request, verbose=True):
 
-        mUUID = request.module.UUID
+        if issubclass(type(request),VoluxBrokerRequest) == True:
 
-        print("UUID of requesting module:",mUUID)
+            if verbose == True: print("request from {} is a valid subclass...".format(request.module._module_name))
 
-        if type(request) in request.module.req_permissions:
+            mUUID = request.module.UUID
 
-            print("module states it has permissions")
+            if verbose == True: print("UUID of requesting module:",mUUID)
 
-            if type(request) in self.operator.permissions[mUUID]:
+            if type(request) in request.module.req_permissions:
 
-                print("operator verified module's permissions")
+                if verbose == True: print("{} claims it's allowed to {}".format(request.module._module_name,request.req_string))
 
-                req_type = type(request)
+                if type(request) in self.operator.permissions[mUUID]:
 
-                print("{} is requesting to '{}'...".format(request.module._module_name,request.req_string))
+                    if verbose == True: print("Operator verified module's permissions")
 
-                if req_type == RequestNewConnection:
+                    req_type = type(request)
 
-                    if type(request.connection) == VoluxConnection:
+                    if verbose == True: print("{} is requesting to '{}'...".format(request.module._module_name,request.req_string))
 
-                        self.operator.add_connection(request.connection)
+                    if req_type == RequestNewConnection:
 
-                elif req_type == RequestGetConnections:
+                        if type(request.connection) == VoluxConnection:
 
-                    return self.operator.connections
+                            self.operator.add_connection(request.connection)
 
-                elif req_type == RequestStartSync:
+                    elif req_type == RequestGetConnections:
 
-                    self.operator.start_sync()
+                        return self.operator.connections
 
-                elif req_type == RequestSyncState:
+                    elif req_type == RequestStartSync:
 
-                    return self.operator.running
+                        self.operator.start_sync()
 
-                elif req_type == RequestStopSync:
+                    elif req_type == RequestSyncState:
 
-                    self.operator.stop_sync()
+                        return self.operator.running
+
+                    elif req_type == RequestStopSync:
+
+                        self.operator.stop_sync()
+
+                    else:
+
+                        raise TypeError("volux broker recieved an invalid request type: {}".format(type(request)))
 
                 else:
 
-                    raise TypeError("volux broker recieved an invalid request type: {}".format(type(request)))
+                    raise PermissionError("operator could not verify module '{}' had valid permissions".format(request.module._module_name))
 
             else:
 
-                raise PermissionError("operator could not verify module '{}' had valid permissions".format(request.module._module_name))
+                raise PermissionError("module '{}' doesn't claim to have valid permissions".format(request.module._module_name))
 
         else:
 
-            raise PermissionError("module '{}' doesn't claim to have valid permissions".format(request.module._module_name))
-
-
-        # elif type(request) == RequestGetConnections:
-        #
-        #     print("{} is requesting to see current connections...".format(request.module._module_name))
-        #
-        #     if type(request) in request.module.req_permissions:
-        #
-        #         print("{} has permission to see connections".format(request.module._module_name))
-        #
-        #         return self.operator.connections
-        #
-        #     else:
-        #
-        #         print("{} request permissions: {}".format(request.module._module_name,request.module.req_permissions))
-        #         raise PermissionError("{} is not allowed to add new connections".format(request.module._module_name))
-        #
-        # elif type(request) == RequestStartSync:
-        #
-        #     print("{} is requesting to start sync...".format(request.module._module_name))
-        #
-        #     if type(request) in request.module.req_permissions:
-        #
-        #         print("{} has permission to start sync".format(request.module._module_name))
-        #
-        #         self.operator.start_sync()
-        #
-        #     else:
-        #
-        #         print("{} request permissions: {}".format(request.module._module_name,request.module.req_permissions))
-        #         raise PermissionError("{} is not allowed to start sync".format(request.module._module_name))
-        #
-        # elif type(request) == RequestSyncState:
-        #
-        #     print("{} is requesting to get sync state...".format(request.module._module_name))
-        #
-        #     if type(request) in request.module.req_permissions:
-        #
-        #         print("{} has permission to get sync state.".format(request.module._module_name))
-        #
-        #         return self.operator.running
-        #
-        #     else:
-        #
-        #         print("{} request permissions: {}".format(request.module._module_name,request.module.req_permissions))
-        #         raise PermissionError("{} is not allowed to get sync state".format(request.module._module_name))
+            raise TypeError("request must be a subclass of VoluxBrokerRequest")

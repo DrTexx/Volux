@@ -104,14 +104,23 @@ class MainApplication(ttk.Frame):
         self.connections_listbox = tk.Listbox(self.connections_frame, selectmode=tk.EXTENDED, exportselection=True)
         self.connections_listbox.pack()
 
-        self.connections_checkbutton = ttk.Checkbutton(self.connections_frame, text="Enable Sync", variable=self.sync_running)
-        self.connections_checkbutton.pack()
+        self.connections_controls = ttk.Frame(self.connections_frame)
+        self.connections_controls.pack()
 
-        self.connections_create_button = ttk.Button(self.connections_frame,text="CREATE CONNECTIONS",command=self._create_connection)
-        self.connections_create_button.pack()
+        self.connections_checkbutton = ttk.Checkbutton(self.connections_controls, text="Enable Sync", variable=self.sync_running)
+        self.connections_checkbutton.grid(row=0,columnspan=2)
 
-        self.connections_refresh = ttk.Button(self.connections_frame,text="REFRESH CONNECTIONS",command=self._refresh_connections)
-        self.connections_refresh.pack()
+        self.connections_create_button = ttk.Button(self.connections_controls,text="CREATE CONNECTIONS",command=self._create_connection)
+        self.connections_create_button.grid(row=1,columnspan=2)
+
+        self.connections_hzbox_label = ttk.Label(self.connections_controls, text="Pollrate (Hz)")
+        self.connections_hzbox_label.grid(row=2,column=0)
+
+        self.connections_hzbox = ttk.Entry(self.connections_controls,width="5")
+        self.connections_hzbox.grid(row=2,column=1)
+
+        self.connections_refresh = ttk.Button(self.connections_controls,text="REFRESH CONNECTIONS",command=self._refresh_connections)
+        self.connections_refresh.grid(row=3,columnspan=2)
 
         self.demo_slider = ttk.Scale(self.output_frame, from_=0, to=100)
         self.demo_slider.pack()
@@ -146,8 +155,6 @@ class MainApplication(ttk.Frame):
                 print("SYNC ALREADY RUNNING!")
 
         else:
-
-            print("not clicked")
 
             if self._get_sync_state() == True:
 
@@ -186,6 +193,18 @@ class MainApplication(ttk.Frame):
             i = sel[0]
         return self.ext_modules[i]
 
+    def _get_sync_hz(self):
+
+        hzbox_val = self.connections_hzbox.get()
+
+        if hzbox_val == '':
+
+            raise ValueError("error: please enter sync hz!")
+
+        else:
+
+            return int(hzbox_val)
+
     def _update_input_listbox(self):
 
         for i in range(len(self.ext_modules)):
@@ -215,7 +234,7 @@ class MainApplication(ttk.Frame):
         connection = VoluxConnection(
             self._get_selected_input_module(),
             self._get_selected_output_module(),
-            1  # todo: this MUST be dynamic
+            self._get_sync_hz()
         )
         request = RequestNewConnection(self.module_root,connection=connection)
         self.module_root.broker.process_request(request)
@@ -238,9 +257,6 @@ class MainApplication(ttk.Frame):
 
         self.module_root.broker.process_request(request)
 
-        # request = VoluxBrokerRequest(self,action="add_connection",connection)
-        # self.broker.process_request(request)
-
     def _stop_connection_sync(self):
 
         request = RequestStopSync(self.module_root)
@@ -251,4 +267,4 @@ class MainApplication(ttk.Frame):
 
         request = RequestSyncState(self.module_root)
 
-        return self.module_root.broker.process_request(request)
+        return self.module_root.broker.process_request(request,verbose=False)
