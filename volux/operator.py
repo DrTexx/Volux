@@ -6,6 +6,7 @@ from threading import Thread
 class VoluxOperator:
     def __init__(self):
         self.modules = {}
+        self.permissions = {}
         self.broker = VoluxBroker(self)
         self.add_module(VoluxCore())
         self.connections = {}
@@ -21,6 +22,7 @@ class VoluxOperator:
                 setattr(module,'broker',self.broker)  # add broker to module
                 setattr(module,'req_permissions',req_permissions)  # add broker to module
                 self.modules.update({module.UUID: module})  # add module to operator
+                self.permissions.update({module.UUID: req_permissions})
                 setattr(self, module._module_attr, module)
                 module._loaded()  # call module's method for when it's finished being loaded
                 return module.UUID
@@ -32,7 +34,6 @@ class VoluxOperator:
         else:
 
             raise TypeError("module must be a subclass of VoluxModule")
-
 
     def remove_module(self, module):
 
@@ -105,3 +106,12 @@ class VoluxOperator:
                 sync_method()
 
         return wrapped_sync
+
+    def stop_sync(self):
+
+        self.running = False
+
+        for thread in self.threads:
+            thread.join()
+
+        self.threads = []

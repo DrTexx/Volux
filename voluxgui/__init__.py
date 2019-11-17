@@ -1,4 +1,4 @@
-from volux import VoluxModule, VoluxConnection, RequestNewConnection, RequestGetConnections, RequestStartSync, RequestSyncState
+from volux import VoluxModule, VoluxConnection, RequestNewConnection, RequestGetConnections, RequestStartSync, RequestSyncState, RequestStopSync
 import tkinter as tk
 from tkinter import ttk
 
@@ -240,6 +240,12 @@ class MainApplication(ttk.Frame):
 
         # request = VoluxBrokerRequest(self,action="add_connection",connection)
         # self.broker.process_request(request)
+
+    def _stop_connection_sync(self):
+
+        request = RequestStopSync(self.module_root)
+
+        self.module_root.broker.process_request(request)
 
     def _get_sync_state(self):
 

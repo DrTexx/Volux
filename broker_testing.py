@@ -13,7 +13,8 @@ gui_UUID = vlx.add_module(
         volux.RequestNewConnection,
         volux.RequestGetConnections,
         volux.RequestStartSync,
-        volux.RequestSyncState
+        volux.RequestSyncState,
+        volux.RequestStopSync
     ]
 )  # add GUI module
 
