@@ -2,6 +2,46 @@ from volux import VoluxModule
 import lifxlan
 
 
+class UnsupportedFeature:
+    def __init__(self):
+        pass
+
+
+class DeviceState:
+    def __init__(self,power=None,color=None,infrared=None):
+        self.power = power
+        self.color = color
+
+
+class ManagedDevice:
+    def __init__(self,device):
+        self.device = device
+        self.label = device.get_label()
+        self.power = device.get_power()
+        self.is_light = device.is_light()
+        self.supports_color = device.supports_color()
+
+        self.color = None
+        # self.temperature = UnsupportedFeature()
+        # self.multizone = UnsupportedFeature()
+        # self.infrared = UnsupportedFeature()
+
+    def ssave(self):
+        """save device state inside of class"""
+        self.power = self.device.get_power()
+
+        if (self.supports_color == True): self.color = self.device.get_color()
+        elif (self.supports_color == False): self.color = UnsupportedFeature()
+        else: raise TypeError("self.supports_color should be a boolean value")
+
+    def sload(self):
+        """load device state last saved inside of class"""
+        self.device.set_power(self.power)
+
+        if (self.supports_color == True):
+            self.device.set_color(self.color)
+
+
 class VoluxLight(VoluxModule):
     def __init__(self, instance_label, init_mode, init_mode_args={}, group=None, shared_modules=[], pollrate=None, *args, **kwargs):
         super().__init__(
@@ -72,6 +112,7 @@ class VoluxLight(VoluxModule):
             raise Exception("No lights with specified conditions found!")
 
         print("devices: {}".format(self.devices))
+        self.mdevices = [ManagedDevice(device) for device in self.devices]
 
     def get(self):
 
@@ -123,3 +164,11 @@ class VoluxLight(VoluxModule):
 
             power = device.get_power()
             device.set_power(not power)  # not ideal behaviour if all lights in different states
+
+    def prepare(self):
+
+        [mdevice.ssave() for mdevice in self.mdevices]
+
+    def restore(self):
+
+        [mdevice.sload() for mdevice in self.mdevices]
