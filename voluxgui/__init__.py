@@ -21,6 +21,8 @@ class VoluxGui(VoluxModule):
             **kwargs
         )
 
+        self._shared_modules.append(self)
+
         self.root = tk.Tk()
         self.mainApp = MainApplication(self.root,self,style="mainApp.TFrame")
         self.example_val = 0
@@ -293,7 +295,7 @@ class MainApplication(ttk.Frame):
 
         for cUUID in connections:
 
-            self.connections_listbox.insert(0,connections[cUUID].nickname)
+            self.connections_listbox.insert(tk.END,connections[cUUID].nickname)
 
     def _start_connection_sync(self):
 
