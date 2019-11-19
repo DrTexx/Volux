@@ -10,7 +10,7 @@ class DemoVolLuxBar(VoluxDemo):
             *args,
             **kwargs
         )
-        self.superclass = VoluxDemo
+        self.superclass = VoluxDemo  # todo: needs to be replaced with check for superclass in volux.__main__
 
     def run_demo(self):
 
@@ -36,4 +36,4 @@ class DemoVolLuxBar(VoluxDemo):
         # load Volux Bar module
         vlx.bar.init_window()
 
-vol_lux_bar_demo = DemoVolLuxBar()
+demobar = DemoVolLuxBar()

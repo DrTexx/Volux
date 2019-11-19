@@ -1,2 +1,2 @@
-from .vol_lux_bar import *
-from .demo_AV import *
+from .demo_bar import *
+from .demo_lightvis import *
