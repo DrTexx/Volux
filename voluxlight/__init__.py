@@ -124,7 +124,7 @@ class VoluxLight(VoluxModule):
 
     def set(self, new_val):
 
-        print("new_val: {} ({})".format(new_val,type(new_val)))
+        # print("new_val: {} ({})".format(new_val,type(new_val)))
 
         input_type = type(new_val)
 
@@ -146,7 +146,7 @@ class VoluxLight(VoluxModule):
 
         elif input_type == tuple:
 
-            device.set_color(new_val,rapid=True)
+            self.set_color(new_val,rapid=True)
 
         else:
 
