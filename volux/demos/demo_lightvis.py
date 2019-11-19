@@ -19,11 +19,14 @@ class DemoSimpleLightVis(VoluxDemo):
         from voluxlight import VoluxLight
 
         script_hz = 240
+        device_label = str(input("LIFX device's label (case-sensitive!) [Strip]: "))
+        if device_label == "":
+            device_label = "Strip"
 
         vlx = volux.VoluxOperator()
 
         audio_UUID = vlx.add_module(VoluxAudio())
-        lstrip_UUID = vlx.add_module(VoluxLight(instance_label="strip",init_mode="device",init_mode_args={'label': 'Strip'}))
+        lstrip_UUID = vlx.add_module(VoluxLight(instance_label="demo",init_mode="device",init_mode_args={'label': device_label}))
         vis_UUID = vlx.add_module(VoluxLightVisualiser(mode=INTENSE_MODE,hueHz=script_hz,hue_cycle_duration=5))
 
         vlx.add_connection(
