@@ -1,7 +1,10 @@
 from .core import VoluxCore
 from .module import VoluxModule
 from .broker import VoluxBroker
+from .connection import VoluxConnection
 from threading import Thread
+import colorama
+colorama.init()
 
 class VoluxOperator:
     def __init__(self):
@@ -67,12 +70,28 @@ class VoluxOperator:
 
     def add_connection(self,connection):
 
-        if connection.UUID in self.connections:
-            print("CONNECTION ALREADY EXISTS!")
+        if type(connection) == VoluxConnection:
+
+            if connection.UUID in self.connections:
+                print("CONNECTION ALREADY EXISTS!")
+
+            else:
+                self.connections.update({connection.UUID: connection})
+                print("CONNECTION ADDED: UUID={}".format(connection.UUID))
 
         else:
-            self.connections.update({connection.UUID: connection})
-            print("CONNECTION ADDED: UUID={}".format(connection.UUID))
+
+            raise TypeError("connection must be an instance of VoluxConnection")
+
+    def remove_connection(self,connection):
+
+        if connection.UUID in self.connections:
+
+            del self.connections[connection.UUID]
+
+        else:
+
+            raise ValueError("Can not remove connection: UUID is not in connections ({})".format(connection.UUID))
 
     def start_sync(self):
 
@@ -92,6 +111,8 @@ class VoluxOperator:
 
             for thread in self.threads:
                 thread.start()
+
+            print("{}[CONNECTION SYNC STARTED]{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))
 
         else:
 
@@ -115,3 +136,5 @@ class VoluxOperator:
             thread.join()
 
         self.threads = []
+
+        print("{}[CONNECTION SYNC STOPPED]{}".format(colorama.Fore.YELLOW,colorama.Style.RESET_ALL))

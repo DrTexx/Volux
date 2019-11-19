@@ -10,13 +10,14 @@ class VoluxConnection:
         self.output = output_module
         self.UUID = uuid.uuid4()
         self.hz = hz
+        self.nickname = "{} -> {} ({})".format(self.input._module_attr,self.output._module_attr,self.hz)
 
     def sync(self):
-
-        print("{} -> {}".format(self.input._module_name,self.output._module_name))
 
         self.output.set(
             self.input.get()
         )
+
+        # print("{} -> {}".format(self.input._module_name,self.output._module_name))
 
         sleep(1/self.hz)

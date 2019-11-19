@@ -1,4 +1,4 @@
-from volux import VoluxModule, VoluxConnection, RequestNewConnection, RequestGetConnections, RequestStartSync, RequestSyncState, RequestStopSync
+from volux import VoluxModule, VoluxConnection, RequestAddConnection, RequestRemoveConnection, RequestGetConnections, RequestStartSync, RequestSyncState, RequestStopSync, RequestGetModules
 import tkinter as tk
 from tkinter import ttk
 
@@ -107,11 +107,14 @@ class MainApplication(ttk.Frame):
         self.connections_controls = ttk.Frame(self.connections_frame)
         self.connections_controls.pack()
 
-        self.connections_checkbutton = ttk.Checkbutton(self.connections_controls, text="Enable Sync", variable=self.sync_running)
+        self.connections_checkbutton = ttk.Checkbutton(self.connections_controls, text="Enable Sync", variable=self.sync_running, command=self._sync_toggled)
         self.connections_checkbutton.grid(row=0,columnspan=2)
 
-        self.connections_create_button = ttk.Button(self.connections_controls,text="CREATE CONNECTIONS",command=self._create_connection)
-        self.connections_create_button.grid(row=1,columnspan=2)
+        self.connections_add_button = ttk.Button(self.connections_controls,text="ADD",command=self._add_connection)
+        self.connections_add_button.grid(row=1,column=0)
+
+        self.connections_remove_button = ttk.Button(self.connections_controls,text="REMOVE",command=self._remove_connection)
+        self.connections_remove_button.grid(row=1,column=1)
 
         self.connections_hzbox_label = ttk.Label(self.connections_controls, text="Pollrate (Hz)")
         self.connections_hzbox_label.grid(row=2,column=0)
@@ -138,10 +141,14 @@ class MainApplication(ttk.Frame):
         self.value_bar_fill = ttk.Frame(self.value_bar,height=14,width=0,style="value_bar_fill.TFrame")
         self.value_bar_fill.pack(fill=tk.Y)
 
-        self._update_input_listbox()
-        self._update_output_listbox()
+        # if hasattr(self.module_root,'broker'):
+        self._update_input_output_listboxes()
 
     def _update_loop(self):
+
+        self.after(1000,self._update_loop)
+
+    def _sync_toggled(self):
 
         if self.sync_running.get() == True:
 
@@ -161,7 +168,9 @@ class MainApplication(ttk.Frame):
                 print("stopping sync...")
                 self._stop_connection_sync()
 
-        self.after(1000,self._update_loop)
+            else:
+
+                print("SYNC CAN'T BE STOPPED, IT'S NOT RUNNING!")
 
     def _get_test(self):
 
@@ -205,19 +214,34 @@ class MainApplication(ttk.Frame):
 
             return int(hzbox_val)
 
-    def _update_input_listbox(self):
+    def _update_input_output_listboxes(self):
 
-        for i in range(len(self.ext_modules)):
+        # request = RequestGetModules(self.module_root)
+        # modules = self.module_root.broker.process_request(request)
 
-            module = self.ext_modules[i]
+        modules = self.ext_modules
+
+        self.input_listbox.delete(0,tk.END)  # clear input listbox
+        self.output_listbox.delete(0,tk.END)  # clear output listbox
+
+        for i in range(len(modules)):
+
+            module = modules[i]
 
             if hasattr(module,'get'):
 
                 self.input_listbox.insert(tk.END,module._module_name)
 
+            if hasattr(module,'set'):
+
+                self.output_listbox.insert(tk.END,module._module_name)
+
     def _update_output_listbox(self):
 
-        for i in range(len(self.ext_modules)):
+        request = RequestGetModules(self.module_root)
+        modules = self.broker.process_request(request)
+
+        for i in range(len(modules)):
 
             module = self.ext_modules[i]
 
@@ -229,27 +253,47 @@ class MainApplication(ttk.Frame):
         devices_to_return = [self.parent.mlifx.managed_devices[device_i] for device_i in device_indexes]
         return devices_to_return # return a tuple of indexes for selected items
 
-    def _create_connection(self):
+    def _add_connection(self):
 
         connection = VoluxConnection(
             self._get_selected_input_module(),
             self._get_selected_output_module(),
             self._get_sync_hz()
         )
-        request = RequestNewConnection(self.module_root,connection=connection)
+        request = RequestAddConnection(self.module_root,connection=connection)
         self.module_root.broker.process_request(request)
+        self._refresh_connections()
+
+    def _remove_connection(self):
+
+        connection = self._get_selected_connection()
+        request = RequestRemoveConnection(self.module_root,connection=connection)
+        self.module_root.broker.process_request(request)
+        self._refresh_connections()
+
+    def _get_connections(self):
+
+        request = RequestGetConnections(self.module_root)
+        return self.module_root.broker.process_request(request)
+
+    def _get_selected_connection(self):
+
+        connections = self._get_connections()
+        connection_index = self.connections_listbox.curselection()[0]
+        i = 0
+        for connection_UUID in connections:
+            if i == connection_index:
+                return connections[connection_UUID]
+            i += 1
 
     def _refresh_connections(self):
 
-        request = RequestGetConnections(self.module_root)
-        connections = self.module_root.broker.process_request(request)
-
-        print("CONNECTIONS:")
+        connections = self._get_connections()
+        self.connections_listbox.delete(0,tk.END)
 
         for cUUID in connections:
 
-            connection = connections[cUUID]
-            print(connection)
+            self.connections_listbox.insert(0,connections[cUUID].nickname)
 
     def _start_connection_sync(self):
 

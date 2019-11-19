@@ -3,11 +3,21 @@ class VoluxBrokerRequest:
         self.module = module
         self.req_string = req_string
 
-class RequestNewConnection(VoluxBrokerRequest):
+class RequestAddConnection(VoluxBrokerRequest):
     def __init__(self,module,connection,*args,**kwargs):
         super().__init__(
             module=module,
             req_string="add a new connection",
+            *args,
+            **kwargs
+        )
+        self.connection = connection
+
+class RequestRemoveConnection(VoluxBrokerRequest):
+    def __init__(self,module,connection,*args,**kwargs):
+        super().__init__(
+            module=module,
+            req_string="remove an existing connection",
             *args,
             **kwargs
         )
@@ -45,6 +55,15 @@ class RequestStopSync(VoluxBrokerRequest):
         super().__init__(
             module=module,
             req_string="stop connection syncing",
+            *args,
+            **kwargs
+        )
+
+class RequestGetModules(VoluxBrokerRequest):
+    def __init__(self,module,*args,**kwargs):
+        super().__init__(
+            module=module,
+            req_string="get loaded modules",
             *args,
             **kwargs
         )

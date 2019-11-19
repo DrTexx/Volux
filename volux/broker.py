@@ -1,5 +1,4 @@
 from .requests import *
-from .connection import VoluxConnection
 
 class VoluxBroker:
     def __init__(self,operator):
@@ -27,11 +26,13 @@ class VoluxBroker:
 
                     if verbose == True: print("{} is requesting to '{}'...".format(request.module._module_name,request.req_string))
 
-                    if req_type == RequestNewConnection:
+                    if req_type == RequestAddConnection:
 
-                        if type(request.connection) == VoluxConnection:
+                        self.operator.add_connection(request.connection)
 
-                            self.operator.add_connection(request.connection)
+                    elif req_type == RequestRemoveConnection:
+
+                        self.operator.remove_connection(request.connection)
 
                     elif req_type == RequestGetConnections:
 
@@ -59,7 +60,7 @@ class VoluxBroker:
 
             else:
 
-                raise PermissionError("module '{}' doesn't claim to have valid permissions".format(request.module._module_name))
+                raise PermissionError("module {} doesn't claim it's allowed to {} ({})".format(request.module._module_name,request.req_string,type(request)))
 
         else:
 
