@@ -1,4 +1,5 @@
 import volux
+from ..demo import VoluxDemo
 from voluxlightvisualiser import VoluxLightVisualiser, INTENSE_MODE
 from voluxaudio import VoluxAudio
 from voluxlight import VoluxLight
