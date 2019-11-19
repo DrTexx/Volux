@@ -60,7 +60,7 @@ class VoluxAudio(VoluxModule):
 
     def get(self):
 
-        return self._get_amplitude()  # 0 .. 100
+        return float(self._get_amplitude())  # 0 .. 100
 
     def set(self, new_val):
 

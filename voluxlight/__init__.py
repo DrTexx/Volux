@@ -124,9 +124,11 @@ class VoluxLight(VoluxModule):
 
     def set(self, new_val):
 
+        print("new_val: {} ({})".format(new_val,type(new_val)))
+
         input_type = type(new_val)
 
-        if input_type == int:
+        if input_type == float:
 
             if new_val < 0:
                 new_val = 0
@@ -144,13 +146,11 @@ class VoluxLight(VoluxModule):
 
         elif input_type == tuple:
 
-            for device in self.devices:
-
-                device.set_color(new_val,rapid=True)
+            device.set_color(new_val,rapid=True)
 
         else:
 
-            raise TypeError("input for set must be int or HSBK tuple")
+            raise TypeError("input for set must be float or HSBK tuple")
 
     def set_color(self, new_color, duration=20, rapid=True):
 
