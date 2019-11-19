@@ -5,11 +5,13 @@ from voluxcliprint import VoluxCliPrint
 # create Volux Operator object (hub for communication between modules)
 vlx = volux.VoluxOperator()
 cli_module = VoluxCliPrint()
+cli_UUID = None
 
 class Test_operator:
     def test_add_module(self):
-        vlx.add_module(cli_module)
-        assert cli_module in vlx.modules
+        global cli_UUID
+        cli_UUID = vlx.add_module(cli_module)
+        assert cli_UUID in vlx.modules
 
     def test_add_module_twice(self):
         with pytest.raises(Exception):
@@ -20,9 +22,10 @@ class Test_operator:
             vlx.add_module(vlx)
 
     def test_remove_module(self):
-        assert cli_module in vlx.modules
+        global cli_UUID
+        assert cli_UUID in vlx.modules
         vlx.remove_module(cli_module)
-        assert not (cli_module in vlx.modules)
+        assert not (cli_UUID in vlx.modules)
 
     def test_remove_missing_module(self):
         with pytest.raises(AttributeError):
@@ -34,3 +37,7 @@ class Test_operator:
 
     def test_get_modules(self):
         assert vlx.get_modules() == vlx.modules
+
+if __name__ == "__main__":
+    test_op = Test_operator()
+    test_op.test_add_module()

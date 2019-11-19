@@ -16,23 +16,39 @@ class VoluxOperator:
         self.threads = []
         self.running = False
 
-    def add_module(self, module, req_permissions=[]):
+    def add_module(self, module, req_permissions=[], check_module_repeats=True, overwrite_attributes=False):
 
         if self.validate_module(module):  # if the object passed is a valid module
 
-            if not module in self.modules:
+            if check_module_repeats == True:
+
+                if type(module) in [type(m) for m in self.modules.values()]:  # if this type of module is already in operator's modules
+
+                    print("{}Warning: a different instance of the module '{}' is already loaded{}".format(colorama.Fore.YELLOW,module._module_name,colorama.Style.RESET_ALL))
+
+            if module.UUID in self.modules.keys():
+
+                raise Exception("this instance of module '{}' is already loaded! [{}{}{}]".format(module._module_name,colorama.Fore.GREEN,module.UUID,colorama.Style.RESET_ALL))
+
+            else:
 
                 setattr(module,'broker',self.broker)  # add broker to module
                 setattr(module,'req_permissions',req_permissions)  # add broker to module
                 self.modules.update({module.UUID: module})  # add module to operator
                 self.permissions.update({module.UUID: req_permissions})
-                setattr(self, module._module_attr, module)
+
+                if module._module_attr in dir(self):  # if attrbute already present
+                    attribute_warning_string = "{}Warning: attribute '{}' is already being used by operator{}".format(colorama.Fore.YELLOW,module._module_name,colorama.Style.RESET_ALL)
+                    if overwrite_attributes == False:
+                        print(attribute_warning_string + ", skipping...")
+                    elif overwrite_attributes == True:
+                        print(attribute_warning_string + ", overwriting...")
+                        setattr(self, module._module_attr, module)
+                else:
+                    setattr(self, module._module_attr, module)
+
                 module._loaded()  # call module's method for when it's finished being loaded
                 return module.UUID
-
-            else:
-
-                raise Exception("module '{}' is already loaded!".format(module._module_name))
 
         else:
 
@@ -40,9 +56,9 @@ class VoluxOperator:
 
     def remove_module(self, module):
 
-        if module in self.modules:
+        if module in self.modules.values():
 
-            self.modules.remove(module)
+            del self.modules[module.UUID]
             delattr(self, module._module_attr)
 
         else:
