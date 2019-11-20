@@ -1,4 +1,16 @@
 from .requests import *
+import logging
+
+log = logging.getLogger("volux broker")
+log.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+# create formatter and add it to the handlers
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+ch.setFormatter(formatter)
+# add the handlers to the logger
+log.addHandler(ch)
 
 
 class VoluxBroker:
@@ -9,45 +21,34 @@ class VoluxBroker:
 
         if issubclass(type(request), VoluxBrokerRequest) == True:
 
-            if verbose == True:
-
-                print(
-                    "request from {} is a valid subclass...".format(
-                        request.module._module_name
-                    )
-                )
-
             mUUID = request.module.UUID
 
-            if verbose == True:
-
-                print("UUID of requesting module:", mUUID)
+            log.debug(
+                "request from {} is a valid subclass...".format(
+                    request.module._module_name
+                )
+            )
+            log.info("UUID of requesting module: {}".format(mUUID))
 
             if type(request) in request.module.req_permissions:
 
-                if verbose == True:
-
-                    print(
-                        "{} claims it's allowed to {}".format(
-                            request.module._module_name, request.req_string
-                        )
+                log.debug(
+                    "{} claims it's allowed to {}".format(
+                        request.module._module_name, request.req_string
                     )
+                )
 
                 if type(request) in self.operator.permissions[mUUID]:
 
-                    if verbose == True:
-
-                        print("Operator verified module's permissions")
+                    log.debug("Operator verified module's permissions")
 
                     req_type = type(request)
 
-                    if verbose == True:
-
-                        print(
-                            "{} is requesting to '{}'...".format(
-                                request.module._module_name, request.req_string
-                            )
+                    log.info(
+                        "{} is requesting to '{}'...".format(
+                            request.module._module_name, request.req_string
                         )
+                    )
 
                     if req_type == RequestAddConnection:
 
