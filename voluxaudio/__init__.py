@@ -74,7 +74,7 @@ class VoluxAudio(VoluxModule):
 
     def set(self, new_val):
 
-        print("you can't set the audio amplitude!")
+        log.error("you can't set the audio amplitude!")
 
     def _get_pyaudio(self):
 
