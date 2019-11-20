@@ -10,6 +10,7 @@ from .core import *
 from .demo import *
 from .connection import *
 from .requests import *
+from .suppress import *
 
 __metadata_version__ = "2.1"
 __name__ = "volux"
@@ -56,9 +57,9 @@ __requires_dist__ = [  # requirements
     "pyalsaaudio==0.8.4; platform_system == 'Linux'",
     "PyAudio==0.2.11",
     "colorama==0.4.1",
-    "numpy"
+    "numpy",
 ]
-__setup_requires__ = ['wheel','setuptools']
+__setup_requires__ = ["wheel", "setuptools"]
 __requires_python__ = [">=3"]  # required python version
 __requires_external__ = []  # external requirements
 __project_urls__ = {  # a browsable URL for the project and a label for it, separated by a comma
@@ -67,6 +68,6 @@ __project_urls__ = {  # a browsable URL for the project and a label for it, sepa
     "Funding": "https://paypal.me/denverpallis",
     "Docs": "https://{}.readthedocs.io".format(__name__),
 }
-__exclude_packages__ = ['contrib', 'docs', 'tests', 'voluxlightvisualiser']
+__exclude_packages__ = ["contrib", "docs", "tests", "voluxlightvisualiser"]
 
 # metadata standard: https://packaging.python.org/specifications/core-metadata/
