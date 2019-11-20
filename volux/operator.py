@@ -57,7 +57,7 @@ class VoluxOperator:
                 ):  # if this type of module is already in operator's modules
 
                     log.warning(
-                        "a different instance of the module '{}' is already loaded{}".format(
+                        "{}a different instance of the module '{}' is already loaded{}".format(
                             colorama.Fore.YELLOW,
                             module._module_name,
                             colorama.Style.RESET_ALL,
