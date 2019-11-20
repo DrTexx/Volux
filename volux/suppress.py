@@ -3,6 +3,7 @@ import os
 # full credit for this code goes to this post by jeremiahbuddha on stackoverflow:
 # https://stackoverflow.com/questions/11130156/suppress-stdout-stderr-print-from-python-functions
 
+
 # Define a context manager to suppress stdout and stderr.
 class SuppressStdoutStderr(object):
     """
@@ -12,7 +13,6 @@ class SuppressStdoutStderr(object):
        This will not suppress raised exceptions, since exceptions are printed
     to stderr just before a script exits, and after the context manager has
     exited (at least, I think that is why it lets exceptions through).
-
     """
 
     def __init__(self):
