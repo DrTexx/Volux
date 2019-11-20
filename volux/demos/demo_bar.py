@@ -1,16 +1,19 @@
 from ..demo import VoluxDemo
 import colorama
 
+
 class DemoVolLuxBar(VoluxDemo):
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(
-            demo_name='Demo Vol Lux Bar',
+            demo_name="Demo Vol Lux Bar",
             demo_method=self.run_demo,
             alias="bar",
             *args,
             **kwargs
         )
-        self.superclass = VoluxDemo  # todo: needs to be replaced with check for superclass in volux.__main__
+        self.superclass = (
+            VoluxDemo
+        )  # todo: needs to be replaced with check for superclass in volux.__main__
 
     def run_demo(self):
 
@@ -24,16 +27,28 @@ class DemoVolLuxBar(VoluxDemo):
         vlx.add_module(VoluxBar())
         vlx.add_module(VoluxVolume())
 
-        vlx.bar.add_mode("default",vlx.volume)
+        vlx.bar.add_mode("default", vlx.volume)
 
         try:
             from voluxlight import VoluxLight
-            vlx.add_module(VoluxLight(instance_label="demo", init_mode="device", init_mode_args={'label': 'Demo Bulb'}))
-            vlx.bar.add_mode("light",vlx.light_demo)
+
+            vlx.add_module(
+                VoluxLight(
+                    instance_label="demo",
+                    init_mode="device",
+                    init_mode_args={"label": "Demo Bulb"},
+                )
+            )
+            vlx.bar.add_mode("light", vlx.light_demo)
         except Exception as err:
-            print("{}WARNING: couldn't add light module/s... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
+            print(
+                "{}WARNING: couldn't add light module/s... reason: {}{}".format(
+                    colorama.Fore.YELLOW, err, colorama.Style.RESET_ALL
+                )
+            )
 
         # load Volux Bar module
         vlx.bar.init_window()
+
 
 demobar = DemoVolLuxBar()
