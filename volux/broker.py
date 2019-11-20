@@ -1,4 +1,12 @@
-from .requests import *
+from .requests import (
+    VoluxBrokerRequest,
+    RequestAddConnection,
+    RequestRemoveConnection,
+    RequestGetConnections,
+    RequestStartSync,
+    RequestSyncState,
+    RequestStopSync,
+)
 import logging
 
 log = logging.getLogger("volux broker")
@@ -7,7 +15,9 @@ log.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 # create formatter and add it to the handlers
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 ch.setFormatter(formatter)
 # add the handlers to the logger
 log.addHandler(ch)
@@ -19,7 +29,7 @@ class VoluxBroker:
 
     def process_request(self, request, verbose=True):
 
-        if issubclass(type(request), VoluxBrokerRequest) == True:
+        if issubclass(type(request), VoluxBrokerRequest) is True:
 
             mUUID = request.module.UUID
 
@@ -94,7 +104,9 @@ class VoluxBroker:
 
                 raise PermissionError(
                     "module {} doesn't claim it's allowed to {} ({})".format(
-                        request.module._module_name, request.req_string, type(request)
+                        request.module._module_name,
+                        request.req_string,
+                        type(request),
                     )
                 )
 
