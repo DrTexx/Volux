@@ -1,20 +1,19 @@
 class VoluxBrokerRequest:
-    def __init__(self,module,req_string):
+    def __init__(self, module, req_string):
         self.module = module
         self.req_string = req_string
 
+
 class RequestAddConnection(VoluxBrokerRequest):
-    def __init__(self,module,connection,*args,**kwargs):
+    def __init__(self, module, connection, *args, **kwargs):
         super().__init__(
-            module=module,
-            req_string="add a new connection",
-            *args,
-            **kwargs
+            module=module, req_string="add a new connection", *args, **kwargs
         )
         self.connection = connection
 
+
 class RequestRemoveConnection(VoluxBrokerRequest):
-    def __init__(self,module,connection,*args,**kwargs):
+    def __init__(self, module, connection, *args, **kwargs):
         super().__init__(
             module=module,
             req_string="remove an existing connection",
@@ -23,8 +22,9 @@ class RequestRemoveConnection(VoluxBrokerRequest):
         )
         self.connection = connection
 
+
 class RequestGetConnections(VoluxBrokerRequest):
-    def __init__(self,module,*args,**kwargs):
+    def __init__(self, module, *args, **kwargs):
         super().__init__(
             module=module,
             req_string="see current connections",
@@ -32,8 +32,9 @@ class RequestGetConnections(VoluxBrokerRequest):
             **kwargs
         )
 
+
 class RequestStartSync(VoluxBrokerRequest):
-    def __init__(self,module,*args,**kwargs):
+    def __init__(self, module, *args, **kwargs):
         super().__init__(
             module=module,
             req_string="start connection syncing",
@@ -41,8 +42,9 @@ class RequestStartSync(VoluxBrokerRequest):
             **kwargs
         )
 
+
 class RequestSyncState(VoluxBrokerRequest):
-    def __init__(self,module,*args,**kwargs):
+    def __init__(self, module, *args, **kwargs):
         super().__init__(
             module=module,
             req_string="get the connection sync state",
@@ -50,8 +52,9 @@ class RequestSyncState(VoluxBrokerRequest):
             **kwargs
         )
 
+
 class RequestStopSync(VoluxBrokerRequest):
-    def __init__(self,module,*args,**kwargs):
+    def __init__(self, module, *args, **kwargs):
         super().__init__(
             module=module,
             req_string="stop connection syncing",
@@ -59,11 +62,9 @@ class RequestStopSync(VoluxBrokerRequest):
             **kwargs
         )
 
+
 class RequestGetModules(VoluxBrokerRequest):
-    def __init__(self,module,*args,**kwargs):
+    def __init__(self, module, *args, **kwargs):
         super().__init__(
-            module=module,
-            req_string="get loaded modules",
-            *args,
-            **kwargs
+            module=module, req_string="get loaded modules", *args, **kwargs
         )
