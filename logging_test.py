@@ -14,7 +14,9 @@ ch = logging.StreamHandler()
 ch.setLevel(logging.ERROR)
 
 # create formatter and add it to the handlers
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 fh.setFormatter(formatter)
 ch.setFormatter(formatter)
 
@@ -29,14 +31,14 @@ log.info("calling volux.Auxiliary.do_something")
 
 try:
     vlx.start_sync()
-except:
+except Exception:
     log.error("it screwed up...")
 
 log.info("finished volux.Auxiliary.do_something")
 log.info("calling volux.some_function()")
 try:
     volux.add_module("kek it's a string")
-except:
+except Exception:
     log.error("that didn't work :(")
 log.info("done with volux.some_function()")
 
