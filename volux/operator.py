@@ -8,7 +8,7 @@ import colorama
 colorama.init()
 import logging
 
-log = logging.getLogger("volux broker")
+log = logging.getLogger("volux operator")
 log.setLevel(logging.DEBUG)
 # create console handler with a higher log level
 ch = logging.StreamHandler()
@@ -42,12 +42,13 @@ class VoluxOperator:
 
             if check_module_repeats == True:
 
-                if type(module) in [
-                    type(m) for m in self.modules.values()
-                ]:  # if this type of module is already in operator's modules
+                loaded_module_types = [type(m) for m in self.modules.values()]
+                if (
+                    type(module) in loaded_module_types
+                ):  # if this type of module is already in operator's modules
 
-                    print(
-                        "{}Warning: a different instance of the module '{}' is already loaded{}".format(
+                    log.warning(
+                        "a different instance of the module '{}' is already loaded{}".format(
                             colorama.Fore.YELLOW,
                             module._module_name,
                             colorama.Style.RESET_ALL,
@@ -81,14 +82,17 @@ class VoluxOperator:
                         colorama.Style.RESET_ALL,
                     )
                     if overwrite_attributes == False:
-                        print(attribute_warning_string + ", skipping...")
+                        log.warning(attribute_warning_string + ", skipping...")
                     elif overwrite_attributes == True:
-                        print(attribute_warning_string + ", overwriting...")
+                        log.warning(attribute_warning_string + ", overwriting...")
                         setattr(self, module._module_attr, module)
                 else:
                     setattr(self, module._module_attr, module)
 
                 module._loaded()  # call module's method for when it's finished being loaded
+                log.info(
+                    "module added: {} [{}]".format(module._module_name, module.UUID)
+                )
                 return module.UUID
 
         else:
@@ -112,7 +116,7 @@ class VoluxOperator:
 
             if not hasattr(module, attrib):
 
-                print(
+                log.error(
                     "module must be a subclass of VoluxModule with the [{}] attribute".format(
                         attrib
                     )
@@ -130,11 +134,15 @@ class VoluxOperator:
         if type(connection) == VoluxConnection:
 
             if connection.UUID in self.connections:
-                print("CONNECTION ALREADY EXISTS!")
+                log.warning("connection already exists!")
 
             else:
                 self.connections.update({connection.UUID: connection})
-                print("CONNECTION ADDED: UUID={}".format(connection.UUID))
+                log.info(
+                    "connection added: {} [{}]".format(
+                        connection.nickname, connection.UUID
+                    )
+                )
 
         else:
 
@@ -171,7 +179,7 @@ class VoluxOperator:
             for thread in self.threads:
                 thread.start()
 
-            print(
+            log.info(
                 "{}[CONNECTION SYNC STARTED]{}".format(
                     colorama.Fore.YELLOW, colorama.Style.RESET_ALL
                 )
@@ -199,7 +207,7 @@ class VoluxOperator:
 
         self.threads = []
 
-        print(
+        log.info(
             "{}[CONNECTION SYNC STOPPED]{}".format(
                 colorama.Fore.YELLOW, colorama.Style.RESET_ALL
             )
