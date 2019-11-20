@@ -4,9 +4,9 @@ from .broker import VoluxBroker
 from .connection import VoluxConnection
 from threading import Thread
 import colorama
+import logging
 
 colorama.init()
-import logging
 
 log = logging.getLogger("volux operator")
 log.setLevel(logging.DEBUG)
@@ -17,7 +17,9 @@ fh.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 # create formatter and add it to the handlers
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 fh.setFormatter(formatter)
 ch.setFormatter(formatter)
 # add the handlers to the logger
@@ -43,9 +45,11 @@ class VoluxOperator:
         overwrite_attributes=False,
     ):
 
-        if self.validate_module(module):  # if the object passed is a valid module
+        if self.validate_module(
+            module
+        ):  # if the object passed is a valid module
 
-            if check_module_repeats == True:
+            if check_module_repeats is True:
 
                 loaded_module_types = [type(m) for m in self.modules.values()]
                 if (
@@ -77,19 +81,25 @@ class VoluxOperator:
                 setattr(
                     module, "req_permissions", req_permissions
                 )  # add broker to module
-                self.modules.update({module.UUID: module})  # add module to operator
+                self.modules.update(
+                    {module.UUID: module}
+                )  # add module to operator
                 self.permissions.update({module.UUID: req_permissions})
 
-                if module._module_attr in dir(self):  # if attrbute already present
+                if module._module_attr in dir(
+                    self
+                ):  # if attrbute already present
                     attribute_warning_string = "{}Warning: attribute '{}' is already being used by operator{}".format(
                         colorama.Fore.YELLOW,
                         module._module_name,
                         colorama.Style.RESET_ALL,
                     )
-                    if overwrite_attributes == False:
+                    if overwrite_attributes is False:
                         log.warning(attribute_warning_string + ", skipping...")
-                    elif overwrite_attributes == True:
-                        log.warning(attribute_warning_string + ", overwriting...")
+                    elif overwrite_attributes is True:
+                        log.warning(
+                            attribute_warning_string + ", overwriting..."
+                        )
                         setattr(self, module._module_attr, module)
                 else:
                     setattr(self, module._module_attr, module)
@@ -118,7 +128,9 @@ class VoluxOperator:
 
         else:
 
-            raise AttributeError("module '{}' not loaded!".format(module._module_name))
+            raise AttributeError(
+                "module '{}' not loaded!".format(module._module_name)
+            )
 
     def validate_module(self, module):
 
@@ -164,7 +176,9 @@ class VoluxOperator:
 
         else:
 
-            raise TypeError("connection must be an instance of VoluxConnection")
+            raise TypeError(
+                "connection must be an instance of VoluxConnection"
+            )
 
     def remove_connection(self, connection):
 
@@ -223,7 +237,7 @@ class VoluxOperator:
     def _wrap_sync(self, sync_method):
         def wrapped_sync():
 
-            while self.running == True:
+            while self.running is True:
 
                 sync_method()
 
