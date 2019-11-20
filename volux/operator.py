@@ -247,8 +247,8 @@ class VoluxOperator:
 
         self.running = False
 
-        for thread in self.threads:
-            thread.join()
+        # for thread in self.threads:
+        #     thread.join()
 
         self.threads = []
 
