@@ -1,8 +1,25 @@
 import threading
-import colorama
 from time import sleep
 import tkinter as tk
 from tkinter import ttk
+import colorama
+
+colorama.init()
+import logging
+
+log = logging.getLogger("volux script - GUI")
+log.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+# create formatter and add it to the handlers
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(lineno)d"
+)
+ch.setFormatter(formatter)
+# add the handlers to the logger
+log.addHandler(ch)
+
 
 def launch_gui():
 
@@ -20,29 +37,50 @@ def launch_gui():
     cli_UUID = vlx.add_module(VoluxCliPrint())  # add VoluxCliPrint module
     audio_UUID = vlx.add_module(VoluxAudio(sensitivity=8))  # add VoluxAudio module
 
-    gui_shared_modules = [
-        vlx.modules[cli_UUID],
-        vlx.modules[audio_UUID]
-    ]
+    gui_shared_modules = [vlx.modules[cli_UUID], vlx.modules[audio_UUID]]
 
-    # try adding voluxlight module
-    def try_adding_light(**kwargs):
-        try:
-            return VoluxLight(**kwargs)
-        except Exception as err:
-            print("{}WARNING: couldn't init light module/s... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
+    lightmodules = []
 
-    lightmodules = [
-        try_adding_light(instance_label="strip",init_mode="device",init_mode_args={'label': 'Strip'}),
-        try_adding_light(instance_label="demo",init_mode="device",init_mode_args={'label': 'Demo Bulb'})
-    ]
+    try:
+        lightmodules.append(
+            VoluxLight(
+                instance_label="strip",
+                init_mode="device",
+                init_mode_args={"label": "Strip"},
+            )
+        )
+    except:
+        log.error(
+            "{}failed adding device (Strip) - {}{}".format(
+                colorama.Fore.YELLOW, err, colorama.Style.RESET_ALL
+            )
+        )
+
+    try:
+        lightmodules.append(
+            VoluxLight(
+                instance_label="demo",
+                init_mode="device",
+                init_mode_args={"label": "Demo Bulb"},
+            )
+        )
+    except Exception as err:
+        log.error(
+            "{}failed adding device (Demo Bulb) - {}{}".format(
+                colorama.Fore.YELLOW, err, colorama.Style.RESET_ALL
+            )
+        )
 
     for lightmodule in lightmodules:
         try:
             vlx.add_module(lightmodule)
-            gui_shared_modules.append(getattr(vlx,lightmodule._module_attr))
+            gui_shared_modules.append(getattr(vlx, lightmodule._module_attr))
         except Exception as err:
-            print("{}WARNING: couldn't add light module/s... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
+            log.warning(
+                "{}couldn't add light module/s... reason: {}{}".format(
+                    colorama.Fore.YELLOW, err, colorama.Style.RESET_ALL
+                )
+            )
 
     # try:
     #     while hasattr(vlx,'light_all') == False:
@@ -54,13 +92,22 @@ def launch_gui():
     # try adding voluxlightvisualiser module
     try:
         from voluxlightvisualiser import VoluxLightVisualiser, INTENSE_MODE
-        vlx.add_module(VoluxLightVisualiser(mode=INTENSE_MODE,packetHz=240,hueHz=240,hue_cycle_duration=5))
+
+        vlx.add_module(
+            VoluxLightVisualiser(
+                mode=INTENSE_MODE, packetHz=240, hueHz=240, hue_cycle_duration=5
+            )
+        )
         gui_shared_modules.append(vlx.vis)
         # vis_added = True
     except Exception as err:
-        print("{}WARNING: couldn't add visualiser module... reason: {}{}".format(colorama.Fore.YELLOW,err,colorama.Style.RESET_ALL))
+        log.warning(
+            "{}couldn't add visualiser module... reason: {}{}".format(
+                colorama.Fore.YELLOW, err, colorama.Style.RESET_ALL
+            )
+        )
 
-    print(gui_shared_modules)
+    log.debug("shared_modules: {}".format(gui_shared_modules))
     vlx.add_module(
         VoluxGui(shared_modules=gui_shared_modules),
         req_permissions=[
@@ -69,8 +116,8 @@ def launch_gui():
             volux.RequestRemoveConnection,
             volux.RequestGetConnections,
             volux.RequestStartSync,
-            volux.RequestStopSync
-        ]
+            volux.RequestStopSync,
+        ],
     )
 
     # if vis_added == True:
