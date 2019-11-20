@@ -1,8 +1,8 @@
 import uuid
 import colorama
+import logging
 
 colorama.init()
-import logging
 
 log = logging.getLogger("volux module")
 log.setLevel(logging.DEBUG)
@@ -10,7 +10,9 @@ log.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 # create formatter and add it to the handlers
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 ch.setFormatter(formatter)
 # add the handlers to the logger
 log.addHandler(ch)
@@ -36,7 +38,9 @@ class VoluxModule:
     ):
 
         if not type(shared_modules) == list:
-            raise TypeError("VoluxModule: kwarg 'shared_modules' must be of type list")
+            raise TypeError(
+                "VoluxModule: kwarg 'shared_modules' must be of type list"
+            )
 
         self.UUID = uuid.uuid4()
         self._module_name = module_name
