@@ -1,4 +1,4 @@
-from volux import VoluxModule
+from volux import VoluxModule, SuppressStdoutStderr
 import numpy as np
 import pyaudio
 import colorama
@@ -8,7 +8,8 @@ from .hsv2ansi import *
 colorama.init()
 clamp = lambda value, minv, maxv: max(min(value, maxv), minv)
 
-__requires_python__ = [">=3","<3.8"]  # required python version
+__requires_python__ = [">=3", "<3.8"]  # required python version
+
 
 class VoluxAudio(VoluxModule):
     """
@@ -38,7 +39,15 @@ class VoluxAudio(VoluxModule):
     Flume - Burner [thoooose peaaaks are beautiful]
     """
 
-    def __init__(self,sensitivity=9,shared_modules=[],pollrate=None,enable_visualiser=False,*args,**kwargs):
+    def __init__(
+        self,
+        sensitivity=9,
+        shared_modules=[],
+        pollrate=None,
+        enable_visualiser=False,
+        *args,
+        **kwargs
+    ):
         super().__init__(
             module_name="Volux Audio",
             module_attr="audio",
@@ -51,9 +60,11 @@ class VoluxAudio(VoluxModule):
             set_min=0,
             set_max=100,
             shared_modules=shared_modules,
-            pollrate=pollrate
+            pollrate=pollrate,
         )
-        self.pa = pyaudio.PyAudio()  # note: this is what causes all the spam when creating module
+        self.pa = (
+            self._get_pyaudio()
+        )  # note: this is what causes all the spam when creating module
         self.stream = self._open_stream()
         self.sensitivity = 9
 
@@ -64,6 +75,12 @@ class VoluxAudio(VoluxModule):
     def set(self, new_val):
 
         print("you can't set the audio amplitude!")
+
+    def _get_pyaudio(self):
+
+        with SuppressStdoutStderr():
+
+            return pyaudio.PyAudio()
 
     def _open_stream(self):
 
@@ -87,8 +104,10 @@ class VoluxAudio(VoluxModule):
     def _get_amplitude(self):
         raw_audio_norm = np.linalg.norm(self.audio_data) / len(self.audio_data)
         adj_audio_norm = raw_audio_norm / 2 ** self.sensitivity
-        cla_audio_norm = clamp(adj_audio_norm, 0, 1)  # normalized audio returning a value between 0 to 1
-        return cla_audio_norm * 100 # 0 .. 100
+        cla_audio_norm = clamp(
+            adj_audio_norm, 0, 1
+        )  # normalized audio returning a value between 0 to 1
+        return cla_audio_norm * 100  # 0 .. 100
 
     def stop(self):
 
