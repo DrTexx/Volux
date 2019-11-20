@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import ttk
 import colorama
 import logging
+import lifxlan
 
 colorama.init()
 
@@ -43,35 +44,30 @@ def launch_gui():
 
     lightmodules = []
 
-    try:
-        lightmodules.append(
-            VoluxLight(
-                instance_label="strip",
-                init_mode="device",
-                init_mode_args={"label": "Strip"},
-            )
-        )
-    except Exception as err:
-        log.error(
-            "{}failed adding device (Strip) - {}{}".format(
-                colorama.Fore.YELLOW, err, colorama.Style.RESET_ALL
-            )
-        )
+    log.info("discovering LIFX devices on network...")
+    lifx = lifxlan.LifxLAN(None)
+    devices = lifx.get_devices()
+    log.info("finished LIFX device discovery")
+    log.debug("LIFX devices found: {}".format(devices))
 
-    try:
-        lightmodules.append(
-            VoluxLight(
-                instance_label="demo",
-                init_mode="device",
-                init_mode_args={"label": "Demo Bulb"},
+    for device in devices:
+        try:
+            lightmodules.append(
+                VoluxLight(
+                    instance_label=device.get_label(),
+                    init_mode="device",
+                    init_mode_args={"label": device.get_label()},
+                )
             )
-        )
-    except Exception as err:
-        log.error(
-            "{}failed adding device (Demo Bulb) - {}{}".format(
-                colorama.Fore.YELLOW, err, colorama.Style.RESET_ALL
+        except Exception as err:
+            log.error(
+                "{}failed adding device ({}) - {}{}".format(
+                    colorama.Fore.YELLOW,
+                    device.get_label(),
+                    err,
+                    colorama.Style.RESET_ALL,
+                )
             )
-        )
 
     for lightmodule in lightmodules:
         try:
