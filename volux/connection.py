@@ -1,6 +1,7 @@
 import uuid
 from time import sleep
 
+
 class VoluxConnection:
     """Contains all the properties of a connection between two modules"""
 
@@ -10,14 +11,14 @@ class VoluxConnection:
         self.output = output_module
         self.UUID = uuid.uuid4()
         self.hz = hz
-        self.nickname = "{} -> {} ({})".format(self.input._module_attr,self.output._module_attr,self.hz)
+        self.nickname = "{} -> {} ({})".format(
+            self.input._module_attr, self.output._module_attr, self.hz
+        )
 
     def sync(self):
 
-        self.output.set(
-            self.input.get()
-        )
+        self.output.set(self.input.get())
 
         # print("{} -> {}".format(self.input._module_name,self.output._module_name))
 
-        sleep(1/self.hz)
+        sleep(1 / self.hz)

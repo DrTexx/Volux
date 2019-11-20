@@ -1,9 +1,11 @@
 class VoluxDemo:
-    def __init__(self, demo_name, demo_method, alias, requirements=None, *args, **kwargs):
+    def __init__(
+        self, demo_name, demo_method, alias, requirements=None, *args, **kwargs
+    ):
         self._name = demo_name
         self._method = demo_method
         self._alias = alias
-        self._requirements = requirements # optional
+        self._requirements = requirements  # optional
 
     def run(self):
         self._method()
