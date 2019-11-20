@@ -5,7 +5,7 @@ log = logging.getLogger("volux broker")
 log.setLevel(logging.DEBUG)
 # create console handler with a higher log level
 ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.INFO)
 # create formatter and add it to the handlers
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 ch.setFormatter(formatter)
@@ -28,7 +28,7 @@ class VoluxBroker:
                     request.module._module_name
                 )
             )
-            log.info("UUID of requesting module: {}".format(mUUID))
+            log.debug("UUID of requesting module: {}".format(mUUID))
 
             if type(request) in request.module.req_permissions:
 
@@ -44,7 +44,7 @@ class VoluxBroker:
 
                     req_type = type(request)
 
-                    log.info(
+                    log.debug(
                         "{} is requesting to '{}'...".format(
                             request.module._module_name, request.req_string
                         )
