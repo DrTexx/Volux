@@ -8,3 +8,4 @@ docs/_build
 build-dir
 volux-repo
 voluxlightvisualiser
+*.log
