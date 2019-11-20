@@ -12,9 +12,9 @@ from volux import (
 import tkinter as tk
 from tkinter import ttk
 import colorama
+import logging
 
 colorama.init()
-import logging
 
 log = logging.getLogger("voluxgui module")
 log.setLevel(logging.DEBUG)
@@ -53,19 +53,22 @@ class VoluxGui(VoluxModule):
 
         self.root = tk.Tk()
         self.mainApp = MainApplication(self.root, self, style="mainApp.TFrame")
-        self.example_val = 0
+        self.val = 0
 
     def get(self):
 
-        return self.example_val
+        return self.val
 
     def set(self, new_val):
 
+        self.val = new_val
         container_width = (
             self.mainApp.value_bar.winfo_width()
         )  # note: wasteful, find alternative or remove in future
 
-        self.mainApp.value_bar_fill.config(width=container_width * (new_val / 100))
+        self.mainApp.value_bar_fill.config(
+            width=container_width * (self.val / 100)
+        )
 
     def init_window(self):
 
@@ -76,9 +79,14 @@ class VoluxGui(VoluxModule):
 
         self.mainApp.pack(side="top", fill=tk.BOTH, expand=True)
         self.root.title("Volux")
-        screen_size = (self.root.winfo_screenwidth(), self.root.winfo_screenheight())
+        screen_size = (
+            self.root.winfo_screenwidth(),
+            self.root.winfo_screenheight(),
+        )
         self.root.geometry(
-            "{}x{}+{}+{}".format(800, 500, 1920 - 800, 1080 - 500)
+            "{}x{}+{}+{}".format(
+                800, 500, screen_size[0] - 800, screen_size[1] - 500
+            )
         )  # define the size of the window
         self.mainApp._update_loop()
         self.root.mainloop()
@@ -117,7 +125,9 @@ class MainApplication(ttk.Frame):
         self.input_testget.pack()
 
         self.output_frame = ttk.Frame(self)
-        self.output_frame.pack(side="left", fill=tk.Y, padx="14px", pady="14px")
+        self.output_frame.pack(
+            side="left", fill=tk.Y, padx="14px", pady="14px"
+        )
 
         self.output_label = ttk.Label(self.output_frame, text="OUTPUTS")
         self.output_label.pack(side="top", fill=tk.BOTH)
@@ -136,15 +146,22 @@ class MainApplication(ttk.Frame):
         self.output_testset_data.pack()
 
         self.connections_frame = ttk.Frame(self)
-        self.connections_frame.pack(side="left", fill=tk.Y, padx="14px", pady="14px")
+        self.connections_frame.pack(
+            side="left", fill=tk.Y, padx="14px", pady="14px"
+        )
 
-        self.connections_label = ttk.Label(self.connections_frame, text="CONNECTIONS")
+        self.connections_label = ttk.Label(
+            self.connections_frame, text="CONNECTIONS"
+        )
         self.connections_label.pack(side="top", fill=tk.BOTH)
 
         self.connections_listbox = tk.Listbox(
-            self.connections_frame, selectmode=tk.EXTENDED, exportselection=True
+            self.connections_frame,
+            selectmode=tk.EXTENDED,
+            exportselection=True,
         )
         self.connections_listbox.pack()
+        self.connections_listbox.bind("<Delete>", self._remove_connection)
 
         self.connections_controls = ttk.Frame(self.connections_frame)
         self.connections_controls.pack()
@@ -160,39 +177,47 @@ class MainApplication(ttk.Frame):
         self.connections_add_button = ttk.Button(
             self.connections_controls, text="ADD", command=self._add_connection
         )
-        self.connections_add_button.grid(row=1, column=0)
+        self.connections_add_button.grid(row=1, columnspan=2)
 
         self.connections_remove_button = ttk.Button(
-            self.connections_controls, text="REMOVE", command=self._remove_connection
+            self.connections_controls,
+            text="REMOVE",
+            command=self._remove_connection,
         )
-        self.connections_remove_button.grid(row=1, column=1)
-
-        self.connections_hzbox_label = ttk.Label(
-            self.connections_controls, text="Pollrate (Hz)"
-        )
-        self.connections_hzbox_label.grid(row=2, column=0)
-
-        self.connections_hzbox = ttk.Entry(self.connections_controls, width="5")
-        self.connections_hzbox.grid(row=2, column=1)
+        self.connections_remove_button.grid(row=2, columnspan=2)
 
         self.connections_refresh = ttk.Button(
             self.connections_controls,
-            text="REFRESH CONNECTIONS",
+            text="REFRESH",
             command=self._refresh_connections,
         )
         self.connections_refresh.grid(row=3, columnspan=2)
 
-        self.demo_slider = ttk.Scale(self.output_frame, from_=0, to=100)
-        self.demo_slider.pack()
+        self.connections_hzbox_label = ttk.Label(
+            self.connections_controls, text="Pollrate (Hz)"
+        )
+        self.connections_hzbox_label.grid(row=4, column=0)
+
+        self.connections_hzbox = ttk.Entry(
+            self.connections_controls, width="5"
+        )
+        self.connections_hzbox.grid(row=4, column=1)
+
+        # self.demo_slider = ttk.Scale(self.output_frame, from_=0, to=100)
+        # self.demo_slider.pack()
 
         for smodule in self.ext_modules:
             if hasattr(smodule, "tk_frame"):
                 setattr(self, smodule.frame_attr, smodule.tk_frame(self))
                 this_frame = getattr(self, smodule.frame_attr)
                 smodule._set_gui_instance(self.module_root)
-                this_frame.pack(side="left", fill=tk.Y, padx="14px", pady="14px")
+                this_frame.pack(
+                    side="left", fill=tk.Y, padx="14px", pady="14px"
+                )
 
-        self.value_bar = ttk.Frame(self.parent, height=14, width=100, pad="1px")
+        self.value_bar = ttk.Frame(
+            self.parent, height=14, width=100, pad="1px"
+        )
         self.value_bar.pack(side="bottom", fill=tk.X)
 
         self.value_bar_fill = ttk.Frame(
@@ -211,11 +236,11 @@ class MainApplication(ttk.Frame):
 
         sync_enabled_in_gui = self.sync_running.get()
 
-        if sync_enabled_in_gui == True:
+        if sync_enabled_in_gui is True:
 
             self._start_connection_sync()
 
-        elif sync_enabled_in_gui == False:
+        elif sync_enabled_in_gui is False:
 
             self._stop_connection_sync()
 
@@ -230,7 +255,9 @@ class MainApplication(ttk.Frame):
         sel = self.output_listbox.curselection()
         if len(sel) > 0:
             i = self.output_listbox.curselection()[0]
-            set_response = self.ext_modules[i].set(int(self.output_testset_data.get()))
+            set_response = self.ext_modules[i].set(
+                float(self.output_testset_data.get())
+            )
             log.info("set method response: {}".format(set_response))
         else:
             raise ValueError("no output selected!")
@@ -296,12 +323,6 @@ class MainApplication(ttk.Frame):
 
                 self.output_listbox.insert(tk.END, module._module_name)
 
-    def _get_selected_mdevices(self):
-        devices_to_return = [
-            self.parent.mlifx.managed_devices[device_i] for device_i in device_indexes
-        ]
-        return devices_to_return  # return a tuple of indexes for selected items
-
     def _add_connection(self):
 
         connection = VoluxConnection(
@@ -313,10 +334,12 @@ class MainApplication(ttk.Frame):
         self.module_root.broker.process_request(request)
         self._refresh_connections()
 
-    def _remove_connection(self):
+    def _remove_connection(self, event=None):
 
         connection = self._get_selected_connection()
-        request = RequestRemoveConnection(self.module_root, connection=connection)
+        request = RequestRemoveConnection(
+            self.module_root, connection=connection
+        )
         self.module_root.broker.process_request(request)
         self._refresh_connections()
 
@@ -342,7 +365,9 @@ class MainApplication(ttk.Frame):
 
         for cUUID in connections:
 
-            self.connections_listbox.insert(tk.END, connections[cUUID].nickname)
+            self.connections_listbox.insert(
+                tk.END, connections[cUUID].nickname
+            )
 
     def _start_connection_sync(self):
 
