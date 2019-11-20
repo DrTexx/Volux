@@ -11,7 +11,7 @@ class VoluxConnection:
         self.output = output_module
         self.UUID = uuid.uuid4()
         self.hz = hz
-        self.nickname = "{} -> {} ({})".format(
+        self.nickname = "{} -> {} @ {}hz".format(
             self.input._module_attr, self.output._module_attr, self.hz
         )
 
