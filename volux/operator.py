@@ -10,13 +10,18 @@ import logging
 
 log = logging.getLogger("volux operator")
 log.setLevel(logging.DEBUG)
+# create file handler which logs even debug messages
+fh = logging.FileHandler("volux_operator.log")
+fh.setLevel(logging.DEBUG)
 # create console handler with a higher log level
 ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.INFO)
 # create formatter and add it to the handlers
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+fh.setFormatter(formatter)
 ch.setFormatter(formatter)
 # add the handlers to the logger
+log.addHandler(fh)
 log.addHandler(ch)
 
 
@@ -91,7 +96,12 @@ class VoluxOperator:
 
                 module._loaded()  # call module's method for when it's finished being loaded
                 log.info(
-                    "module added: {} [{}]".format(module._module_name, module.UUID)
+                    "module added: {name} [{color}{UUID}{reset}]".format(
+                        name=module._module_name,
+                        color=colorama.Fore.GREEN,
+                        UUID=module.UUID,
+                        reset=colorama.Style.RESET_ALL,
+                    )
                 )
                 return module.UUID
 
@@ -123,6 +133,11 @@ class VoluxOperator:
                 )
                 return False
 
+        log.debug(
+            "module passed validation - {} [{}]".format(
+                module._module_name, module.UUID
+            )
+        )
         return True
 
     def get_modules(self):
@@ -139,8 +154,11 @@ class VoluxOperator:
             else:
                 self.connections.update({connection.UUID: connection})
                 log.info(
-                    "connection added: {} [{}]".format(
-                        connection.nickname, connection.UUID
+                    "connection added: {name} [{color}{UUID}{reset}]".format(
+                        name=connection.nickname,
+                        color=colorama.Fore.CYAN,
+                        UUID=connection.UUID,
+                        reset=colorama.Style.RESET_ALL,
                     )
                 )
 
@@ -153,6 +171,14 @@ class VoluxOperator:
         if connection.UUID in self.connections:
 
             del self.connections[connection.UUID]
+            log.info(
+                "connection removed: {name} [{color}{UUID}{reset}]".format(
+                    name=connection.nickname,
+                    color=colorama.Fore.CYAN,
+                    UUID=connection.UUID,
+                    reset=colorama.Style.RESET_ALL,
+                )
+            )
 
         else:
 
@@ -187,7 +213,12 @@ class VoluxOperator:
 
         else:
 
-            raise Exception("volux operator has no connections to start sync on!")
+            log.error(
+                "{}volux operator has no connections to start sync on!{}".format(
+                    colorama.Fore.RED, colorama.Style.RESET_ALL
+                )
+            )
+            self.stop_sync
 
     def _wrap_sync(self, sync_method):
         def wrapped_sync():
