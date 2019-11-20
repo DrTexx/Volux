@@ -6,6 +6,21 @@ from time import sleep
 from .hsv2ansi import *
 
 colorama.init()
+import logging
+
+log = logging.getLogger("voluxaudio")
+log.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+# create formatter and add it to the handlers
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(lineno)d"
+)
+ch.setFormatter(formatter)
+# add the handlers to the logger
+log.addHandler(ch)
+
 clamp = lambda value, minv, maxv: max(min(value, maxv), minv)
 
 __requires_python__ = [">=3", "<3.8"]  # required python version
