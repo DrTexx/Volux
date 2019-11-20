@@ -3,9 +3,9 @@ from time import sleep
 import tkinter as tk
 from tkinter import ttk
 import colorama
+import logging
 
 colorama.init()
-import logging
 
 log = logging.getLogger("volux script - GUI")
 log.setLevel(logging.DEBUG)
@@ -35,7 +35,9 @@ def launch_gui():
     # create instance of VoluxOperator
     vlx = volux.VoluxOperator()
     cli_UUID = vlx.add_module(VoluxCliPrint())  # add VoluxCliPrint module
-    audio_UUID = vlx.add_module(VoluxAudio(sensitivity=8))  # add VoluxAudio module
+    audio_UUID = vlx.add_module(
+        VoluxAudio(sensitivity=8)
+    )  # add VoluxAudio module
 
     gui_shared_modules = [vlx.modules[cli_UUID], vlx.modules[audio_UUID]]
 
@@ -49,7 +51,7 @@ def launch_gui():
                 init_mode_args={"label": "Strip"},
             )
         )
-    except:
+    except Exception as err:
         log.error(
             "{}failed adding device (Strip) - {}{}".format(
                 colorama.Fore.YELLOW, err, colorama.Style.RESET_ALL
@@ -95,7 +97,10 @@ def launch_gui():
 
         vlx.add_module(
             VoluxLightVisualiser(
-                mode=INTENSE_MODE, packetHz=240, hueHz=240, hue_cycle_duration=5
+                mode=INTENSE_MODE,
+                packetHz=240,
+                hueHz=240,
+                hue_cycle_duration=5,
             )
         )
         gui_shared_modules.append(vlx.vis)
