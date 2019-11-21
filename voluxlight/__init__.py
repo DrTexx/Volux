@@ -8,10 +8,21 @@ log.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 # create formatter and add it to the handlers
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 ch.setFormatter(formatter)
 # add the handlers to the logger
 log.addHandler(ch)
+
+
+def get_all_lights():
+    log.info("discovering LIFX devices on network...")
+    lifx = lifxlan.LifxLAN(None)
+    devices = lifx.get_devices()
+    log.info("finished LIFX device discovery")
+    log.debug("LIFX devices found: {}".format(devices))
+    return devices
 
 
 class UnsupportedFeature:
@@ -42,9 +53,9 @@ class ManagedDevice:
         """save device state inside of class"""
         self.power = self.device.get_power()
 
-        if self.supports_color == True:
+        if self.supports_color is True:
             self.color = self.device.get_color()
-        elif self.supports_color == False:
+        elif self.supports_color is False:
             self.color = UnsupportedFeature()
         else:
             raise TypeError("self.supports_color should be a boolean value")
@@ -53,7 +64,7 @@ class ManagedDevice:
         """load device state last saved inside of class"""
         self.device.set_power(self.power)
 
-        if self.supports_color == True:
+        if self.supports_color is True:
             self.device.set_color(self.color)
 
 
@@ -75,11 +86,11 @@ class VoluxLight(VoluxModule):
             module_get=self.get,
             get_type=float,
             get_min=0,
-            get_max=65535,
+            get_max=100,
             module_set=self.set,
             set_type=float,
             set_min=0,
-            set_max=65535,
+            set_max=100,
             shared_modules=shared_modules,
             pollrate=pollrate,
         )
@@ -97,9 +108,11 @@ class VoluxLight(VoluxModule):
 
         self.devices = []
 
-        if not self.init_mode in init_mode_options:
+        if self.init_mode not in init_mode_options:
             raise ValueError(
-                "invalid init_mode. options include: {}".format(init_mode_options)
+                "invalid init_mode. options include: {}".format(
+                    init_mode_options
+                )
             )
         else:
             if self.init_mode == "all_devices":
@@ -107,11 +120,16 @@ class VoluxLight(VoluxModule):
 
             elif self.init_mode == "device":
                 if type(self.init_mode_args) == dict:
-                    if "ip" in self.init_mode_args and "mac" in self.init_mode_args:
+                    if (
+                        "ip" in self.init_mode_args
+                        and "mac" in self.init_mode_args
+                    ):
                         raise NotImplementedError()  # note: implement ip + mac option
                     elif "label" in self.init_mode_args:
                         self.devices.append(
-                            self.lifx.get_device_by_name(self.init_mode_args["label"])
+                            self.lifx.get_device_by_name(
+                                self.init_mode_args["label"]
+                            )
                         )
                     else:
                         raise KeyError("'label' not specified in mode_args")
@@ -134,7 +152,7 @@ class VoluxLight(VoluxModule):
                 else:
                     raise KeyError("'group_label' not specified in mode_args")
 
-        # if not self.group == None:
+        # if not self.group is None:
         #     for device in self.devices:
         #         if not device.get_group_label() == self.group:
         #             device.set_power(False)
@@ -142,10 +160,12 @@ class VoluxLight(VoluxModule):
         #             print("removed '{}' from selected devices because it's not in group '{}'".format(device.get_label(),self.group))
         if len(self.devices) > 0:
             for device in self.devices:
-                if not device == None:
+                if device is not None:
                     device.set_power(True)
                 else:
-                    raise Exception("No lights with specified conditions found!")
+                    raise Exception(
+                        "No lights with specified conditions found!"
+                    )
         else:
             raise Exception("No lights with specified conditions found!")
 
@@ -166,20 +186,23 @@ class VoluxLight(VoluxModule):
 
         input_type = type(new_val)
 
-        if input_type == float:
+        if input_type == float or input_type == int:
 
-            if new_val < 0:
-                new_val = 0
+            if new_val < self._set_min:
+                new_val = self._set_min
 
-            elif new_val > 100:
-                new_val = 100
-
-            new_val = new_val / 100
+            elif new_val > self._set_max:
+                new_val = self._set_max
 
             for device in self.devices:
 
                 color = device.get_color()
-                new_color = (color[0], color[1], new_val * 65535, color[3])
+                new_color = (
+                    color[0],
+                    color[1],
+                    (new_val / self._set_max) * 65535,
+                    color[3],
+                )
                 device.set_color(new_color)
 
         elif input_type == tuple:
@@ -188,7 +211,7 @@ class VoluxLight(VoluxModule):
 
         else:
 
-            raise TypeError("input for set must be float or HSBK tuple")
+            raise TypeError("input for set must be int, float or HSBK tuple")
 
     def set_color(self, new_color, duration=20, rapid=True):
 
