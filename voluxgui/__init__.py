@@ -86,7 +86,7 @@ class VoluxGui(VoluxModule):
         self.gui_style.configure("value_bar_fill.TFrame", background="RED")
         # self.gui_style.theme_use('clam')
 
-        self.mainApp.pack(side="top", fill=tk.BOTH, expand=True)
+        self.mainApp.pack(side="top", fill=tk.X)
         self.root.title("Volux")
         screen_size = (
             self.root.winfo_screenwidth(),
@@ -125,17 +125,15 @@ class MainApplication(ttk.Frame):
         self.p = ttk.Panedwindow(
             self, orient=tk.HORIZONTAL, style="mainApp.TPanedwindow"
         )
-        # self.p.pack(padx="10px",pady="10px",fill=tk.BOTH, expand=True)
-        self.p.pack(fill=tk.BOTH, expand=True, padx="5px", pady="5px")
+        self.p.pack(fill=tk.X, padx="5px", pady="5px")
 
-        self.LFinputs = InputsFrame(
-            self, self.module_root, width=100, height=100
-        )
-        self.LFinputs.pack(padx="10px")
+        self.Finputs = ttk.Frame(self)
+        self.LFinputs = InputsFrame(self.Finputs, self.module_root)
+        self.LFinputs.pack(anchor="nw")
 
-        self.LFoutputs = OutputsFrame(
-            self, self.module_root, width=100, height=100
-        )
+        self.Foutputs = ttk.Frame(self)
+        self.LFoutputs = OutputsFrame(self.Foutputs, self.module_root)
+        self.LFoutputs.pack(anchor="nw")
 
         self.Fconnections = ttk.Frame(self)
         self.LFconnections = ConnectionsFrame(
@@ -143,14 +141,14 @@ class MainApplication(ttk.Frame):
         )
         self.LFconnections.pack(anchor="nw")
 
-        self.p.add(self.LFinputs)
-        self.p.add(self.LFoutputs)
+        self.p.add(self.Finputs)
+        self.p.add(self.Foutputs)
         self.p.add(self.Fconnections)
 
         self.wip_notice = ttk.Label(
             self, text="NOTE: GUI IS A WORK-IN-PROGRESS", anchor=tk.CENTER
         )
-        self.wip_notice.pack(side="bottom", fill=tk.BOTH)
+        self.wip_notice.pack(side="bottom", fill=tk.X)
 
         for smodule in self.module_root._shared_modules:
             if hasattr(smodule, "tk_frame"):
@@ -212,12 +210,31 @@ class InputsFrame(ttk.Labelframe):
         self.listbox = tk.Listbox(
             self, selectmode=tk.SINGLE, exportselection=False
         )
-        self.listbox.pack(anchor="nw", fill=tk.X, expand=True)
+        self.listbox.pack(anchor="nw", side="top", fill=tk.X)
+
+        self.refresh_button = ttk.Button(
+            self, text="Refresh", command=self._refresh_input_list
+        )
+        self.refresh_button.pack(anchor="nw", side="top", fill=tk.X)
 
         self.testget = ttk.Button(
             self, text="Get Test", command=self._get_test
         )
-        self.testget.pack()
+        self.testget.pack(anchor="nw", side="top", fill=tk.X)
+
+    def _refresh_input_list(self):
+
+        modules = self.module_root._shared_modules
+
+        self.listbox.delete(0, tk.END)  # clear input listbox
+
+        for i in range(len(modules)):
+
+            module = modules[i]
+
+            if hasattr(module, "get"):
+
+                self.listbox.insert(tk.END, module._module_name)
 
     def _get_test(self):
 
@@ -251,16 +268,35 @@ class OutputsFrame(ttk.Labelframe):
         self.listbox = tk.Listbox(
             self, selectmode=tk.SINGLE, exportselection=False
         )
-        self.listbox.pack(padx="2px", pady="2px", fill=tk.BOTH, expand=True)
+        self.listbox.pack(fill=tk.X)
+
+        self.refresh_button = ttk.Button(
+            self, text="Refresh", command=self._refresh_output_list
+        )
+        self.refresh_button.pack(anchor="nw", side="top", fill=tk.X)
 
         self.testset = ttk.Button(
             self, text="Set Test", command=self._set_test
         )
-        self.testset.pack()
+        self.testset.pack(anchor="nw", side="top", fill=tk.X)
 
         self.testset_data = ttk.Entry(self)
         self.testset_data.pack()
         self.testset_data.bind("<Return>", self._set_test)
+
+    def _refresh_output_list(self):
+
+        modules = self.module_root._shared_modules
+
+        self.listbox.delete(0, tk.END)  # clear input listbox
+
+        for i in range(len(modules)):
+
+            module = modules[i]
+
+            if hasattr(module, "set"):
+
+                self.listbox.insert(tk.END, module._module_name)
 
     def _set_test(self, event=None):
 
@@ -307,12 +343,12 @@ class ConnectionsFrame(ttk.Labelframe):
         self.checkbutton.pack(side="top", anchor="nw", fill=tk.Y)
 
         self.data = ttk.Frame(self, relief="raised", borderwidth="2px")
-        self.data.pack(side="top", fill=tk.BOTH, pady="2px")
+        self.data.pack(side="top", fill=tk.X, pady="2px")
 
         self.listbox = tk.Listbox(
             self.data, selectmode=tk.EXTENDED, exportselection=True
         )
-        self.listbox.pack(side="left", fill=tk.BOTH, expand=True)
+        self.listbox.pack(side="left", fill=tk.X)
         self.listbox.bind("<Delete>", self._remove_connection)
         self.listbox.bind("<Return>", self._toggle_sync_externally)
 
