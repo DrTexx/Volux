@@ -25,67 +25,50 @@ log.addHandler(ch)
 def launch_gui():
 
     import volux
-    from voluxcliprint import VoluxCliPrint
-    from voluxlight import VoluxLight
     from voluxaudio import VoluxAudio
+    from voluxbar import VoluxBar
+    from voluxcliprint import VoluxCliPrint
     from voluxgui import VoluxGui
+    from voluxlight import VoluxLight, get_all_lights
+    from volux_volume import VoluxVolume
 
-    # inital values
-    # vis_added = False
+    add_lights = True
 
     # create instance of VoluxOperator
     vlx = volux.VoluxOperator()
-    cli_UUID = vlx.add_module(VoluxCliPrint())  # add VoluxCliPrint module
-    audio_UUID = vlx.add_module(
-        VoluxAudio(sensitivity=8)
-    )  # add VoluxAudio module
 
-    gui_shared_modules = [vlx.modules[cli_UUID], vlx.modules[audio_UUID]]
+    audio_UUID = vlx.add_module(VoluxAudio(sensitivity=8))
+    cli_UUID = vlx.add_module(VoluxCliPrint())
+    vol_UUID = vlx.add_module(VoluxVolume())
 
-    lightmodules = []
+    gui_shared_modules = [
+        vlx.modules[audio_UUID],
+        vlx.modules[cli_UUID],
+        vlx.modules[vol_UUID],
+    ]
 
-    log.info("discovering LIFX devices on network...")
-    lifx = lifxlan.LifxLAN(None)
-    devices = lifx.get_devices()
-    log.info("finished LIFX device discovery")
-    log.debug("LIFX devices found: {}".format(devices))
+    if add_lights is True:
 
-    for device in devices:
-        try:
-            lightmodules.append(
-                VoluxLight(
+        devices = get_all_lights()
+
+        for device in devices:
+            try:
+                light_module = VoluxLight(
                     instance_label=device.get_label(),
                     init_mode="device",
                     init_mode_args={"label": device.get_label()},
                 )
-            )
-        except Exception as err:
-            log.error(
-                "{}failed adding device ({}) - {}{}".format(
-                    colorama.Fore.YELLOW,
-                    device.get_label(),
-                    err,
-                    colorama.Style.RESET_ALL,
+                light_UUID = vlx.add_module(light_module)
+                gui_shared_modules.append(vlx.modules[light_UUID])
+            except Exception as err:
+                log.error(
+                    "{}failed adding device ({}) - {}{}".format(
+                        colorama.Fore.YELLOW,
+                        device.get_label(),
+                        err,
+                        colorama.Style.RESET_ALL,
+                    )
                 )
-            )
-
-    for lightmodule in lightmodules:
-        try:
-            vlx.add_module(lightmodule)
-            gui_shared_modules.append(getattr(vlx, lightmodule._module_attr))
-        except Exception as err:
-            log.warning(
-                "{}couldn't add light module/s... reason: {}{}".format(
-                    colorama.Fore.YELLOW, err, colorama.Style.RESET_ALL
-                )
-            )
-
-    # try:
-    #     while hasattr(vlx,'light_all') == False:
-    #         vlx.add_module(VoluxLight(instance_label="all",init_mode="all_devices"))
-    #         gui_shared_modules.append(vlx.light_all)
-    # except:
-    #     pass
 
     # try adding voluxlightvisualiser module
     try:
@@ -100,7 +83,6 @@ def launch_gui():
             )
         )
         gui_shared_modules.append(vlx.vis)
-        # vis_added = True
     except Exception as err:
         log.warning(
             "{}couldn't add visualiser module... reason: {}{}".format(
@@ -165,6 +147,3 @@ def launch_gui():
 
     vlx.gui.init_window()
     vlx.audio.stop()
-
-    # if vis_added == True:
-    #     vlx.vis.stop()
