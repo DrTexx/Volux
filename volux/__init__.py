@@ -21,7 +21,7 @@ __summary__ = "High-level media/entertainment workflow automation platform"
 __description__ = "High-level media/entertainment workflow automation platform"
 __description_content_type__ = "text/markdown"
 __keywords__ = "volux media interface workflow automation platform iot lifx volume sound light tk tkinter gui modular"  # A list of additional keywords to be used to assist searching for the distribution in a larger catalog.
-__homepage__ = "https://github.com/drtexx/volux"
+__homepage__ = "https://github.com/drtexx/{}".format(__name__)
 __author__ = "Denver Pallis"
 __author_email__ = "DenverPallisProjects@gmail.com"
 # __maintainer__ = "Denver Pallis" # should be omitted if it is identical to Author
@@ -58,6 +58,7 @@ __requires_dist__ = [  # requirements
     "PyAudio==0.2.11",
     "colorama==0.4.1",
     "numpy",
+    "cpmixer==0.8.0",
 ]
 __setup_requires__ = ["wheel", "setuptools"]
 __requires_python__ = [">=3"]  # required python version
@@ -68,6 +69,12 @@ __project_urls__ = {  # a browsable URL for the project and a label for it, sepa
     "Funding": "https://paypal.me/denverpallis",
     "Docs": "https://{}.readthedocs.io".format(__name__),
 }
-__exclude_packages__ = ["contrib", "docs", "tests", "voluxlightvisualiser"]
+__exclude_packages__ = [
+    "contrib",
+    "docs",
+    "tests",
+    "voluxlightvisualiser",
+    "cpmixer",
+]
 
 # metadata standard: https://packaging.python.org/specifications/core-metadata/

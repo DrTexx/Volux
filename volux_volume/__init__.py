@@ -1,9 +1,9 @@
 from volux import VoluxModule
-from voluxvolume import cpaudio
+import cpmixer
 
 
 class VoluxVolume(VoluxModule):
-    def __init__(self,shared_modules=[],pollrate=100,*args,**kwargs):
+    def __init__(self, shared_modules=[], pollrate=100, *args, **kwargs):
         super().__init__(
             module_name="Volux Volume",
             module_attr="volume",
@@ -16,15 +16,15 @@ class VoluxVolume(VoluxModule):
             set_min=0,
             set_max=100,
             shared_modules=shared_modules,
-            pollrate=pollrate
+            pollrate=pollrate,
         )
-        self.mixer = cpaudio.MixerController()
+        self.cpmixer = cpmixer.Mixer()
 
     def get(self):
 
-        return self.mixer.gvol()
+        return self.cpmixer.gvol()
 
-    def set(self,new_val):
+    def set(self, new_val):
 
         if new_val < 0:
 
@@ -34,10 +34,10 @@ class VoluxVolume(VoluxModule):
 
             new_val = 100
 
-        self.mixer.svol(new_val)
+        self.cpmixer.svol(int(new_val))
 
     def toggle(self):
 
         new_state = not self.mixer.gmute()
-        self.mixer.smute(new_state)
+        self.cpmixer.smute(new_state)
         return new_state
