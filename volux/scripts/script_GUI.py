@@ -49,26 +49,30 @@ def launch_gui():
 
     if add_lights is True:
 
-        devices = get_all_lights()
+        def func_add_lights():
 
-        for device in devices:
-            try:
-                light_module = VoluxLight(
-                    instance_label=device.get_label(),
-                    init_mode="device",
-                    init_mode_args={"label": device.get_label()},
-                )
-                light_UUID = vlx.add_module(light_module)
-                gui_shared_modules.append(vlx.modules[light_UUID])
-            except Exception as err:
-                log.error(
-                    "{}failed adding device ({}) - {}{}".format(
-                        colorama.Fore.YELLOW,
-                        device.get_label(),
-                        err,
-                        colorama.Style.RESET_ALL,
+            devices = get_all_lights()
+
+            for device in devices:
+                try:
+                    light_module = VoluxLight(
+                        instance_label=device.get_label(),
+                        init_mode="device",
+                        init_mode_args={"label": device.get_label()},
                     )
-                )
+                    light_UUID = vlx.add_module(light_module)
+                    gui_shared_modules.append(vlx.modules[light_UUID])
+                except Exception as err:
+                    log.error(
+                        "{}failed adding device ({}) - {}{}".format(
+                            colorama.Fore.YELLOW,
+                            device.get_label(),
+                            err,
+                            colorama.Style.RESET_ALL,
+                        )
+                    )
+
+        threading.Thread(target=func_add_lights).start()
 
     # try adding voluxlightvisualiser module
     try:
@@ -102,48 +106,6 @@ def launch_gui():
             volux.RequestStopSync,
         ],
     )
-
-    # if vis_added == True:
-    #
-    #     visHz = 120
-    #
-    #     def vis_func(loop_hz):
-    #
-    #         while True:
-    #
-    #             if vlx.gui.mainApp.vis_frame.vis_on.get() == True:
-    #
-    #                 vlx.vis.start()
-    #                 print("vis threads started...")
-    #
-    #                 while vlx.gui.mainApp.vis_frame.vis_on.get() == True:
-    #
-    #                     amp = vlx.audio.get()
-    #
-    #                     container_width = vlx.gui.mainApp.vis_frame.visualiser_bar.winfo_width()
-    #                     vlx.gui.mainApp.vis_frame.visualiser_bar_fill.config(width=container_width*(amp/100))
-    #
-    #                     vlx.vis.set(amp)
-    #                     vis_get = vlx.vis.get_from_gui()
-    #
-    #                     vlx.vis.set(100-amp)
-    #                     vis_get_invert = vlx.vis.get_from_gui()
-    #
-    #                     if hasattr(vlx,'light_strip'):
-    #                         vlx.light_strip.set_color(vis_get)
-    #                     # if hasattr(vlx,'light_ceiling'):
-    #                     #     vlx.light_ceiling.set_color(vis_get_invert)
-    #                     # if hasattr(vlx,'light_all'):
-    #                     #     vlx.light_all.set_color(vis_get)
-    #
-    #                     sleep(1/loop_hz)
-    #
-    #                 vlx.vis.stop()
-    #                 print("vis threads stopped...")
-    #
-    #             sleep(1)
-    #
-    #     threading.Thread(target=vis_func,args=(visHz,)).start()
 
     vlx.gui.init_window()
     vlx.audio.stop()
