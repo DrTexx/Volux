@@ -1,2 +1,2 @@
-from .demo_bar import DemoVolLuxBar
-from .demo_lightvis import DemoSimpleLightVis
+from .bar import DemoVolLuxBar
+from .lightvis import DemoSimpleLightVis
