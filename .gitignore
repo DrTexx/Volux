@@ -10,3 +10,4 @@ volux-repo
 voluxlightvisualiser
 *.log
 cpmixer
+.pytest_cache
