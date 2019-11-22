@@ -1,10 +1,15 @@
-from volux import VoluxModule, SuppressStdoutStderr
+# builtin
+from time import sleep
+import logging
+
+# site
 import numpy as np
 import pyaudio
 import colorama
-from time import sleep
+from volux import VoluxModule, SuppressStdoutStderr
+
+# local
 from .hsv2ansi import *
-import logging
 
 colorama.init()
 
