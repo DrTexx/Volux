@@ -4,9 +4,9 @@ import pyaudio
 import colorama
 from time import sleep
 from .hsv2ansi import *
+import logging
 
 colorama.init()
-import logging
 
 log = logging.getLogger("voluxaudio")
 log.setLevel(logging.DEBUG)
@@ -21,7 +21,11 @@ ch.setFormatter(formatter)
 # add the handlers to the logger
 log.addHandler(ch)
 
-clamp = lambda value, minv, maxv: max(min(value, maxv), minv)
+
+def clamp(value, minv, maxv):
+
+    return max(min(value, maxv), minv)
+
 
 __requires_python__ = [">=3", "<3.8"]  # required python version
 
@@ -130,4 +134,4 @@ class VoluxAudio(VoluxModule):
         self.stream.stop_stream()
         self.stream.close()
         self.pa.terminate()
-        print(Style.RESET_ALL)  # reset ansi escapes
+        print(colorama.Style.RESET_ALL)  # reset ansi escapes
