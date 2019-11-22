@@ -1,4 +1,4 @@
-from ..demo import VoluxDemo
+from volux.demo import VoluxDemo
 
 
 class DemoSimpleLightVis(VoluxDemo):
