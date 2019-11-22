@@ -5,6 +5,7 @@ def launch():
     import sys
     import threading
     import logging
+    import importlib
 
     # site
     import volux
@@ -25,9 +26,20 @@ def launch():
 
     vlx = volux.VoluxOperator()
 
+    shared_modules = []
+
+    def add_volux_module(module_name, class_name):
+
+        module = importlib.import_module(module_name)
+        module_UUID = vlx.add_module(getattr(module, class_name)())
+        shared_modules.append(vlx.modules[module_UUID])
+        print("imported {}!".format(module_name))
+
+    add_volux_module("voluxaudio", "VoluxAudio")
+
     vlx.add_module(
         # VoluxGui(shared_modules=gui_shared_modules),
-        VoluxGui(),
+        VoluxGui(shared_modules=shared_modules),
         req_permissions=[
             volux.RequestSyncState,
             volux.RequestAddConnection,
