@@ -63,16 +63,24 @@ class VoluxCore(VoluxModule):
 
         from volux import demos, VoluxDemo, VoluxCore
 
-        items = self.get_python_module_items(demos)  # for each item in the demos module
-        demos_collected = self.filter_by_superclass(
-            items, VoluxDemo
-        )  # filter out items not inherited from VoluxDemo class
+        demos_collected = []
+
+        for attrib in dir(demos):
+
+            demo = getattr(demos, attrib)
+
+            if type(demo) is type:
+
+                if issubclass(demo, VoluxDemo) is True:
+
+                    demos_collected.append(demo)
+
         return demos_collected
 
     def get_demo_aliases(self):
 
         demos_collected = self.get_demos()
-        demo_aliases = [demo._alias for demo in demos_collected]
+        demo_aliases = [demo()._alias for demo in demos_collected]
         return demo_aliases
 
     def get_demo_dict(self):
