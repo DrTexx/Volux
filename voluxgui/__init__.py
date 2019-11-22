@@ -77,6 +77,14 @@ class VoluxGui(VoluxModule):
 
     def init_window(self):
 
+        self.binds = {
+            "Start Sync": {
+                "contexts": [self.mainApp.LFoutputs.testset_data],
+                "command": self.mainApp.LFoutputs._set_test,
+                "keycode": "<Return>",
+            }
+        }
+
         self.gui_style = ttk.Style()
         # self.gui_style.configure("TFrame", background="#19191B")
         # self.gui_style.configure("TPanedwindow", background="#19191B")
@@ -96,9 +104,13 @@ class VoluxGui(VoluxModule):
             self.root.winfo_screenwidth(),
             self.root.winfo_screenheight(),
         )
+        window_size = (900, 500)
         self.root.geometry(
             "{}x{}+{}+{}".format(
-                800, 500, screen_size[0] - 800, screen_size[1] - 500
+                window_size[0],
+                window_size[1],
+                screen_size[0] - window_size[0],
+                screen_size[1] - window_size[1],
             )
         )  # define the size of the window
         self.mainApp._update_loop()
@@ -142,13 +154,18 @@ class MainApplication(ttk.Frame):
 
         self.Fconnections = ttk.Frame(self)
         self.LFconnections = ConnectionsFrame(
-            self.Fconnections, self.module_root, text="Connections"
+            self.Fconnections, self.module_root
         )
         self.LFconnections.pack(anchor="nw")
+
+        self.Finfo = ttk.Frame(self)
+        self.LFinfo = InfoFrame(self.Finfo, self.module_root)
+        self.LFinfo.pack(anchor="nw")
 
         self.p.add(self.Finputs)
         self.p.add(self.Foutputs)
         self.p.add(self.Fconnections)
+        self.p.add(self.Finfo)
 
         self.wip_notice = ttk.Label(
             self, text="NOTE: GUI IS A WORK-IN-PROGRESS", anchor=tk.CENTER
@@ -194,6 +211,12 @@ class MainApplication(ttk.Frame):
 
     def _create_bindings(self):
 
+        # for bind in self.binds:
+        #     print(bind)
+
+        self.parent.bind(
+            "<Control-Return>", self.LFconnections._toggle_sync_externally
+        )
         self.LFinputs.listbox.bind(
             "<Return>", self.LFconnections._add_connection
         )
@@ -204,20 +227,8 @@ class MainApplication(ttk.Frame):
         self.LFconnections.listbox.bind(
             "<Delete>", self.LFconnections._remove_connection
         )
-        self.LFconnections.listbox.bind(
-            "<Return>", self.LFconnections._toggle_sync_externally
-        )
-        self.LFconnections.add_button.bind(
-            "<Return>", self.LFconnections._toggle_sync_externally
-        )
-        self.LFconnections.remove_button.bind(
-            "<Return>", self.LFconnections._toggle_sync_externally
-        )
         self.LFconnections.hzbox.bind(
             "<Return>", self.LFconnections._add_connection
-        )
-        self.parent.bind(
-            "<Control-Return>", self.LFconnections._toggle_sync_externally
         )
 
     def _update_output_listbox(self):
@@ -387,7 +398,7 @@ class OutputsFrame(ttk.Labelframe):
 
 class ConnectionsFrame(ttk.Labelframe):
     def __init__(self, parent, module_root, *args, **kwargs):
-        super().__init__(parent, *args, **kwargs)
+        super().__init__(parent, text="Connections", *args, **kwargs)
         self.parent = parent
         self.module_root = module_root
 
@@ -560,3 +571,23 @@ class ConnectionsFrame(ttk.Labelframe):
             return None
         else:
             return int(hzbox_val)
+
+
+class InfoFrame(ttk.Labelframe):
+    def __init__(self, parent, module_root, *args, **kwargs):
+        super().__init__(parent, text="Info", *args, **kwargs)
+        self.parent = parent
+        self.module_root = module_root
+
+        self.keybinds = {"Toggle Sync - <Ctrl> + <Enter>"}
+
+        self.binds_title = ttk.Label(self, text="Keyboard shortcuts")
+        self.binds_title.pack(anchor="nw")
+
+        self.sep = ttk.Separator(self, orient="horizontal")
+        self.sep.pack(anchor="nw", fill=tk.X)
+
+        self.binds_list = ttk.Label(
+            self, text="{}".format("\n".join(self.keybinds))
+        )
+        self.binds_list.pack(anchor="nw")
