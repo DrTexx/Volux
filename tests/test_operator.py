@@ -1,10 +1,9 @@
 import pytest
-import volux
-from modules.voluxcliprint import VoluxCliPrint
+from .context import volux
 
 # create Volux Operator object (hub for communication between modules)
 vlx = volux.VoluxOperator()
-cli_module = VoluxCliPrint()
+cli_module = volux.modules.VoluxCliPrint()
 cli_UUID = None
 
 
