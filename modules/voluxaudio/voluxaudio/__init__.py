@@ -91,6 +91,7 @@ class VoluxAudio(VoluxModule):
         )  # note: this is what causes all the spam when creating module
         self.stream = self._open_stream()
         self.sensitivity = 9
+        self.audio_data = []
 
     def get(self):
 
