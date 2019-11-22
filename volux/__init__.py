@@ -51,16 +51,7 @@ __classifiers__ = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: User Interfaces",
 ]
-__requires_dist__ = [  # requirements
-    "lifxlan==1.2.5",
-    "pycaw; platform_system == 'Windows'",
-    "comtypes==1.1.7; platform_system == 'Windows'",
-    "pyalsaaudio==0.8.4; platform_system == 'Linux'",
-    "PyAudio==0.2.11",
-    "colorama==0.4.1",
-    "numpy",
-    "cpmixer==0.8.0",
-]
+__requires_dist__ = ["colorama==0.4.1", "lifxlan==1.2.5"]  # requirements
 __setup_requires__ = ["wheel", "setuptools"]
 __requires_python__ = [">=3"]  # required python version
 __requires_external__ = []  # external requirements
