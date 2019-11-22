@@ -30,7 +30,7 @@ def launch_gui():
     from voluxcliprint import VoluxCliPrint
     from voluxgui import VoluxGui
     from voluxlight import VoluxLight, get_all_lights
-    from volux_volume import VoluxVolume
+    from voluxvolume import VoluxVolume
 
     add_lights = True
 
