@@ -25,12 +25,12 @@ log.addHandler(ch)
 def launch_gui():
 
     import volux
-    from voluxaudio import VoluxAudio
-    from voluxbar import VoluxBar
-    from voluxcliprint import VoluxCliPrint
-    from voluxgui import VoluxGui
-    from voluxlight import VoluxLight, get_all_lights
-    from voluxvolume import VoluxVolume
+    from modules.voluxaudio import VoluxAudio
+    from modules.voluxbar import VoluxBar
+    from modules.voluxcliprint import VoluxCliPrint
+    from modules.voluxgui import VoluxGui
+    from modules.voluxlight import VoluxLight, get_all_lights
+    from modules.voluxvolume import VoluxVolume
 
     add_lights = True
 
