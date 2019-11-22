@@ -137,7 +137,7 @@ def main():
         _core = VoluxCore()
         demo_dict = _core.get_demo_dict()
         if arguments.DEMO in demo_dict:
-            demo_dict[arguments.DEMO].run_demo()
+            demo_dict[arguments.DEMO]().run_demo()
         else:
             print(
                 "{}Error: '{}' is not a valid demo{}".format(

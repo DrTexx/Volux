@@ -85,7 +85,7 @@ class VoluxCore(VoluxModule):
 
     def get_demo_dict(self):
 
-        return {demo._alias: demo for demo in self.get_demos()}
+        return {demo()._alias: demo for demo in self.get_demos()}
 
     def get_script_names(self):
 
