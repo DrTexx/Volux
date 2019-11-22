@@ -27,7 +27,6 @@ def launch_gui():
     import volux
     from modules.voluxaudio import VoluxAudio
     from modules.voluxbar import VoluxBar
-    from modules.voluxcliprint import VoluxCliPrint
     from modules.voluxgui import VoluxGui
     from modules.voluxlight import VoluxLight, get_all_lights
     from modules.voluxvolume import VoluxVolume
@@ -38,7 +37,7 @@ def launch_gui():
     vlx = volux.VoluxOperator()
 
     audio_UUID = vlx.add_module(VoluxAudio(sensitivity=8))
-    cli_UUID = vlx.add_module(VoluxCliPrint())
+    cli_UUID = vlx.add_module(volux.modules.VoluxCliPrint())
     vol_UUID = vlx.add_module(VoluxVolume())
 
     gui_shared_modules = [
