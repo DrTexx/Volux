@@ -15,7 +15,7 @@ class VoluxCliPrint(VoluxModule):
             set_min=0,
             set_max=100,
             shared_modules=[],
-            pollrate=None
+            pollrate=None,
         )
         self.cli_val = 0
 
