@@ -4,14 +4,14 @@
 High-level media/entertainment workflow automation platform
 """
 
-from volux.operator import VoluxOperator
-from volux.module import VoluxModule
-from volux.core import VoluxCore
-from volux.demo import VoluxDemo
-from volux.connection import VoluxConnection
-from volux.suppress import SuppressStdoutStderr
+from .operator import VoluxOperator
+from .module import VoluxModule
+from .core import VoluxCore
+from .demo import VoluxDemo
+from .connection import VoluxConnection
+from .suppress import SuppressStdoutStderr
+from .request import *
 from volux import modules
-from .requests import *
 
 __metadata_version__ = "2.1"
 __name__ = "volux"

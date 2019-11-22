@@ -1,4 +1,4 @@
-from .requests import (
+from .request import (
     VoluxBrokerRequest,
     RequestAddConnection,
     RequestRemoveConnection,
