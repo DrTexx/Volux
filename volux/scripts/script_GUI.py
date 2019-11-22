@@ -2,6 +2,7 @@ import threading
 from time import sleep
 import tkinter as tk
 from tkinter import ttk
+import volux
 import colorama
 import logging
 import lifxlan
@@ -24,12 +25,18 @@ log.addHandler(ch)
 
 def launch_gui():
 
-    import volux
+    import os
+    import sys
+
+    sys.path.insert(
+        0, os.path.abspath(os.path.join(os.path.dirname(__file__), "."))
+    )
+
     from modules.voluxaudio import VoluxAudio
-    from modules.voluxbar import VoluxBar
-    from modules.voluxgui import VoluxGui
-    from modules.voluxlight import VoluxLight, get_all_lights
-    from modules.voluxvolume import VoluxVolume
+    from modules.voluxbar import VoluxBar  # noqa: E402
+    from modules.voluxgui import VoluxGui  # noqa: E402
+    from modules.voluxlight import VoluxLight, get_all_lights  # noqa: E402
+    from modules.voluxvolume import VoluxVolume  # noqa: E402
 
     add_lights = True
 
