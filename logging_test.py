@@ -42,6 +42,7 @@ except Exception:
     log.error("that didn't work :(")
 log.info("done with volux.some_function()")
 
+print("test")
 
 # FORMAT = '[%(asctime)-15s][%(levelname)s] %(message)s'
 # logging.basicConfig(level=logging.DEBUG)
