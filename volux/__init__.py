@@ -11,6 +11,7 @@ from .demo import *
 from .connection import *
 from .requests import *
 from .suppress import *
+from .modules import *
 
 __metadata_version__ = "2.1"
 __name__ = "volux"
