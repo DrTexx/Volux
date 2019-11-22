@@ -14,6 +14,10 @@
 ## Description
 Volux is a high-level media/entertainment workflow automation platform.
 
+## GUI
+- Download source
+- `$ make gui`
+
 ## Documentation
 Volux uses readthedocs.io for it's documentation.
 
