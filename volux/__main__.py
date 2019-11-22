@@ -91,9 +91,24 @@ def main():
     if arguments.subcommand == "launch":
 
         print("launching...")
-        from volux.scripts import launch_gui
+        try:
+            try:
+                import voluxgui as gui
 
-        launch_gui()
+                gui.launch()
+            except ImportError:
+                import modules.voluxgui.voluxgui as gui
+
+                try:
+                    gui.launch()
+                except Exception as err:
+                    print("launch failed: {}".format(err))
+        except ImportError:
+            print(
+                "{}Error: Couldn't find voluxgui, please make sure you have it installed{}".format(
+                    colorama.Fore.RED, colorama.Style.RESET_ALL
+                )
+            )
         exit()
 
     elif arguments.subcommand == "list":
