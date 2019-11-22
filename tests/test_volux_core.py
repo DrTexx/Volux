@@ -6,9 +6,11 @@ vlx = volux.VoluxOperator()
 module_items = []
 demos_collected = []
 
+
 class DecoyClass:
     def __init__(self):
         self.superclass = "this string is certainly not a class"
+
 
 class Test_operator:
     def test_correct_type(self):
@@ -18,10 +20,13 @@ class Test_operator:
     def test_get_python_modules(self):
 
         from volux import demos
+
         global module_items
         module_items = vlx.core.get_python_module_items(demos)
         # print("MODULE ITEMS",module_items)
-        raw_module_items = [getattr(demos,item_name) for item_name in dir(demos)]
+        raw_module_items = [
+            getattr(demos, item_name) for item_name in dir(demos)
+        ]
         for module_item in module_items:
             assert module_item in raw_module_items
 
@@ -30,7 +35,9 @@ class Test_operator:
         global module_items
         module_items.append(DecoyClass())
         global demos_collected
-        demos_collected = vlx.core.filter_by_superclass(module_items,volux.VoluxDemo)
+        demos_collected = vlx.core.filter_by_superclass(
+            module_items, volux.VoluxDemo
+        )
 
         for demo_x in demos_collected:
             assert demo_x.superclass == volux.VoluxDemo

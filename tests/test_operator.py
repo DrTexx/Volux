@@ -33,8 +33,8 @@ class Test_operator:
         vlx.add_module(cli_module)
 
     def test_validate_module(self):
-        assert vlx.validate_module(vlx) == False
-        assert vlx.validate_module(cli_module) == True
+        assert vlx.validate_module(vlx) is False
+        assert vlx.validate_module(cli_module) is True
 
     def test_get_modules(self):
         assert vlx.get_modules() == vlx.modules

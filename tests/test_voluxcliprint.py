@@ -6,11 +6,12 @@ from voluxcliprint import VoluxCliPrint
 vlx = volux.VoluxOperator()
 volux_module_cli_print = VoluxCliPrint()
 
+
 class Test_voluxcliprint:
     def test_adding_module(self):
         cli_UUID = vlx.add_module(volux_module_cli_print)
         assert cli_UUID in vlx.modules
-        assert isinstance(vlx.modules[cli_UUID],volux.VoluxModule)
+        assert isinstance(vlx.modules[cli_UUID], volux.VoluxModule)
 
     def test_get_modules(self):
         print(vlx.get_modules())
