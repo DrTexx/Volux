@@ -11,9 +11,6 @@ class DemoVolLuxBar(VoluxDemo):
             *args,
             **kwargs
         )
-        self.superclass = (
-            VoluxDemo
-        )  # todo: needs to be replaced with check for superclass in volux.__main__
 
     def run_demo(self):
 
