@@ -1,10 +1,15 @@
+# builtin
 import threading
+import logging
 from time import sleep
+
+# external
 import tkinter as tk
 from tkinter import ttk
+
+# site
 import volux
 import colorama
-import logging
 import lifxlan
 
 colorama.init()
@@ -33,10 +38,10 @@ def launch_gui():
     )
 
     from modules.voluxaudio import VoluxAudio
-    from modules.voluxbar import VoluxBar  # noqa: E402
-    from modules.voluxgui import VoluxGui  # noqa: E402
-    from modules.voluxlight import VoluxLight, get_all_lights  # noqa: E402
-    from modules.voluxvolume import VoluxVolume  # noqa: E402
+    from modules.voluxbar import VoluxBar
+    from modules.voluxgui import VoluxGui
+    from modules.voluxlight import VoluxLight, get_all_lights
+    from modules.voluxvolume import VoluxVolume
 
     add_lights = True
 
