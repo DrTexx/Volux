@@ -54,11 +54,11 @@ class Test_operator:
     def test_get_demos(self):
 
         for demo_x in vlx.core.get_demos():
-            assert demo_x.superclass == volux.VoluxDemo
+            assert issubclass(demo_x, volux.VoluxDemo) is True
 
     def test_get_demo_aliases(self):
 
-        raw_demo_aliases = [d._alias for d in vlx.core.get_demos()]
+        raw_demo_aliases = [d()._alias for d in vlx.core.get_demos()]
         for demo_alias in vlx.core.get_demo_aliases():
             assert demo_alias in raw_demo_aliases
 
