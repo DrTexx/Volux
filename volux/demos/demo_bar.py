@@ -18,8 +18,8 @@ class DemoVolLuxBar(VoluxDemo):
     def run_demo(self):
 
         import volux
-        from voluxbar import VoluxBar
-        from voluxvolume import VoluxVolume
+        from modules.voluxbar import VoluxBar
+        from modules.voluxvolume import VoluxVolume
 
         # create Volux Operator object (hub for communication between modules)
         vlx = volux.VoluxOperator()
@@ -30,7 +30,7 @@ class DemoVolLuxBar(VoluxDemo):
         vlx.bar.add_mode("default", vlx.volume)
 
         try:
-            from voluxlight import VoluxLight
+            from modules.voluxlight import VoluxLight
 
             vlx.add_module(
                 VoluxLight(

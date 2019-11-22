@@ -18,8 +18,8 @@ class DemoSimpleLightVis(VoluxDemo):
 
         import volux
         from voluxlightvisualiser import VoluxLightVisualiser, INTENSE_MODE
-        from voluxaudio import VoluxAudio
-        from voluxlight import VoluxLight
+        from modules.voluxaudio import VoluxAudio
+        from modules.voluxlight import VoluxLight
 
         script_hz = 240
         device_label = str(

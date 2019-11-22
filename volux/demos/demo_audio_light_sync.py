@@ -1,7 +1,11 @@
 import volux  # import essentials
-from voluxaudio import VoluxAudio  # module to get amplitude of desktop audio
-from voluxcliprint import VoluxCliPrint  # module to print values to CLI
-from voluxgui import VoluxGui  # module to generate GUI
+from modules.voluxaudio import (
+    VoluxAudio,
+)  # module to get amplitude of desktop audio
+from modules.voluxcliprint import (
+    VoluxCliPrint,
+)  # module to print values to CLI
+from modules.voluxgui import VoluxGui  # module to generate GUI
 
 vlx = volux.VoluxOperator()  # instantiate an operator for managing connections
 vlx.add_module(VoluxAudio())

@@ -45,7 +45,7 @@ def main():
     parser_demo.add_argument(
         "DEMO", action="store", help="name of the demo to run"
     )
-    parser_demo.add_argument("--baz", choices="XYZ", help="baz help")
+    # parser_demo.add_argument("--baz", choices="XYZ", help="baz help")
 
     # create the parser for the "script" command
     parser_script = subparsers.add_parser(
