@@ -1,13 +1,27 @@
-__pycache__
-venv_dev/
-venv_testing/
+# python cache files
+__pycache__/
+
+# virtual environments
+venv_*/
+
+# test cache files
+.pytest_cache
+
+# coverage reporting
 .coverage
 coverage.xml
-docs/_build
+
+# sphinx related
+docs/_*
+
+# logs
+*.log
+
+# flatpak distribution
 .flatpak-builder
 build-dir
 volux-repo
+
+# external packages
 voluxlightvisualiser
-*.log
 cpmixer
-.pytest_cache
