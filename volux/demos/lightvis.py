@@ -61,6 +61,3 @@ class DemoSimpleLightVis(VoluxDemo):
         finally:
             vlx.stop_sync()
             vlx.modules[lstrip_UUID].restore()
-
-
-demosimplelightvis = DemoSimpleLightVis()

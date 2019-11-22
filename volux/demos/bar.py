@@ -46,6 +46,3 @@ class DemoVolLuxBar(VoluxDemo):
 
         # load Volux Bar module
         vlx.bar.init_window()
-
-
-demobar = DemoVolLuxBar()
