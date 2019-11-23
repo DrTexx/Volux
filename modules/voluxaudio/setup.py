@@ -27,7 +27,12 @@ setuptools.setup(
     author="Denver Pallis",
     author_email="DenverPallisProjects@gmail.com",
     license="GPLv3+",
-    install_requires=["volux==0.9.16"],
+    install_requires=[
+        "volux>=0.9.16,<1.0.0",
+        "colorama==0.4.1",
+        "numpy==1.17.3",
+        "PyAudio==0.2.11; platform_system == 'Linux'",
+    ],
     setup_requires=["wheel", "setuptools"],
     requires_python=[">=3"],
     requires_external=["libasound2-dev"],
