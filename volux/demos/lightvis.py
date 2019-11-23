@@ -14,9 +14,9 @@ class DemoSimpleLightVis(VoluxDemo):
     def run_demo(self):
 
         import volux
-        from voluxlightvisualiser import VoluxLightVisualiser, INTENSE_MODE
-        from modules.voluxaudio import VoluxAudio
-        from modules.voluxlight import VoluxLight
+        import voluxaudio
+        import voluxlight
+        import voluxlightvisualiser as vvis
 
         script_hz = 240
         device_label = str(
@@ -27,17 +27,17 @@ class DemoSimpleLightVis(VoluxDemo):
 
         vlx = volux.VoluxOperator()
 
-        audio_UUID = vlx.add_module(VoluxAudio())
+        audio_UUID = vlx.add_module(voluxaudio.VoluxAudio())
         lstrip_UUID = vlx.add_module(
-            VoluxLight(
+            voluxlight.VoluxLight(
                 instance_label="demo",
                 init_mode="device",
                 init_mode_args={"label": device_label},
             )
         )
         vis_UUID = vlx.add_module(
-            VoluxLightVisualiser(
-                mode=INTENSE_MODE, hueHz=script_hz, hue_cycle_duration=5
+            vvis.VoluxLightVisualiser(
+                mode=vvis.INTENSE_MODE, hueHz=script_hz, hue_cycle_duration=5
             )
         )
 
