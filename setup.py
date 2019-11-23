@@ -62,10 +62,14 @@ with open(path.join(here, readme_filename), encoding=readme_encoding) as f:
     long_description = (
         f.read()
     )  # Get the long description from the README file
+with open(
+    path.join(here, "{}/version.txt".format(__package_name__)), "r"
+) as f:
+    version = f.readline().splitlines()[0]
 
 setuptools.setup(
     name=__package_name__,  # Required
-    version="0.9.16",  # Required
+    version=version,  # Required
     packages=setuptools.find_packages(),  # Required
     url="https://github.com/drtexx/{}".format(__package_name__),  # required
     metadata_version="2.1",  # Optional
@@ -84,7 +88,7 @@ setuptools.setup(
     project_urls=project_urls,
     long_description=long_description,  # Optional
     long_description_content_type=long_description_content_type,  # Optional
-    package_data={"sample": ["package_data.dat"]},  # Optional
+    package_data={"volux": ["version.txt"]},  # Optional
     entry_points={  # Optional
         "console_scripts": [
             "{}={}:__main__.main".format(__package_name__, __package_name__)
