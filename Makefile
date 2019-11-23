@@ -16,6 +16,7 @@ uninstall:
 
 dev:
 		make uninstall
+		make clean
 		make test
 		make build
 		make install
