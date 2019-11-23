@@ -38,6 +38,6 @@ class VoluxVolume(VoluxModule):
 
     def toggle(self):
 
-        new_state = not self.mixer.gmute()
+        new_state = not self.cpmixer.gmute()
         self.cpmixer.smute(new_state)
         return new_state
