@@ -43,9 +43,23 @@ def launch():
     add_volux_module(
         "voluxlight",
         "VoluxLight",
-        instance_label="Strip",
+        instance_label="strip",
         init_mode="device",
         init_mode_args={"label": "Strip"},
+    )
+    add_volux_module(
+        "voluxlight",
+        "VoluxLight",
+        instance_label="ceiling",
+        init_mode="device",
+        init_mode_args={"label": "Office Ceiling"},
+    )
+    add_volux_module(
+        "voluxlight",
+        "VoluxLight",
+        instance_label="demo",
+        init_mode="device",
+        init_mode_args={"label": "Demo Bulb"},
     )
     add_volux_module(
         "voluxlightvisualiser",
