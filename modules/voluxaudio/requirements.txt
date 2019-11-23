@@ -1,3 +1,4 @@
+volux==0.9.16
 numpy==1.17.3
 colorama==0.4.1
 PyAudio==0.2.11; platform_system == 'Linux'
