@@ -74,4 +74,33 @@ gui:
 		make dev
 		volux launch
 
+docker-run:
+		xhost +local:root # for the lazy and reckless
+		export containerId=$(docker ps -l -q)
+		sudo docker run -it \
+		--env="DISPLAY" \
+		--env="ALSA_PCM_CARD=0" \
+		--env="QT_X11_NO_MITSHM=1" \
+		--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+		--name volux \
+		volux:0.9.16
+		xhost -local:root
+		sudo docker container rm --force volux
+
+docker-build:
+		sudo docker image build -t volux:0.9.16 .
+
+# docker-safe:
+# 		sudo docker run -it \
+# 		--user=$(id --user) \
+# 		--env="DISPLAY" \
+# 		--volume="/etc/group:/etc/group:ro" \
+# 		--volume="/etc/passwd:/etc/passwd:ro" \
+# 		--volume="/etc/shadow:/etc/shadow:ro" \
+# 		--volume="/etc/sudoers.d:/etc/sudoers.d:ro" \
+# 		--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+# 		--name volux \
+# 		volux:0.9.16
+# 		sudo docker container rm --force volux
+
 .PHONY: init test
