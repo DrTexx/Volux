@@ -4,7 +4,6 @@ clean:
 		rm -rf dist build *.egg-info .eggs
 
 build:
-		make clean
 		python3 setup.py bdist_wheel sdist
 
 install:
@@ -16,6 +15,7 @@ uninstall:
 
 dev:
 		make uninstall
+		make clean
 		make build
 		make install
 

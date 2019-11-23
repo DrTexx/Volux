@@ -1,10 +1,10 @@
 init:
-		make install
 
-test:
-		py.test tests
+clean:
+		rm -rf dist build *.egg-info .eggs
 
 build:
+		make clean
 		python3 setup.py bdist_wheel sdist
 
 install:
@@ -14,15 +14,14 @@ install:
 uninstall:
 		pip uninstall volux -y
 
-clean:
-		rm -rf dist build *.egg-info .eggs
-
 dev:
 		make uninstall
-		make clean
 		make test
 		make build
 		make install
+
+test:
+		py.test tests
 
 build-all:
 		make build
