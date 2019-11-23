@@ -6,6 +6,10 @@ https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
 """
 
+import setuptools  # Always prefer setuptools over distutils
+from codecs import open  # To use a consistent encoding
+from os import path
+
 # personal note: to refresh auto-documentation
 # (navigate to repo root first)
 # sphinx-apidoc -o docs/modules . test_* cpaudio setup.py voluxdisplay/cpdisplay
@@ -13,50 +17,77 @@ https://github.com/pypa/sampleproject
 # how-to metadata
 # https://packaging.python.org/specifications/core-metadata/
 
-import volux  # CHANGE THIS TO MATCH YOUR PACKAGE'S NAME!
+# __platform__ = "" # (multiple-use) only if the platform is not listed in the “Operating System” Trove classifiers
+# __supported_platform__ = #
+# __maintainer__ = "Denver Pallis" # should be omitted if it is identical to Author
+# __maintainer_email__ = "DenverPallisProjects@gmail.com" # should be omitted if it is identical to Author
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Environment :: MacOS X",
+    "Environment :: Win32 (MS Windows)",
+    "Environment :: X11 Applications",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Topic :: Games/Entertainment",
+    "Topic :: Home Automation",
+    "Topic :: Multimedia",
+    "Topic :: Scientific/Engineering :: Human Machine Interfaces",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: User Interfaces",
+]
+project_urls = {  # a browsable URL for the project and a label for it, separated by a comma
+    "Bug Reports": "https://github.com/drtexx/{}/issues".format(__name__),
+    "Source": "https://github.com/drtexx/{}".format(__name__),
+    "Funding": "https://paypal.me/denverpallis",
+    "Docs": "https://{}.readthedocs.io".format(__name__),
+}
 
-mypackage = volux
+__package_name__ = "volux"
 
-readme_filename = 'README.md'
-readme_encoding = 'utf-8'
-long_description_content_type = 'text/markdown'
+readme_filename = "README.md"
+readme_encoding = "utf-8"
+long_description_content_type = "text/markdown"
 
-import setuptools # Always prefer setuptools over distutils
-from codecs import open # To use a consistent encoding
-from os import path
 here = path.abspath(path.dirname(__file__))
 with open(path.join(here, readme_filename), encoding=readme_encoding) as f:
-    long_description = f.read() # Get the long description from the README file
+    long_description = (
+        f.read()
+    )  # Get the long description from the README file
 
 setuptools.setup(
-    metadata_version=mypackage.__metadata_version__, # Optional
-    name=mypackage.__name__, # Required
-    version=mypackage.__version__, # Required
-    summary=mypackage.__summary__, # Optional
-    description=mypackage.__description__, # Optional
-    description_content_type=mypackage.__description_content_type__,  # Optional
-    keywords=mypackage.__keywords__,
-    url=mypackage.__homepage__,
-    author=mypackage.__author__,
-    author_email=mypackage.__author_email__,
-    license=mypackage.__license__,
-    classifiers=mypackage.__classifiers__,
-    install_requires=mypackage.__requires_dist__,
-    setup_requires=mypackage.__setup_requires__,
-    requires_python=mypackage.__requires_python__,
-    requires_external=mypackage.__requires_external__,
-    project_urls=mypackage.__project_urls__,
-
-    long_description=long_description, # Optional
-    long_description_content_type=long_description_content_type, # Optional
-
-    package_data={ # Optional
-        'sample': ['package_data.dat'],
+    name=__package_name__,  # Required
+    version="0.9.16",  # Required
+    packages=setuptools.find_packages(),  # Required
+    url="https://github.com/drtexx/{}".format(__package_name__),  # required
+    metadata_version="2.1",  # Optional
+    summary="High-level media/entertainment workflow automation platform",  # Optional
+    description="High-level media/entertainment workflow automation platform",  # Optional
+    description_content_type="text/markdown",  # Optional
+    keywords="volux media interface workflow automation platform iot lifx volume sound light tk tkinter gui modular",  # A list of additional keywords to be used to assist searching for the distribution in a larger catalog
+    author="Denver Pallis",
+    author_email="DenverPallisProjects@gmail.com",
+    license="GPLv3+",
+    classifiers=classifiers,
+    install_requires=["colorama==0.4.1"],  # requirements
+    setup_requires=["wheel", "setuptools"],
+    requires_python=[">=3"],  # required python version
+    requires_external=[],
+    project_urls=project_urls,
+    long_description=long_description,  # Optional
+    long_description_content_type=long_description_content_type,  # Optional
+    package_data={"sample": ["package_data.dat"]},  # Optional
+    entry_points={  # Optional
+        "console_scripts": [
+            "{}={}:__main__.main".format(__package_name__, __package_name__)
+        ]
     },
-    entry_points={ # Optional
-        'console_scripts': [
-            '{}={}:__main__.main'.format(mypackage.__name__,mypackage.__name__),
-        ],
-    },
-    packages=setuptools.find_packages(exclude=mypackage.__exclude_packages__),  # Required
 )
