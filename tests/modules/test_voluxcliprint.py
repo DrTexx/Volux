@@ -3,7 +3,7 @@ import volux
 
 # create Volux Operator object (hub for communication between modules)
 vlx = volux.VoluxOperator()
-volux_module_cli_print = volux.modules.VoluxCliPrint()
+volux_module_cli_print = volux.coremodules.VoluxCliPrint()
 
 
 class Test_voluxcliprint:
