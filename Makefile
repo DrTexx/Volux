@@ -22,7 +22,8 @@ dev:
 		make install
 
 test:
-		py.test tests
+		pip install pytest
+		pytest tests
 
 build-all:
 		make build
