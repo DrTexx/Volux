@@ -1,7 +1,7 @@
-from volux import VoluxModule
+import volux
 
 
-class VoluxCliPrint(VoluxModule):
+class VoluxCliPrint(volux.VoluxModule):
     def __init__(self, *args, **kwargs):
         super().__init__(
             module_name="Volux CLI Print",
