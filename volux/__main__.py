@@ -92,17 +92,9 @@ def main():
 
         print("launching...")
         try:
-            try:
-                import voluxgui as gui
+            import voluxgui as gui
 
-                gui.launch()
-            except ImportError:
-                import modules.voluxgui.voluxgui as gui
-
-                try:
-                    gui.launch()
-                except Exception as err:
-                    print("launch failed: {}".format(err))
+            gui.launch()
         except ImportError:
             print(
                 "{}Error: Couldn't find voluxgui, please make sure you have it installed{}".format(
