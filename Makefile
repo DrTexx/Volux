@@ -31,6 +31,7 @@ build-all:
 		cd modules/voluxgui && make build
 		cd modules/voluxlight && make build
 		cd modules/voluxlightvisualiser && make build
+		cd modules/voluxvolume && make build
 
 install-all:
 		make install
@@ -39,6 +40,7 @@ install-all:
 		cd modules/voluxgui && make install
 		cd modules/voluxlight && make install
 		cd modules/voluxlightvisualiser && make install
+		cd modules/voluxvolume && make install
 
 uninstall-all:
 		make uninstall
@@ -47,6 +49,7 @@ uninstall-all:
 		cd modules/voluxgui && make uninstall
 		cd modules/voluxlight && make uninstall
 		cd modules/voluxlightvisualiser && make uninstall
+		cd modules/voluxvolume && make uninstall
 
 clean-all:
 		make clean
@@ -55,6 +58,7 @@ clean-all:
 		cd modules/voluxgui && make clean
 		cd modules/voluxlight && make clean
 		cd modules/voluxlightvisualiser && make clean
+		cd modules/voluxvolume && make clean
 
 dev-all:
 		make dev
@@ -63,6 +67,7 @@ dev-all:
 		cd modules/voluxgui && make dev
 		cd modules/voluxlight && make dev
 		cd modules/voluxlightvisualiser && make dev
+		cd modules/voluxvolume && make dev
 
 gui:
 		make dev
