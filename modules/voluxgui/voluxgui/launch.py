@@ -28,14 +28,33 @@ def launch():
 
     shared_modules = []
 
-    def add_volux_module(module_name, class_name):
+    def add_volux_module(module_name, class_name, *args, **kwargs):
 
-        module = importlib.import_module(module_name)
-        module_UUID = vlx.add_module(getattr(module, class_name)())
-        shared_modules.append(vlx.modules[module_UUID])
-        print("imported {}!".format(module_name))
+        try:
+            module = importlib.import_module(module_name)
+            module_UUID = vlx.add_module(
+                getattr(module, class_name)(*args, **kwargs)
+            )
+            shared_modules.append(vlx.modules[module_UUID])
+        except Exception as err:
+            log.warning("failed to import {}... ({})".format(module_name, err))
 
     add_volux_module("voluxaudio", "VoluxAudio")
+    add_volux_module(
+        "voluxlight",
+        "VoluxLight",
+        instance_label="Strip",
+        init_mode="device",
+        init_mode_args={"label": "Strip"},
+    )
+    add_volux_module(
+        "voluxlightvisualiser",
+        "VoluxLightVisualiser",
+        mode="intense",
+        hueHz=120,
+        hue_cycle_duration=5,
+    )
+    add_volux_module("voluxvolume", "VoluxVolume")
 
     vlx.add_module(
         # VoluxGui(shared_modules=gui_shared_modules),
@@ -51,4 +70,4 @@ def launch():
     )
 
     vlx.gui.init_window()
-    vlx.audio.stop()
+    vlx.stop_sync()
