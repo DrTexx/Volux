@@ -22,27 +22,20 @@ exclude_lines =
     if __name__ == '__main__':
 show_missing = True
 omit =
-    # can't test due to no audio
-    voluxaudio/*
-    # can't test due to tkinter
-    voluxbar/*
-    # can't test because no display
-    voluxdisplay/*
-    # can't test due to tkinter
-    voluxgui/*
-    # can't test due to no network devices
-    voluxlight/*
-    # not appropriate for testing
-    voluxold/*
-    # can't test because no audio
-    voluxvolume/*
-    # not appropriate for testing
-    demo_*.py
+    # needs sound devices
+    modules/voluxaudio
+    # needs tkinter
+    modules/voluxbar
+    modules/voluxgui
+    # needs a display
+    modules/voluxdisplay
+    # needs a network with lights
+    modules/voluxlight
+    # needs a system audio mixer
+    modules/voluxvolume
     # not appropriate for testing
     volux/__main__.py
-    # not appropriate for testing
     volux/demos/*
-    # not appropriate for testing
     volux/scripts/*
 
 #ignore_errors = True

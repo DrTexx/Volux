@@ -1,1 +1,1 @@
-from .script_GUI import *
+from .script_example import example

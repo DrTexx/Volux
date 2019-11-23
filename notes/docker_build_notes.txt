@@ -1,0 +1,19 @@
+#################
+###build image###
+#################
+sudo docker image build -t volux:0.9.16 .
+
+###############
+###run image###
+###############
+sudo docker container run --name volux volux:0.9.16
+docker container run --publish 8000:8080 --detach --name bb bulletinboard:1.0
+
+##################
+###delete image###
+##################
+sudo docker container rm --force volux
+
+
+sudo docker run -it --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" --name volux volux:0.9.16
+export containerId=$(docker ps -l -q)
