@@ -7,11 +7,14 @@ class DemoGuiVis(VoluxDemo):
             demo_name="Demo Gui Vis",
             demo_method=self.run_demo,
             alias="guivis",
+            requirements=["voluxaudio", "voluxgui"],
             *args,
             **kwargs
         )
 
     def run_demo(self):
+
+        self._check_reqs()
 
         import volux  # import essentials
         import voluxaudio  # module to get amplitude of desktop audio
@@ -20,7 +23,7 @@ class DemoGuiVis(VoluxDemo):
         # instantiate an operator for managing connections
         vlx = volux.VoluxOperator()
         # add modules
-        vlx.add_module(volux.modules.VoluxCliPrint())
+        vlx.add_module(volux.VoluxCliPrint())
         vlx.add_module(voluxaudio.VoluxAudio())
         vlx.add_module(voluxgui.VoluxGui())
         # add connections
@@ -30,3 +33,5 @@ class DemoGuiVis(VoluxDemo):
         # vlx.add_connection(volux.VoluxConnection(vlx.audio,vlx.cli,120))  # print audio amplitude to terminal
         vlx.start_sync()
         vlx.gui.init_window()
+        vlx.stop_sync()
+        print("Ctrl+C to end demo...")

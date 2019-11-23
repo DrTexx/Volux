@@ -1,7 +1,3 @@
-# builtin
-import importlib
-
-# site
 from volux.demo import VoluxDemo
 
 
@@ -11,46 +7,39 @@ class DemoVolLuxBar(VoluxDemo):
             demo_name="Demo Vol Lux Bar",
             demo_method=self.run_demo,
             alias="bar",
-            requirements=["voluxbar", "voluxvolume", "colorama"],
+            requirements=["voluxbar", "voluxlight", "voluxvolume", "colorama"],
             *args,
             **kwargs
         )
 
     def run_demo(self):
 
+        self._check_reqs()
+
         import volux
         import voluxbar
+        import voluxlight
         import voluxvolume
         import colorama
 
-        # for req in self._requirements:
-        #
-        #     try:
-        #         importlib.import_module(req)
-        #     except ImportError as err:
-        #         print(
-        #             "Error: couldn't import requirement '{}', you may want to check it's installed ({})".format(
-        #                 req, err
-        #             )
-        #         )
-        #         exit()
+        device_label = str(
+            input("LIFX device's label (case-sensitive!) [Demo Bulb]: ")
+        )
+        if device_label == "":
+            device_label = "Demo Bulb"
 
         # create Volux Operator object (hub for communication between modules)
         vlx = volux.VoluxOperator()
 
-        vlx.add_module(voluxbar.VoluxBar())
         vlx.add_module(voluxvolume.VoluxVolume())
-
+        vlx.add_module(voluxbar.VoluxBar())
         vlx.bar.add_mode("default", vlx.volume)
-
         try:
-            from modules.voluxlight import VoluxLight
-
             vlx.add_module(
-                VoluxLight(
+                voluxlight.VoluxLight(
                     instance_label="demo",
                     init_mode="device",
-                    init_mode_args={"label": "Demo Bulb"},
+                    init_mode_args={"label": device_label},
                 )
             )
             vlx.bar.add_mode("light", vlx.light_demo)
@@ -62,4 +51,9 @@ class DemoVolLuxBar(VoluxDemo):
             )
 
         # load Volux Bar module
+        print(
+            "{}Tip: Double right-click bar or press Ctrl+C while this window is active to stop demo{}".format(
+                colorama.Fore.YELLOW, colorama.Style.RESET_ALL
+            )
+        )
         vlx.bar.init_window()

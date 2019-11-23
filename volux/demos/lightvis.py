@@ -7,11 +7,14 @@ class DemoSimpleLightVis(VoluxDemo):
             demo_name="Demo Simple Light Vis",
             demo_method=self.run_demo,
             alias="lightvis",
+            requirements=["voluxaudio", "voluxlight", "voluxlightvisualiser"],
             *args,
             **kwargs
         )
 
     def run_demo(self):
+
+        self._check_reqs()
 
         import volux
         import voluxaudio
@@ -37,7 +40,7 @@ class DemoSimpleLightVis(VoluxDemo):
         )
         vis_UUID = vlx.add_module(
             vvis.VoluxLightVisualiser(
-                mode=vvis.INTENSE_MODE, hueHz=script_hz, hue_cycle_duration=5
+                mode="intense", hueHz=script_hz, hue_cycle_duration=5
             )
         )
 
