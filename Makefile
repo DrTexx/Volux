@@ -27,6 +27,7 @@ dev:
 build-all:
 		make build
 		cd modules/voluxaudio && make build
+		cd modules/voluxbar && make build
 		cd modules/voluxgui && make build
 		cd modules/voluxlight && make build
 		cd modules/voluxlightvisualiser && make build
@@ -34,6 +35,7 @@ build-all:
 install-all:
 		make install
 		cd modules/voluxaudio && make install
+		cd modules/voluxbar && make install
 		cd modules/voluxgui && make install
 		cd modules/voluxlight && make install
 		cd modules/voluxlightvisualiser && make install
@@ -41,6 +43,7 @@ install-all:
 uninstall-all:
 		make uninstall
 		cd modules/voluxaudio && make uninstall
+		cd modules/voluxbar && make uninstall
 		cd modules/voluxgui && make uninstall
 		cd modules/voluxlight && make uninstall
 		cd modules/voluxlightvisualiser && make uninstall
@@ -48,6 +51,7 @@ uninstall-all:
 clean-all:
 		make clean
 		cd modules/voluxaudio && make clean
+		cd modules/voluxbar && make clean
 		cd modules/voluxgui && make clean
 		cd modules/voluxlight && make clean
 		cd modules/voluxlightvisualiser && make clean
@@ -55,6 +59,7 @@ clean-all:
 dev-all:
 		make dev
 		cd modules/voluxaudio && make dev
+		cd modules/voluxbar && make dev
 		cd modules/voluxgui && make dev
 		cd modules/voluxlight && make dev
 		cd modules/voluxlightvisualiser && make dev
