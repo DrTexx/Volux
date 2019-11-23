@@ -29,6 +29,6 @@ setuptools.setup(
     license="GPLv3+",
     install_requires=["volux>=0.9.16,<1.0.0"],
     setup_requires=["wheel", "setuptools"],
-    requires_python=[">=3"],
+    python_requires=">=3",
     requires_external=["python3-tk"],
 )

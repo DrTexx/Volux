@@ -18,7 +18,7 @@ with open(path.join(here, readme_filename), encoding=readme_encoding) as f:
 
 setuptools.setup(
     name=__package_name__,  # Required
-    version="0.9.0",  # Required
+    version="0.1.0",  # Required
     packages=[__package_name__],  # Required
     metadata_version="2.1",  # Optional
     summary="volux module which provides a gui for volux itself",  # Optional
@@ -29,7 +29,7 @@ setuptools.setup(
     license="GPLv3+",
     install_requires=["volux>=0.9.16,<1.0.0"],
     setup_requires=["wheel", "setuptools"],
-    requires_python=[">=3"],
+    python_requires=">=3",
     requires_external=["python3-tk"],
     entry_points={  # Optional
         "console_scripts": [
