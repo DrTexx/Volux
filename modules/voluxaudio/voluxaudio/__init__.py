@@ -3,10 +3,10 @@ from time import sleep
 import logging
 
 # site
+import volux
 import numpy as np
 import pyaudio
 import colorama
-from volux import VoluxModule, SuppressStdoutStderr
 
 # local
 from .hsv2ansi import *
@@ -35,7 +35,7 @@ def clamp(value, minv, maxv):
 __requires_python__ = [">=3", "<3.8"]  # required python version
 
 
-class VoluxAudio(VoluxModule):
+class VoluxAudio(volux.VoluxModule):
     """
     based on code by the brilliant Scott Harden
     original post code is adapted from:
@@ -103,7 +103,7 @@ class VoluxAudio(VoluxModule):
 
     def _get_pyaudio(self):
 
-        with SuppressStdoutStderr():
+        with volux.SuppressStdoutStderr():
 
             return pyaudio.PyAudio()
 
