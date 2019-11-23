@@ -1,6 +1,8 @@
 # builtin
-from time import sleep
+import sys
 import logging
+from time import sleep
+import platform
 
 # site
 import volux
@@ -10,6 +12,14 @@ import colorama
 
 # local
 from .hsv2ansi import *
+
+# user_platform = platform.system()
+# if user_platform == "Windows":
+#     if sys.version_info[0] >= 3:
+#         if sys.version_info[1] > 6:
+#             raise RuntimeError(
+#                 "Due to a requirement (pyaudio) this module only work on Windows with python version >=3.4,<3.7"
+#             )
 
 colorama.init()
 
