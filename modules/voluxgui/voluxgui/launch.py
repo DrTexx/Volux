@@ -12,7 +12,7 @@ def launch():
     import colorama
 
     # package
-    from .gui import VoluxGui
+    from volux.gui import VoluxGui
 
     log = logging.getLogger("voluxgui launch")
     log.setLevel(logging.DEBUG)
@@ -74,14 +74,20 @@ def launch():
         # VoluxGui(shared_modules=gui_shared_modules),
         VoluxGui(shared_modules=shared_modules),
         req_permissions=[
-            volux.RequestSyncState,
-            volux.RequestAddConnection,
-            volux.RequestRemoveConnection,
-            volux.RequestGetConnections,
-            volux.RequestStartSync,
-            volux.RequestStopSync,
+            volux.request.SyncState,
+            volux.request.AddConnection,
+            volux.request.RemoveConnection,
+            volux.request.GetConnections,
+            volux.request.StartSync,
+            volux.request.StopSync,
+            volux.request.GetSyncDeltas,
+            volux.request.GetConnectionNicknames,
         ],
     )
 
     vlx.gui.init_window()
     vlx.stop_sync()
+
+
+if __name__ == "__main__":
+    launch()
