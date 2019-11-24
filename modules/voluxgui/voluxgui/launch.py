@@ -12,7 +12,7 @@ def launch():
     import colorama
 
     # package
-    from voluxgui.gui import VoluxGui
+    from volux.gui import VoluxGui
 
     log = logging.getLogger("voluxgui launch")
     log.setLevel(logging.DEBUG)
