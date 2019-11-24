@@ -19,6 +19,16 @@ dev:
 		make build
 		make install
 
+build-c:
+		python compile.py build_ext -b build_c
+
+clean-c:
+		rm -rf build_c
+
+dev-c:
+		make clean-c
+		make build-c
+
 install-external-apt:
 		apt install libasound2
 
