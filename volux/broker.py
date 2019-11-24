@@ -1,13 +1,8 @@
-from .request import (
-    VoluxBrokerRequest,
-    RequestAddConnection,
-    RequestRemoveConnection,
-    RequestGetConnections,
-    RequestStartSync,
-    RequestSyncState,
-    RequestStopSync,
-)
+# builtin
 import logging
+
+# module
+import volux.request
 
 log = logging.getLogger("volux broker")
 log.setLevel(logging.DEBUG)
@@ -29,7 +24,7 @@ class VoluxBroker:
 
     def process_request(self, request, verbose=True):
 
-        if issubclass(type(request), VoluxBrokerRequest) is True:
+        if issubclass(type(request), volux.request.VoluxBrokerRequest) is True:
 
             mUUID = request.module.UUID
 
@@ -60,29 +55,37 @@ class VoluxBroker:
                         )
                     )
 
-                    if req_type == RequestAddConnection:
+                    if req_type == volux.request.AddConnection:
 
                         self.operator.add_connection(request.connection)
 
-                    elif req_type == RequestRemoveConnection:
+                    elif req_type == volux.request.RemoveConnection:
 
                         self.operator.remove_connection(request.connection)
 
-                    elif req_type == RequestGetConnections:
+                    elif req_type == volux.request.GetConnections:
 
                         return self.operator.connections
 
-                    elif req_type == RequestStartSync:
+                    elif req_type == volux.request.StartSync:
 
                         self.operator.start_sync()
 
-                    elif req_type == RequestSyncState:
+                    elif req_type == volux.request.SyncState:
 
                         return self.operator.running
 
-                    elif req_type == RequestStopSync:
+                    elif req_type == volux.request.StopSync:
 
                         self.operator.stop_sync()
+
+                    elif req_type == volux.request.GetSyncDeltas:
+
+                        return self.operator.get_sync_deltas()
+
+                    elif req_type == volux.request.GetConnectionNicknames:
+
+                        return self.operator.get_connection_nicknames()
 
                     else:
 

@@ -6,6 +6,9 @@ class NoDelta:
     def __init__(self):
         pass
 
+    def __str__(self):
+        return "N/A"
+
 
 class VoluxConnection:
     """Contains all the properties of a connection between two modules"""
@@ -38,6 +41,11 @@ class VoluxConnection:
 
         actual_Hz = 1 / (t2 - t1)
         self.hz_delta = int(actual_Hz - self.hz)
+
+    def _stopped(self):
+
+        self.hz_delta = NoDelta()
+
         # print(
         #     "{name:<40} ({target}Hz) ({delta:>{hz_chars}}Hz Δ)".format(
         #         name=self.nickname,

@@ -4,7 +4,7 @@ class VoluxBrokerRequest:
         self.req_string = req_string
 
 
-class RequestAddConnection(VoluxBrokerRequest):
+class AddConnection(VoluxBrokerRequest):
     def __init__(self, module, connection, *args, **kwargs):
         super().__init__(
             module=module, req_string="add a new connection", *args, **kwargs
@@ -12,7 +12,7 @@ class RequestAddConnection(VoluxBrokerRequest):
         self.connection = connection
 
 
-class RequestRemoveConnection(VoluxBrokerRequest):
+class RemoveConnection(VoluxBrokerRequest):
     def __init__(self, module, connection, *args, **kwargs):
         super().__init__(
             module=module,
@@ -23,7 +23,7 @@ class RequestRemoveConnection(VoluxBrokerRequest):
         self.connection = connection
 
 
-class RequestGetConnections(VoluxBrokerRequest):
+class GetConnections(VoluxBrokerRequest):
     def __init__(self, module, *args, **kwargs):
         super().__init__(
             module=module,
@@ -33,7 +33,7 @@ class RequestGetConnections(VoluxBrokerRequest):
         )
 
 
-class RequestStartSync(VoluxBrokerRequest):
+class StartSync(VoluxBrokerRequest):
     def __init__(self, module, *args, **kwargs):
         super().__init__(
             module=module,
@@ -43,7 +43,7 @@ class RequestStartSync(VoluxBrokerRequest):
         )
 
 
-class RequestSyncState(VoluxBrokerRequest):
+class SyncState(VoluxBrokerRequest):
     def __init__(self, module, *args, **kwargs):
         super().__init__(
             module=module,
@@ -53,7 +53,7 @@ class RequestSyncState(VoluxBrokerRequest):
         )
 
 
-class RequestStopSync(VoluxBrokerRequest):
+class StopSync(VoluxBrokerRequest):
     def __init__(self, module, *args, **kwargs):
         super().__init__(
             module=module,
@@ -63,8 +63,25 @@ class RequestStopSync(VoluxBrokerRequest):
         )
 
 
-class RequestGetModules(VoluxBrokerRequest):
+class GetModules(VoluxBrokerRequest):
     def __init__(self, module, *args, **kwargs):
         super().__init__(
             module=module, req_string="get loaded modules", *args, **kwargs
+        )
+
+
+class GetSyncDeltas(VoluxBrokerRequest):
+    def __init__(self, module, *args, **kwargs):
+        super().__init__(
+            module=module, req_string="get sync deltas", *args, **kwargs
+        )
+
+
+class GetConnectionNicknames(VoluxBrokerRequest):
+    def __init__(self, module, *args, **kwargs):
+        super().__init__(
+            module=module,
+            req_string="get connection nicknames",
+            *args,
+            **kwargs
         )

@@ -11,7 +11,6 @@ from .core import VoluxCore
 from .demo import VoluxDemo
 from .connection import VoluxConnection
 from .suppress import SuppressStdoutStderr
-from .request import *
 from .coremodules import *
 
 __version__ = get_version()

@@ -252,8 +252,38 @@ class VoluxOperator:
 
         self.threads = []
 
+        for cUUID in self.connections:
+
+            self.connections[
+                cUUID
+            ]._stopped()  # run _stopped method on all connections
+
         log.info(
             "{}[CONNECTION SYNC STOPPED]{}".format(
                 colorama.Fore.YELLOW, colorama.Style.RESET_ALL
             )
         )
+
+    def get_sync_deltas(self):
+
+        deltas = {}
+
+        for cUUID in self.connections:
+
+            connection = self.connections[cUUID]
+
+            deltas.update({connection.UUID: connection.hz_delta})
+
+        return deltas
+
+    def get_connection_nicknames(self):
+
+        nicknames = {}
+
+        for cUUID in self.connections:
+
+            connection = self.connections[cUUID]
+
+            nicknames.update({connection.UUID: connection.nickname})
+
+        return nicknames
