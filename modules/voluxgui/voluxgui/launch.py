@@ -41,7 +41,7 @@ def launch(connection_preset=""):
             log.warning("failed to import {}... ({})".format(module_name, err))
 
     audio_UUID = add_volux_module("voluxaudio", "VoluxAudio")
-    add_volux_module(
+    l_strip_UUID = add_volux_module(
         "voluxlight",
         "VoluxLight",
         instance_label="strip",
@@ -55,7 +55,7 @@ def launch(connection_preset=""):
         init_mode="device",
         init_mode_args={"label": "Office Ceiling"},
     )
-    l_demo_UUID = add_volux_module(
+    add_volux_module(
         "voluxlight",
         "VoluxLight",
         instance_label="demo",
@@ -96,7 +96,7 @@ def launch(connection_preset=""):
                 vlx.modules[audio_UUID], vlx.modules[vis_UUID], 120
             ),
             volux.VoluxConnection(
-                vlx.modules[vis_UUID], vlx.modules[l_demo_UUID], 120
+                vlx.modules[vis_UUID], vlx.modules[l_strip_UUID], 120
             ),
         ]
 
