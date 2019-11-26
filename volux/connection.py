@@ -1,5 +1,7 @@
+# builtin
 import uuid
 import time
+import threading
 
 
 class NoDelta:
@@ -20,7 +22,7 @@ class VoluxConnection:
         self.UUID = uuid.uuid4()
         self.hz = hz
         self.hz_chars = len(str(self.hz))
-        self.hz_delta = NoDelta()
+        self.sync_times = [0, 0, 0]
         self.waittime = 1 / self.hz
         self.nickname = "{} -> {} @ {}hz".format(
             self.input._module_attr, self.output._module_attr, self.hz
@@ -28,23 +30,36 @@ class VoluxConnection:
 
     def sync(self):
 
-        t1 = time.process_time()
+        t_start = time.process_time()
+
+        wait_thread = threading.Thread(target=self._wait)
+        wait_thread.start()
 
         self.output.set(self.input.get())
 
         # print("{} -> {}".format(self.input._module_name,self.output._module_name))
 
-        t2 = time.process_time()
+        t_synced = time.process_time()
+        wait_thread.join()
+        t_finished = time.process_time()
 
-        while t2 - t1 < self.waittime:
-            t2 = time.process_time()
+        self.sync_times = [t_start, t_synced, t_finished]
 
-        actual_Hz = 1 / (t2 - t1)
-        self.hz_delta = int(actual_Hz - self.hz)
+    def _wait(self):
+        time.sleep(self.waittime)
+
+    def _get_delta(self):
+        time_elapsed = self.sync_times[1] - self.sync_times[0]
+
+        if time_elapsed > 0:
+            time_needed = 1 / time_elapsed
+            return int(time_needed - self.hz)
+        else:
+            return NoDelta()
 
     def _stopped(self):
 
-        self.hz_delta = NoDelta()
+        self.sync_times = [0, 0, 0]
 
         # print(
         #     "{name:<40} ({target}Hz) ({delta:>{hz_chars}}Hz Δ)".format(

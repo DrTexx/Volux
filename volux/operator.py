@@ -210,7 +210,7 @@ class VoluxOperator:
 
                 connection = self.connections[cUUID]
 
-                wrapped_sync = self._wrap_sync(connection.sync)
+                wrapped_sync = self._wrap_sync(connection)
 
                 self.threads.append(Thread(target=wrapped_sync))
 
@@ -234,12 +234,20 @@ class VoluxOperator:
             )
             self.stop_sync
 
-    def _wrap_sync(self, sync_method):
+    def _wrap_sync(self, connection):
         def wrapped_sync():
 
-            while self.running is True:
+            try:
 
-                sync_method()
+                while self.running is True:
+
+                    connection.sync()
+
+            except Exception:
+
+                log.error("A CONNECTION CRASHED!")
+                self.running = False
+                connection._stopped()
 
         return wrapped_sync
 
@@ -272,7 +280,7 @@ class VoluxOperator:
 
             connection = self.connections[cUUID]
 
-            deltas.update({connection.UUID: connection.hz_delta})
+            deltas.update({connection.UUID: connection._get_delta()})
 
         return deltas
 
