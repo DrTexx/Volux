@@ -1,7 +1,7 @@
 from .core import VoluxCore
 from .module import VoluxModule
 from .broker import VoluxBroker
-from .connection import VoluxConnection
+from .connection import VoluxConnection, NoDelta
 from threading import Thread
 import colorama
 import logging
@@ -262,9 +262,9 @@ class VoluxOperator:
 
         for cUUID in self.connections:
 
-            self.connections[
-                cUUID
-            ]._stopped()  # run _stopped method on all connections
+            # run _stopped method on all connections
+            self.connections[cUUID]._stopped()
+            self.get_sync_deltas()
 
         log.info(
             "{}[CONNECTION SYNC STOPPED]{}".format(
@@ -280,7 +280,13 @@ class VoluxOperator:
 
             connection = self.connections[cUUID]
 
-            deltas.update({connection.UUID: connection._get_delta()})
+            if self.running is True:
+
+                deltas.update({connection.UUID: connection._get_delta()})
+
+            elif self.running is False:
+
+                deltas.update({connection.UUID: NoDelta()})
 
         return deltas
 
