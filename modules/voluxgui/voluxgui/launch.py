@@ -1,4 +1,4 @@
-def launch():
+def launch(connection_preset=""):
 
     # builtins
     import os
@@ -36,10 +36,11 @@ def launch():
                 getattr(module, class_name)(*args, **kwargs)
             )
             shared_modules.append(vlx.modules[module_UUID])
+            return module_UUID
         except Exception as err:
             log.warning("failed to import {}... ({})".format(module_name, err))
 
-    add_volux_module("voluxaudio", "VoluxAudio")
+    audio_UUID = add_volux_module("voluxaudio", "VoluxAudio")
     add_volux_module(
         "voluxlight",
         "VoluxLight",
@@ -54,14 +55,14 @@ def launch():
         init_mode="device",
         init_mode_args={"label": "Office Ceiling"},
     )
-    add_volux_module(
+    l_demo_UUID = add_volux_module(
         "voluxlight",
         "VoluxLight",
         instance_label="demo",
         init_mode="device",
         init_mode_args={"label": "Demo Bulb"},
     )
-    add_volux_module(
+    vis_UUID = add_volux_module(
         "voluxlightvisualiser",
         "VoluxLightVisualiser",
         mode="intense",
@@ -70,7 +71,7 @@ def launch():
     )
     add_volux_module("voluxvolume", "VoluxVolume")
 
-    vlx.add_module(
+    gui_UUID = vlx.add_module(
         # VoluxGui(shared_modules=gui_shared_modules),
         VoluxGui(shared_modules=shared_modules),
         req_permissions=[
@@ -84,6 +85,25 @@ def launch():
             volux.request.GetConnectionNicknames,
         ],
     )
+
+    if connection_preset == "lightshow":
+
+        connection_list = [
+            volux.VoluxConnection(
+                vlx.modules[audio_UUID], vlx.modules[gui_UUID], 120
+            ),
+            volux.VoluxConnection(
+                vlx.modules[audio_UUID], vlx.modules[vis_UUID], 120
+            ),
+            volux.VoluxConnection(
+                vlx.modules[vis_UUID], vlx.modules[l_demo_UUID], 120
+            ),
+        ]
+
+        for connection in connection_list:
+            vlx.add_connection(connection)
+
+        vlx.gui.mainApp.LFconnections._refresh_connections()
 
     vlx.gui.init_window()
     vlx.stop_sync()
