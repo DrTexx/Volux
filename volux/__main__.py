@@ -72,6 +72,12 @@ def main():
     parser_launch.add_argument(
         "--foo", action="store_true", help="a test optional argument"
     )
+    parser_launch.add_argument(
+        "-lfx",
+        "--lightshow",
+        action="store_true",
+        help="run lightshow on launch",
+    )
 
     # Parse the arguments
     arguments = parser.parse_args()
@@ -94,7 +100,10 @@ def main():
         try:
             import voluxgui as gui
 
-            gui.launch()
+            if arguments.lightshow is True:
+                gui.launch(connection_preset="lightshow")
+            else:
+                gui.launch()
         except ImportError:
             print(
                 "{}Error: Couldn't find voluxgui, please make sure you have it installed{}".format(
