@@ -104,6 +104,7 @@ def launch(connection_preset=""):
             vlx.add_connection(connection)
 
         vlx.gui.mainApp.LFconnections._refresh_connections()
+        vlx.gui.mainApp.LFconnections._toggle_sync_externally()
 
     vlx.gui.init_window()
     vlx.stop_sync()
