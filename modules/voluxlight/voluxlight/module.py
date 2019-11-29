@@ -128,9 +128,9 @@ class VoluxLight(volux.VoluxModule):
 
     def get(self):
 
-        for device in self.devices:
+        for mdevice in self.mdevices:
 
-            color = device.get_color()
+            color = mdevice.device.get_color()
             power = color[2] / 65535
             return power * 100
 
@@ -148,20 +148,22 @@ class VoluxLight(volux.VoluxModule):
             elif new_val > self._set_max:
                 new_val = self._set_max
 
-            for device in self.devices:
+            for mdevice in self.mdevices:
 
-                color = device.get_color()
+                color = mdevice.device.get_color()
                 new_color = (
                     color[0],
                     color[1],
                     (new_val / self._set_max) * 65535,
                     color[3],
                 )
-                device.set_color(new_color)
+                mdevice.device.set_color(new_color)
 
         elif input_type == tuple:
 
-            self.set_color(new_val, rapid=True)
+            self.set_color(
+                new_val, duration=10, rapid=True
+            )  # this directly correlates with how long a beat must be at max volume to achieve max color intensitiy
 
         else:
 
@@ -169,16 +171,16 @@ class VoluxLight(volux.VoluxModule):
 
     def set_color(self, new_color, duration=20, rapid=True):
 
-        for device in self.devices:
+        for mdevice in self.mdevices:
 
-            device.set_color(new_color, duration=duration, rapid=rapid)
+            mdevice.device.set_color(new_color, duration=duration, rapid=rapid)
 
     def toggle(self):
 
-        for device in self.devices:
+        for mdevice in self.mdevices:
 
-            power = device.get_power()
-            device.set_power(
+            power = mdevice.device.get_power()
+            mdevice.device.set_power(
                 not power
             )  # not ideal behaviour if all lights in different states
 
