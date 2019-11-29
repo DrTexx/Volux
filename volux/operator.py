@@ -241,6 +241,7 @@ class VoluxOperator:
 
                 while self.running is True:
 
+                    log.debug("running {}".format(connection.nickname))
                     connection.sync()
 
             except Exception:
