@@ -33,7 +33,7 @@ class DemoSimpleLightVis(VoluxDemo):
         audio_UUID = vlx.add_module(voluxaudio.VoluxAudio())
         lstrip_UUID = vlx.add_module(
             voluxlight.VoluxLight(
-                instance_label="demo",
+                instance_label=device_label,
                 init_mode="device",
                 init_mode_args={"label": device_label},
             )
