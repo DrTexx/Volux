@@ -244,9 +244,9 @@ class VoluxOperator:
                     log.debug("running {}".format(connection.nickname))
                     connection.sync()
 
-            except Exception:
+            except Exception as err:
 
-                log.error("A CONNECTION CRASHED!")
+                log.error("A CONNECTION CRASHED! ({})".format(err))
                 self.running = False
                 connection._stopped()
 
