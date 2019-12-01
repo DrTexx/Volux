@@ -98,11 +98,16 @@ class VoluxAudio(volux.VoluxModule):
             shared_modules=shared_modules,
             pollrate=pollrate,
         )
-        self.audio_data = []
 
     def get(self):
 
-        return float(self._get_amplitude())  # 0 .. 100
+        if self.audio_data == []:
+
+            return float(0)
+
+        else:
+
+            return float(self._get_amplitude())  # 0 .. 100
 
     def set(self, new_val):
 
@@ -110,6 +115,7 @@ class VoluxAudio(volux.VoluxModule):
 
     def setup(self):
 
+        self.audio_data = []
         self.pa = (
             self._get_pyaudio()
         )  # note: this is what causes all the spam when creating module
