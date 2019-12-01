@@ -210,6 +210,8 @@ class VoluxOperator:
 
                 connection = self.connections[cUUID]
 
+                self.connections[cUUID]._started()
+
                 wrapped_sync = self._wrap_sync(connection)
 
                 self.threads.append(Thread(target=wrapped_sync))
