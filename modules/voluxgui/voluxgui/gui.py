@@ -1,3 +1,6 @@
+# builtin
+import colorsys
+
 # external
 import tkinter as tk
 from tkinter import ttk
@@ -7,6 +10,7 @@ import volux
 
 # module
 from .mainapplication import MainApplication
+from .rgbtohex import rgb_to_hex
 
 
 class VoluxGui(volux.VoluxModule):
@@ -22,6 +26,8 @@ class VoluxGui(volux.VoluxModule):
             set_type=None,
             set_min=None,
             set_max=None,
+            module_setup=self.setup,
+            module_cleanup=self.cleanup,
             shared_modules=shared_modules,
             pollrate=pollrate,
             *args,
@@ -46,9 +52,27 @@ class VoluxGui(volux.VoluxModule):
             self.mainApp.value_bar.winfo_width()
         )  # note: wasteful, find alternative or remove in future
 
-        self.mainApp.value_bar_fill.config(
-            width=container_width * (self.val / 100)
+        r, g, b = colorsys.hsv_to_rgb(0, self.val / 100, self.val / 100)
+        # print(r, g, b)
+        # print(type(r), type(g), type(b))
+        r, g, b = (int(r * 255), int(g * 255), int(b * 255))
+        # print(r, g, b)
+        # print(type(r), type(g), type(b))
+        hex_color = rgb_to_hex(r, g, b)
+
+        self.mainApp.value_bar_fill.configure(
+            width=container_width * (self.val / 100),
+            # width=container_width * (100),
+            background=hex_color,
         )
+
+    def setup(self):
+
+        pass
+
+    def cleanup(self):
+
+        pass
 
     def init_window(self):
 

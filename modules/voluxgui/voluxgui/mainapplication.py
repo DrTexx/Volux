@@ -42,12 +42,16 @@ class MainApplication(ttk.Frame):
         )
 
         self.value_bar = ttk.Frame(
-            self.parent, height=14, width=100, pad="1px"
+            self.parent,
+            height=14,
+            width=100,
+            pad="1px",
+            style="value_bar.TFrame",
         )
         self.value_bar.pack(side="top", fill=tk.X)
 
-        self.value_bar_fill = ttk.Frame(
-            self.value_bar, height=14, width=0, style="value_bar_fill.TFrame"
+        self.value_bar_fill = tk.Frame(
+            self.value_bar, height=14, width=0, background="RED"
         )
         self.value_bar_fill.pack(fill=tk.Y)
 

@@ -62,6 +62,13 @@ def launch(connection_preset=""):
         init_mode="device",
         init_mode_args={"label": "Demo Bulb"},
     )
+    add_volux_module(
+        "voluxlight",
+        "VoluxLight",
+        instance_label="1100lum",
+        init_mode="device",
+        init_mode_args={"label": "Office 1100lum"},
+    )
     vis_UUID = add_volux_module(
         "voluxlightvisualiser",
         "VoluxLightVisualiser",
