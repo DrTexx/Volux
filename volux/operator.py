@@ -210,7 +210,7 @@ class VoluxOperator:
 
                 connection = self.connections[cUUID]
 
-                self.connections[cUUID]._started()
+                connection._started()
 
                 wrapped_sync = self._wrap_sync(connection)
 
@@ -248,7 +248,11 @@ class VoluxOperator:
 
             except Exception as err:
 
-                log.error("A CONNECTION CRASHED! ({})".format(err))
+                log.error(
+                    "A CONNECTION CRASHED! - {} ({})".format(
+                        connection.nickname, err
+                    )
+                )
                 self.running = False
                 connection._stopped()
 
