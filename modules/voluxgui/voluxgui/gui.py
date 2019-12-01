@@ -78,9 +78,12 @@ class VoluxGui(volux.VoluxModule):
 
         self.binds = {
             "Start Sync": {
-                "contexts": [self.mainApp.LFoutputs.testset_data],
-                "command": self.mainApp.LFoutputs._set_test,
-                "keycode": "<Return>",
+                # "contexts": [self.mainApp.LFoutputs.testset_data],
+                # "command": self.mainApp.LFoutputs._set_test,
+                # "keycode": "<Return>",
+                "contexts": [],
+                "command": None,
+                "keycode": "",
             }
         }
 

@@ -36,13 +36,13 @@ class OutputsFrame(ttk.Labelframe):
         )
         self.refresh_button.pack(anchor="nw", side="top", fill=tk.X)
 
-        self.testset = ttk.Button(
-            self, text="Set Test", command=self._set_test
-        )
-        self.testset.pack(anchor="nw", side="top", fill=tk.X)
-
-        self.testset_data = ttk.Entry(self)
-        self.testset_data.pack()
+        # self.testset = ttk.Button(
+        #     self, text="Set Test", command=self._set_test
+        # )
+        # self.testset.pack(anchor="nw", side="top", fill=tk.X)
+        #
+        # self.testset_data = ttk.Entry(self)
+        # self.testset_data.pack()
 
     def _refresh_output_list(self):
 

@@ -36,10 +36,10 @@ class InputsFrame(ttk.Labelframe):
         )
         self.refresh_button.pack(anchor="nw", side="top", fill=tk.X)
 
-        self.testget = ttk.Button(
-            self, text="Get Test", command=self._get_test
-        )
-        self.testget.pack(anchor="nw", side="top", fill=tk.X)
+        # self.testget = ttk.Button(
+        #     self, text="Get Test", command=self._get_test
+        # )
+        # self.testget.pack(anchor="nw", side="top", fill=tk.X)
 
     def _refresh_input_list(self):
 

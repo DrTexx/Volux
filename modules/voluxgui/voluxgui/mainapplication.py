@@ -140,7 +140,7 @@ class MainApplication(ttk.Frame):
         self.LFoutputs.listbox.bind(
             "<Return>", self.LFconnections._add_connection
         )
-        self.LFoutputs.testset_data.bind("<Return>", self.LFoutputs._set_test)
+        # self.LFoutputs.testset_data.bind("<Return>", self.LFoutputs._set_test)
         self.LFconnections.listbox.bind(
             "<Delete>", self.LFconnections._remove_connection
         )
