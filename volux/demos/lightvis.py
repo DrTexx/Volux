@@ -21,7 +21,7 @@ class DemoSimpleLightVis(VoluxDemo):
         import voluxlight
         import voluxlightvisualiser as vvis
 
-        script_hz = 240
+        script_hz = 120
         device_label = str(
             input("LIFX device's label (case-sensitive!) [Strip]: ")
         )
