@@ -15,6 +15,8 @@ class VoluxVolume(VoluxModule):
             set_type=int,
             set_min=0,
             set_max=100,
+            module_setup=self.setup,
+            module_cleanup=self.cleanup,
             shared_modules=shared_modules,
             pollrate=pollrate,
         )
@@ -35,6 +37,14 @@ class VoluxVolume(VoluxModule):
             new_val = 100
 
         self.cpmixer.svol(int(new_val))
+
+    def setup(self):
+
+        pass
+
+    def cleanup(self):
+
+        pass
 
     def toggle(self):
 

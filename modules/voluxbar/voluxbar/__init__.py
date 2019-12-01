@@ -16,6 +16,8 @@ class VoluxBar(VoluxModule):
             set_type=int,
             set_min=0,
             set_max=100,
+            module_setup=self.setup,
+            module_cleanup=self.cleanup,
             shared_modules=shared_modules,
             pollrate=pollrate,
         )
@@ -25,17 +27,23 @@ class VoluxBar(VoluxModule):
         self.root = tk.Tk()
         self.mainApp = MainApplication(self.root, self, style="Bar.TFrame")
 
-    def add_mode(self, name, module):
-        self.modes.update({name: module})
-
-    def remove_mode(self, name):
-        self.modes.pop(name)
-
     def get(self):
         print("WIP!")
 
     def set(self, new_val):
         print("WIP!")
+
+    def setup(self):
+        pass
+
+    def cleanup(self):
+        pass
+
+    def add_mode(self, name, module):
+        self.modes.update({name: module})
+
+    def remove_mode(self, name):
+        self.modes.pop(name)
 
     def init_window(self):
         self.gui_style = ttk.Style()

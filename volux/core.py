@@ -16,6 +16,8 @@ class VoluxCore(VoluxModule):
             set_type=None,
             set_min=None,
             set_max=None,
+            module_setup=self.setup,
+            module_cleanup=self.cleanup,
             shared_modules=[],
             pollrate=None,
         )
@@ -28,6 +30,14 @@ class VoluxCore(VoluxModule):
     def set(self, new_val):
 
         self.val = new_val
+
+    def setup(self):
+
+        pass
+
+    def cleanup(self):
+
+        pass
 
     def get_python_module_items(self, module):
 

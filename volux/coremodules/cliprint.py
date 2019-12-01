@@ -14,6 +14,8 @@ class VoluxCliPrint(volux.VoluxModule):
             set_type=int,
             set_min=0,
             set_max=100,
+            module_setup=self.setup,
+            module_cleanup=self.cleanup,
             shared_modules=[],
             pollrate=None,
         )
@@ -27,3 +29,11 @@ class VoluxCliPrint(volux.VoluxModule):
 
         self.cli_val = new_val
         print("VoluxCliPrint new value: {}".format(self.cli_val))
+
+    def setup(self):
+
+        pass
+
+    def cleanup(self):
+
+        pass

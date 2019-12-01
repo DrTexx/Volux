@@ -93,14 +93,11 @@ class VoluxAudio(volux.VoluxModule):
             set_type=float,
             set_min=0,
             set_max=100,
+            module_setup=self.setup,
+            module_cleanup=self.cleanup,
             shared_modules=shared_modules,
             pollrate=pollrate,
         )
-        self.pa = (
-            self._get_pyaudio()
-        )  # note: this is what causes all the spam when creating module
-        self.stream = self._open_stream()
-        self.sensitivity = 9
         self.audio_data = []
 
     def get(self):
@@ -110,6 +107,22 @@ class VoluxAudio(volux.VoluxModule):
     def set(self, new_val):
 
         log.error("you can't set the audio amplitude!")
+
+    def setup(self):
+
+        self.pa = (
+            self._get_pyaudio()
+        )  # note: this is what causes all the spam when creating module
+        self.stream = self._open_stream()
+        self.sensitivity = 9
+
+    def cleanup(self):
+
+        # self.mlifx.restore()  # restore original state of all managed lights
+        self.stream.stop_stream()
+        self.stream.close()
+        self.pa.terminate()
+        # print(colorama.Style.RESET_ALL)  # reset ansi escapes
 
     def _get_pyaudio(self):
 
@@ -143,11 +156,3 @@ class VoluxAudio(volux.VoluxModule):
             adj_audio_norm, 0, 1
         )  # normalized audio returning a value between 0 to 1
         return cla_audio_norm * 100  # 0 .. 100
-
-    def stop(self):
-
-        # self.mlifx.restore()  # restore original state of all managed lights
-        self.stream.stop_stream()
-        self.stream.close()
-        self.pa.terminate()
-        print(colorama.Style.RESET_ALL)  # reset ansi escapes

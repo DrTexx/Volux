@@ -45,6 +45,8 @@ class VoluxLight(volux.VoluxModule):
             set_type=float,
             set_min=0,
             set_max=100,
+            module_setup=self.setup,
+            module_cleanup=self.cleanup,
             shared_modules=shared_modules,
             pollrate=pollrate,
         )
@@ -168,6 +170,18 @@ class VoluxLight(volux.VoluxModule):
         else:
 
             raise TypeError("input for set must be int, float or HSBK tuple")
+
+    def setup(self):
+
+        for mdevice in self.mdevices:
+
+            mdevice.ssave()
+
+    def cleanup(self):
+
+        for mdevice in self.mdevices:
+
+            mdevice.sload()
 
     def set_color(self, new_color, duration=20, rapid=True):
 

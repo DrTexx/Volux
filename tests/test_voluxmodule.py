@@ -18,6 +18,8 @@ class VoluxTestModule(volux.VoluxModule):
             set_type=int,
             set_min=0,
             set_max=100,
+            module_setup=self.setup,
+            module_cleanup=self.cleanup,
             shared_modules=shared_modules,
             pollrate=None,
         )
@@ -28,6 +30,12 @@ class VoluxTestModule(volux.VoluxModule):
 
     def set(self, new_val):
         self.val = new_val
+
+    def setup(self):
+        pass
+
+    def cleanup(self):
+        pass
 
 
 class Test_VoluxTestModule:
