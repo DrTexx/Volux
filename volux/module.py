@@ -33,6 +33,8 @@ class VoluxModule:
         set_type,
         set_min,
         set_max,
+        module_setup,
+        module_cleanup,
         shared_modules,
         pollrate,
     ):
@@ -53,6 +55,8 @@ class VoluxModule:
         self._set_type = set_type
         self._set_min = set_min
         self._set_max = set_max
+        self._setup = module_setup
+        self._cleanup = module_cleanup
         self._shared_modules = shared_modules
         self._pollrate = (
             pollrate
