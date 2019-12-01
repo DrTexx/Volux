@@ -12,7 +12,7 @@ def launch(connection_preset=""):
     import colorama
 
     # package
-    from voluxgui.gui import VoluxGui
+    from voluxgui import VoluxGui
 
     log = logging.getLogger("voluxgui launch")
     log.setLevel(logging.DEBUG)
@@ -41,6 +41,10 @@ def launch(connection_preset=""):
             log.warning("failed to import {}... ({})".format(module_name, err))
 
     audio_UUID = add_volux_module("voluxaudio", "VoluxAudio")
+
+    cache_UUID = vlx.add_module(volux.VoluxCache())
+    shared_modules.append(vlx.modules[cache_UUID])
+
     l_strip_UUID = add_volux_module(
         "voluxlight",
         "VoluxLight",
