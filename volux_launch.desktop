@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=Volux (Bar Demo)
+Name=Volux Gui
 Comment=High-level media/entertainment workflow automation platform
-Exec=volux demo bar
+Exec=volux launch
 Type=Application
 Icon=org.volux.Volux
 Terminal=false
