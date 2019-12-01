@@ -57,9 +57,16 @@ class VoluxConnection:
         else:
             return NoDelta()
 
+    def _started(self):
+
+        self.input._setup()
+        self.output._setup()
+
     def _stopped(self):
 
         self.sync_times = [0, 0, 0]
+        self.input._cleanup()
+        self.output._cleanup()
 
         # print(
         #     "{name:<40} ({target}Hz) ({delta:>{hz_chars}}Hz Δ)".format(
