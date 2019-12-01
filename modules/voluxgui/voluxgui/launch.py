@@ -9,6 +9,7 @@ def launch(connection_preset=""):
 
     # site
     import volux
+    import voluxlightvisualiser
     import colorama
 
     # package
@@ -45,6 +46,9 @@ def launch(connection_preset=""):
     cache_UUID = vlx.add_module(volux.VoluxCache())
     shared_modules.append(vlx.modules[cache_UUID])
 
+    invert_UUID = vlx.add_module(volux.VoluxInvert())
+    shared_modules.append(vlx.modules[invert_UUID])
+
     l_strip_UUID = add_volux_module(
         "voluxlight",
         "VoluxLight",
@@ -80,6 +84,15 @@ def launch(connection_preset=""):
         hueHz=120,
         hue_cycle_duration=5,
     )
+    vis2_UUID = vlx.add_module(
+        voluxlightvisualiser.VoluxLightVisualiser(
+            mode="intense",
+            hueHz=120,
+            hue_cycle_duration=5,
+            initial_hue=65535 / 2,
+        )
+    )
+    shared_modules.append(vlx.modules[vis2_UUID])
     add_volux_module("voluxvolume", "VoluxVolume")
 
     gui_UUID = vlx.add_module(
