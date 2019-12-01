@@ -184,6 +184,7 @@ class VoluxOperator:
 
         if connection.UUID in self.connections:
 
+            self.connections[connection.UUID]._stopped()
             del self.connections[connection.UUID]
             log.info(
                 "connection removed: {name} [{color}{UUID}{reset}]".format(
