@@ -21,9 +21,9 @@
 Volux is a high-level media/entertainment workflow automation platform.
 
 ## Demos
-- demo video
-- demo video
-- demo video
+Demo Video
+
+[![Volux Demo Video](https://img.youtube.com/vi/o6fHjAmFi74/0.jpg)](https://www.youtube.com/watch?v=o6fHjAmFi74)
 
 ## Getting Started
 ### Important Notes
