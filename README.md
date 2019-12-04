@@ -3,14 +3,14 @@
 [![codecov](https://codecov.io/gh/DrTexx/Volux/branch/master/graph/badge.svg)](https://codecov.io/gh/DrTexx/Volux)
 [![Requirements Status](https://requires.io/github/DrTexx/Volux/requirements.svg?branch=master)](https://requires.io/github/DrTexx/Volux/requirements/?branch=master)
 
-[![PyPI Version](https://img.shields.io/pypi/v/volux.svg)](https://pypi.python.org/pypi/volux/)
-[![GitHub release](https://img.shields.io/github/release-pre/DrTexx/volux.svg)](https://GitHub.com/DrTexx/volux/releases/)
-[![GitHub license](https://img.shields.io/github/license/DrTexx/volux.svg?branch=master)](https://github.com/DrTexx/volux/blob/master/LICENSE)
-[![Github all releases](https://img.shields.io/github/downloads/DrTexx/volux/total.svg)](https://GitHub.com/DrTexx/volux/releases/)
+[![PyPI Version](https://img.shields.io/pypi/v/volux.svg?style=flat-square)](https://pypi.python.org/pypi/volux/)
+[![GitHub release](https://img.shields.io/github/release-pre/DrTexx/volux.svg?style=flat-square)](https://GitHub.com/DrTexx/volux/releases/)
+[![GitHub license](https://img.shields.io/github/license/DrTexx/volux.svg?branch=master&style=flat-square)](https://github.com/DrTexx/volux/blob/master/LICENSE)
+[![Github all releases](https://img.shields.io/github/downloads/DrTexx/volux/total.svg?style=flat-square)](https://GitHub.com/DrTexx/volux/releases/)
 
-[![Platform: Windows,Mac,Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20Mac%20%7C%20Linux-blue.svg)](#)
-[![GitHub issues](https://img.shields.io/github/issues/DrTexx/volux.svg?branch=master)](https://GitHub.com/DrTexx/volux/issues/)
-[![GitHub pull-requests](https://img.shields.io/github/issues-pr/DrTexx/volux.svg?branch=master)](https://GitHub.com/DrTexx/volux/pull/)
+[![Platform: Windows,Mac,Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20Mac%20%7C%20Linux-blue.svg?style=flat-square)](#)
+[![GitHub issues](https://img.shields.io/github/issues/DrTexx/volux.svg?branch=master&style=flat-square)](https://GitHub.com/DrTexx/volux/issues/)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/DrTexx/volux.svg?branch=master&style=flat-square)](https://GitHub.com/DrTexx/volux/pull/)
 
 <!-- | BRANCH  | STATUS |
 | ---     | ---    |
