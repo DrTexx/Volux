@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  tester: thekevjames/tester@1.1.13
 jobs:
   build:
     docker:
@@ -15,8 +17,10 @@ jobs:
     steps:
       - checkout # checkout source code to working directory
       - run:
-        command: |
-          sudo pip install pytest && pytest
+        command: pytest
+  pytest:
+    - checkout
+    - run: pytest
 workflows:
   version: 2
   build_and_test:
