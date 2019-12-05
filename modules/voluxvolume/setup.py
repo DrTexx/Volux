@@ -27,7 +27,7 @@ setuptools.setup(
     author="Denver Pallis",
     author_email="DenverPallisProjects@gmail.com",
     license="GPLv3+",
-    install_requires=["volux>=0.9.16,<1.0.0", "cpmixer==0.8.1"],
+    install_requires=["volux>=0.10.0,<1.0.0", "cpmixer==0.8.1"],
     setup_requires=["wheel", "setuptools"],
     python_requires=">=3",
     requires_external=["python3-tk"],
