@@ -19,6 +19,8 @@ jobs:
       - run:
         command: pytest
   pytest:
+    docker:
+      - image: circleci/python:3.6.8
     steps:
       - checkout
       - run
