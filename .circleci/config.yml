@@ -20,7 +20,7 @@ jobs:
         command: pytest
   pytest:
     - checkout
-    - run: pytest
+    - run
 workflows:
   version: 2
   build_and_test:
