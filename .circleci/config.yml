@@ -7,7 +7,6 @@ jobs:
       - checkout
       - run:
           command: | # use pipenv to install dependencies
-            sudo pip install pytest
             sudo pip install pipenv
             pipenv install
   test:
@@ -15,7 +14,10 @@ jobs:
       - image: circleci/python:3.6.8
     steps:
       - checkout # checkout source code to working directory
-      - run: pytest
+      - run:
+        command: |
+          sudo pip install pytest
+          pytest
 workflows:
   version: 2
   build_and_test:
