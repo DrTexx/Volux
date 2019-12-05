@@ -16,8 +16,7 @@ jobs:
       - checkout # checkout source code to working directory
       - run:
         command: |
-          sudo pip install pytest
-          pytest
+          sudo pip install pytest && pytest
 workflows:
   version: 2
   build_and_test:
