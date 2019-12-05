@@ -5,12 +5,16 @@ jobs:
       - image: circleci/python:3.6.8
     steps:
       - checkout
-      - run: make build && make install && pip install pytest
+      - run:
+          command: | # use pipenv to install dependencies
+            sudo pip install pytest
+            sudo pip install pipenv
+            pipenv install
   test:
     docker:
       - image: circleci/python:3.6.8
     steps:
-      - checkout
+      - checkout # checkout source code to working directory
       - run: pytest
 workflows:
   version: 2
