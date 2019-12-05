@@ -9,8 +9,16 @@ def launch(connection_preset=""):
 
     # site
     import volux
-    import voluxlightvisualiser
     import colorama
+
+    try:
+        import voluxlightvisualiser
+    except ImportError:
+        print(
+            colorama.Fore.RED
+            + "couldn't import voluxlightvisualiser!"
+            + colorama.Style.RESET_ALL
+        )
 
     # package
     from voluxgui import VoluxGui
@@ -84,15 +92,20 @@ def launch(connection_preset=""):
         hueHz=120,
         hue_cycle_duration=5,
     )
-    vis2_UUID = vlx.add_module(
-        voluxlightvisualiser.VoluxLightVisualiser(
-            mode="intense",
-            hueHz=120,
-            hue_cycle_duration=5,
-            initial_hue=65535 / 2,
+    try:
+        vis2_UUID = vlx.add_module(
+            voluxlightvisualiser.VoluxLightVisualiser(
+                mode="intense",
+                hueHz=120,
+                hue_cycle_duration=5,
+                initial_hue=65535 / 2,
+            )
         )
-    )
-    shared_modules.append(vlx.modules[vis2_UUID])
+        shared_modules.append(vlx.modules[vis2_UUID])
+    except Exception:
+        log.warning(
+            "couldn't make second vis, has voluxlightvisualiser imported correctly?"
+        )
     add_volux_module("voluxvolume", "VoluxVolume")
 
     gui_UUID = vlx.add_module(
