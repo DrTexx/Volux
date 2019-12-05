@@ -5,7 +5,7 @@ jobs:
       - image: circleci/python:3.6.8
     steps:
       - checkout
-      - run: make build && make install
+      - run: make build && make install && pip install pytest
   test:
     docker:
       - image: circleci/python:3.6.8
