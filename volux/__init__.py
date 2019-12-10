@@ -12,5 +12,6 @@ from .demo import VoluxDemo
 from .connection import VoluxConnection
 from .suppress import SuppressStdoutStderr
 from .coremodules import *
+from .types import HSBK
 
 __version__ = get_version()
