@@ -24,13 +24,13 @@ class VoluxCliPrint(volux.VoluxModule):
             shared_modules=[],
             pollrate=None,
         )
-        self.cli_val = 0
+        self.cli_val: int = 0
 
-    def get(self):  # pylint: disable=method-hidden
+    def get(self) -> int:  # pylint: disable=method-hidden
         """Return value last printed."""
         return self.cli_val
 
-    def set(self, new_val):  # pylint: disable=method-hidden
+    def set(self, new_val: int) -> None:  # pylint: disable=method-hidden
         """Set new value and print it to CLI."""
         self.cli_val = new_val
         print("VoluxCliPrint new value: {}".format(self.cli_val))

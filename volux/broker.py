@@ -2,6 +2,8 @@
 
 # builtin
 import logging
+from typing import Any
+from uuid import UUID
 
 # module
 import volux.request
@@ -27,11 +29,13 @@ class VoluxBroker:
         """Instansiate a new broker instance."""
         self.operator = operator
 
-    def process_request(self, request, verbose=True):
+    def process_request(
+        self, request: volux.request.VoluxBrokerRequest, verbose: bool = True
+    ) -> Any:
         """Evaluate a request object and execute it's associated action if all requirements are satisfied."""
         if issubclass(type(request), volux.request.VoluxBrokerRequest) is True:
 
-            mUUID = request.module.UUID
+            mUUID: UUID = request.module.UUID
 
             log.debug(
                 "request from {} is a valid subclass...".format(
@@ -52,7 +56,7 @@ class VoluxBroker:
 
                     log.debug("Operator verified module's permissions")
 
-                    req_type = type(request)
+                    req_type: type = type(request)
 
                     log.debug(
                         "{} is requesting to '{}'...".format(

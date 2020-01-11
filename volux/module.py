@@ -3,6 +3,8 @@
 import uuid
 import colorama
 import logging
+from typing import Dict, Callable
+from uuid import UUID
 
 colorama.init()
 
@@ -25,20 +27,20 @@ class VoluxModule:
 
     def __init__(
         self,
-        module_name,
-        module_attr,
-        module_get,
-        get_type,
-        get_min,
-        get_max,
-        module_set,
-        set_type,
-        set_min,
-        set_max,
-        module_setup,
-        module_cleanup,
-        shared_modules,
-        pollrate,
+        module_name: str,
+        module_attr: str,
+        module_get: Callable,
+        get_type: type,
+        get_min: int,
+        get_max: int,
+        module_set: Callable,
+        set_type: type,
+        set_min: int,
+        set_max: int,
+        module_setup: Callable,
+        module_cleanup: Callable,
+        shared_modules: list,
+        pollrate: int,
     ):
         """Do not instansiate this class directly. It should always be used as a base for a derived module class."""
         if not type(shared_modules) == list:
@@ -46,23 +48,23 @@ class VoluxModule:
                 "VoluxModule: kwarg 'shared_modules' must be of type list"
             )
 
-        self.UUID = uuid.uuid4()
-        self._module_name = module_name
-        self._module_attr = module_attr
-        self.get = module_get
-        self._get_type = get_type
-        self._get_min = get_min
-        self._get_max = get_max
-        self.set = module_set
-        self._set_type = set_type
-        self._set_min = set_min
-        self._set_max = set_max
-        self._setup = module_setup
-        self._cleanup = module_cleanup
-        self._shared_modules = shared_modules
-        self._pollrate = pollrate  # todo: change this to be an optional module limit (a max polling rate the module is capable of)
+        self.UUID: UUID = uuid.uuid4()
+        self._module_name: str = module_name
+        self._module_attr: str = module_attr
+        self.get: Callable = module_get
+        self._get_type: type = get_type
+        self._get_min: int = get_min
+        self._get_max: int = get_max
+        self.set: Callable = module_set
+        self._set_type: type = set_type
+        self._set_min: int = set_min
+        self._set_max: int = set_max
+        self._setup: Callable = module_setup
+        self._cleanup: Callable = module_cleanup
+        self._shared_modules: list = shared_modules
+        self._pollrate: int = pollrate  # todo: change this to be an optional module limit (a max polling rate the module is capable of)
 
-    def _loaded(self):
+    def _loaded(self) -> None:
         log.debug(
             "loaded module: {} (pollrate={}) [{color_UUID}{UUID}{color_reset}]".format(
                 self._module_name,
@@ -73,6 +75,6 @@ class VoluxModule:
             )
         )
 
-    def get_module_info(self):
+    def get_module_info(self) -> Dict[str, str]:
         """Return information about the module."""
         return {"name": self._module_name, "attr": self._module_attr}

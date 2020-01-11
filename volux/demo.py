@@ -11,7 +11,13 @@ class VoluxDemo:
     """Base class for creating volux demos. Ensures certain metadata is provided in demos for use elsewhere."""
 
     def __init__(
-        self, demo_name, demo_method, alias, requirements=[], *args, **kwargs
+        self,
+        demo_name,
+        demo_method,
+        alias,
+        requirements: list = [],
+        *args,
+        **kwargs
     ):
         """Do not directly instansiate, this class should always be used as a base for other specific demo classes."""
         self._name = demo_name
@@ -19,7 +25,7 @@ class VoluxDemo:
         self._alias = alias
         self._requirements = requirements  # optional
 
-    def run(self):
+    def run(self) -> None:
         """Run the demo."""
         self._method()
 
@@ -30,11 +36,11 @@ class VoluxDemo:
     #
     #     return("{header}\n{body}\n{divider}".format(header=header,divider=divider,body=body))
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Give the demo class a custom repr."""
         return "<VoluxDemo '{}'>".format(self._alias)
 
-    def _check_reqs(self):
+    def _check_reqs(self) -> None:
 
         failed_imports = []
         for req in self._requirements:

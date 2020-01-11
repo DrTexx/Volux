@@ -23,12 +23,12 @@ class SuppressStdoutStderr(object):
         # Save the actual stdout (1) and stderr (2) file descriptors.
         self.save_fds = [os.dup(1), os.dup(2)]
 
-    def __enter__(self):
+    def __enter__(self) -> None:
         """Assign the null pointers to stdout and stderr."""
         os.dup2(self.null_fds[0], 1)
         os.dup2(self.null_fds[1], 2)
 
-    def __exit__(self, *_):
+    def __exit__(self, *_) -> None:
         """Re-assign the real stdout/stderr back to (1) and (2)."""
         os.dup2(self.save_fds[0], 1)
         os.dup2(self.save_fds[1], 2)

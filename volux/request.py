@@ -1,7 +1,8 @@
 class VoluxBrokerRequest:
     def __init__(self, module, req_string):
         self.module = module
-        self.req_string = req_string
+        self.req_string: int = req_string
+        self.connection = None
 
 
 class AddConnection(VoluxBrokerRequest):

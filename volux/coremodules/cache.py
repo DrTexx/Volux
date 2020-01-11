@@ -25,20 +25,20 @@ class VoluxCache(volux.VoluxModule):
             shared_modules=[],
             pollrate=None,
         )
-        self.cache_val = 0
+        self.cache_val: int = 0
 
-    def get(self):  # pylint: disable=method-hidden
+    def get(self) -> int:  # pylint: disable=method-hidden
         """Get cached value."""
         return self.cache_val
 
-    def set(self, new_val):  # pylint: disable=method-hidden
+    def set(self, new_val: int) -> None:  # pylint: disable=method-hidden
         """Set cached value."""
         self.cache_val = new_val
 
-    def _setup(self):  # pylint: disable=method-hidden
+    def _setup(self) -> None:  # pylint: disable=method-hidden
 
         pass
 
-    def _cleanup(self):  # pylint: disable=method-hidden
+    def _cleanup(self) -> None:  # pylint: disable=method-hidden
 
         pass

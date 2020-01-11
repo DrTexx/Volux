@@ -25,14 +25,14 @@ class VoluxInvert(volux.VoluxModule):
             shared_modules=[],
             pollrate=None,
         )
-        self.val = 0
+        self.val: int = 0
 
-    def get(self):  # pylint: disable=method-hidden
+    def get(self) -> int:  # pylint: disable=method-hidden
         """Return the value minus the set_max."""
         return self._set_max - self.val
 
-    def set(self, new_val):  # pylint: disable=method-hidden
-        """Store the value to later inversion."""
+    def set(self, new_val: int) -> None:  # pylint: disable=method-hidden
+        """Store the value for later inversion."""
         self.val = new_val
 
     def _setup(self):  # pylint: disable=method-hidden

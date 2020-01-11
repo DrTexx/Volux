@@ -4,9 +4,12 @@ from .core import VoluxCore
 from .module import VoluxModule
 from .broker import VoluxBroker
 from .connection import VoluxConnection, NoDelta
+from .request import VoluxBrokerRequest
 from threading import Thread
 import colorama
 import logging
+from typing import List, Callable, Dict, Union
+from uuid import UUID
 
 colorama.init()
 
@@ -34,21 +37,21 @@ class VoluxOperator:
 
     def __init__(self):
         """Instantiate a new operator."""
-        self.modules = {}
-        self.permissions = {}
-        self.broker = VoluxBroker(self)
+        self.modules: Dict[UUID, VoluxModule] = {}
+        self.permissions: Dict[UUID, List[VoluxBrokerRequest]] = {}
+        self.broker: VoluxBroker = VoluxBroker(self)
         self.add_module(VoluxCore())
-        self.connections = {}
-        self.threads = []
-        self.running = False
+        self.connections: Dict[UUID, VoluxConnection] = {}
+        self.threads: list = []
+        self.running: bool = False
 
     def add_module(
         self,
-        module,
-        req_permissions=[],
-        check_module_repeats=True,
-        overwrite_attributes=False,
-    ):
+        module: VoluxModule,
+        req_permissions: List[VoluxBrokerRequest] = [],
+        check_module_repeats: bool = True,
+        overwrite_attributes: bool = False,
+    ) -> UUID:
         """Load a module into the operator."""
         if self.validate_module(
             module
@@ -124,7 +127,7 @@ class VoluxOperator:
 
             raise TypeError("module must be a subclass of VoluxModule")
 
-    def remove_module(self, module):
+    def remove_module(self, module: VoluxModule) -> None:
         """Unload a module from the operator."""
         if module in self.modules.values():
 
@@ -137,7 +140,7 @@ class VoluxOperator:
                 "module '{}' not loaded!".format(module._module_name)
             )
 
-    def validate_module(self, module):
+    def validate_module(self, module: VoluxModule) -> bool:
         """Check that a module satisfies all the conditions of a valid volux module."""
         for attrib in ["_module_name", "_module_attr", "get", "set", "UUID"]:
 
@@ -157,11 +160,11 @@ class VoluxOperator:
         )
         return True
 
-    def get_modules(self):
+    def get_modules(self) -> Dict[UUID, VoluxModule]:
         """Return a dict of loaded modules."""
         return self.modules
 
-    def add_connection(self, connection):
+    def add_connection(self, connection: VoluxConnection) -> None:
         """Add a new connection to operator. The connection's sync method will start being called once the operators start_sync method has been called."""
         if type(connection) == VoluxConnection:
 
@@ -185,7 +188,7 @@ class VoluxOperator:
                 "connection must be an instance of VoluxConnection"
             )
 
-    def remove_connection(self, connection):
+    def remove_connection(self, connection: VoluxConnection) -> None:
         """Remove a connection from the operator."""
         if connection.UUID in self.connections:
 
@@ -208,7 +211,7 @@ class VoluxOperator:
                 )
             )
 
-    def start_sync(self):
+    def start_sync(self) -> None:
         """Begin syncing connections."""
         if len(self.connections) > 0:
 
@@ -242,8 +245,8 @@ class VoluxOperator:
             )
             self.stop_sync
 
-    def _wrap_sync(self, connection):
-        def wrapped_sync():
+    def _wrap_sync(self, connection: VoluxConnection) -> Callable:
+        def wrapped_sync() -> None:
 
             try:
 
@@ -264,7 +267,7 @@ class VoluxOperator:
 
         return wrapped_sync
 
-    def stop_sync(self):
+    def stop_sync(self) -> None:
         """Stop syncing connections."""
         self.running = False
 
@@ -285,7 +288,7 @@ class VoluxOperator:
             )
         )
 
-    def get_sync_deltas(self):
+    def get_sync_deltas(self) -> Dict[UUID, Union[int, NoDelta]]:
         """Return last stored delta for connections."""
         deltas = {}
 
@@ -303,13 +306,13 @@ class VoluxOperator:
 
         return deltas
 
-    def get_connection_nicknames(self):
+    def get_connection_nicknames(self) -> Dict[UUID, str]:
         """Return a dict of connection nicknames with connection UUID's as keys."""
         nicknames = {}
 
         for cUUID in self.connections:
 
-            connection = self.connections[cUUID]
+            connection: VoluxConnection = self.connections[cUUID]
 
             nicknames.update({connection.UUID: connection.nickname})
 

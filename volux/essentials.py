@@ -4,7 +4,7 @@
 from os import path
 
 
-def get_version():
+def get_version() -> str:
     """Return the Volux version."""
     here = path.abspath(path.dirname(__file__))
 
