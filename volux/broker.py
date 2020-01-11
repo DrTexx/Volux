@@ -1,3 +1,5 @@
+"""Defines the broker class."""
+
 # builtin
 import logging
 
@@ -19,11 +21,14 @@ log.addHandler(ch)
 
 
 class VoluxBroker:
+    """Mediates interaction between volux operator and modules."""
+
     def __init__(self, operator):
+        """Instansiate a new broker instance."""
         self.operator = operator
 
     def process_request(self, request, verbose=True):
-
+        """Evaluate a request object and execute it's associated action if all requirements are satisfied."""
         if issubclass(type(request), volux.request.VoluxBrokerRequest) is True:
 
             mUUID = request.module.UUID

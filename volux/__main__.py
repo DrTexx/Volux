@@ -1,5 +1,7 @@
 #!/usr/bin/env python3 -e
 
+"""Handle CLI interaction for Volux."""
+
 import argparse
 import colorama
 
@@ -7,7 +9,7 @@ colorama.init()
 
 
 def main():
-
+    """Handle CLI interaction for Volux."""
     list_choices = ["demos", "modules", "scripts"]
     wip_string = "{}not yet implemented{}".format(
         colorama.Fore.YELLOW, colorama.Style.RESET_ALL

@@ -1,3 +1,5 @@
+"""Base class for creating derived module classes."""
+
 import uuid
 import colorama
 import logging
@@ -19,7 +21,7 @@ log.addHandler(ch)
 
 
 class VoluxModule:
-    """Provides common metadata for every Volux module. All modules (including core) are a subclass of VoluxModule"""
+    """Provides common metadata for every Volux module. All modules (including core) are a subclass of VoluxModule."""
 
     def __init__(
         self,
@@ -38,7 +40,7 @@ class VoluxModule:
         shared_modules,
         pollrate,
     ):
-
+        """Do not instansiate this class directly. It should always be used as a base for a derived module class."""
         if not type(shared_modules) == list:
             raise TypeError(
                 "VoluxModule: kwarg 'shared_modules' must be of type list"
@@ -58,9 +60,7 @@ class VoluxModule:
         self._setup = module_setup
         self._cleanup = module_cleanup
         self._shared_modules = shared_modules
-        self._pollrate = (
-            pollrate
-        )  # todo: change this to be an optional module limit (a max polling rate the module is capable of)
+        self._pollrate = pollrate  # todo: change this to be an optional module limit (a max polling rate the module is capable of)
 
     def _loaded(self):
         log.debug(
@@ -74,4 +74,5 @@ class VoluxModule:
         )
 
     def get_module_info(self):
+        """Return information about the module."""
         return {"name": self._module_name, "attr": self._module_attr}

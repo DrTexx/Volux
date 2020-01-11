@@ -1,3 +1,5 @@
+"""Defines the operator class."""
+
 from .core import VoluxCore
 from .module import VoluxModule
 from .broker import VoluxBroker
@@ -28,7 +30,10 @@ log.addHandler(ch)
 
 
 class VoluxOperator:
+    """Class for managing the operation of the volux platform."""
+
     def __init__(self):
+        """Instantiate a new operator."""
         self.modules = {}
         self.permissions = {}
         self.broker = VoluxBroker(self)
@@ -44,7 +49,7 @@ class VoluxOperator:
         check_module_repeats=True,
         overwrite_attributes=False,
     ):
-
+        """Load a module into the operator."""
         if self.validate_module(
             module
         ):  # if the object passed is a valid module
@@ -120,7 +125,7 @@ class VoluxOperator:
             raise TypeError("module must be a subclass of VoluxModule")
 
     def remove_module(self, module):
-
+        """Unload a module from the operator."""
         if module in self.modules.values():
 
             del self.modules[module.UUID]
@@ -133,7 +138,7 @@ class VoluxOperator:
             )
 
     def validate_module(self, module):
-
+        """Check that a module satisfies all the conditions of a valid volux module."""
         for attrib in ["_module_name", "_module_attr", "get", "set", "UUID"]:
 
             if not hasattr(module, attrib):
@@ -153,11 +158,11 @@ class VoluxOperator:
         return True
 
     def get_modules(self):
-
+        """Return a dict of loaded modules."""
         return self.modules
 
     def add_connection(self, connection):
-
+        """Add a new connection to operator. The connection's sync method will start being called once the operators start_sync method has been called."""
         if type(connection) == VoluxConnection:
 
             if connection.UUID in self.connections:
@@ -181,7 +186,7 @@ class VoluxOperator:
             )
 
     def remove_connection(self, connection):
-
+        """Remove a connection from the operator."""
         if connection.UUID in self.connections:
 
             self.connections[connection.UUID]._stopped()
@@ -204,7 +209,7 @@ class VoluxOperator:
             )
 
     def start_sync(self):
-
+        """Begin syncing connections."""
         if len(self.connections) > 0:
 
             for cUUID in self.connections:
@@ -260,7 +265,7 @@ class VoluxOperator:
         return wrapped_sync
 
     def stop_sync(self):
-
+        """Stop syncing connections."""
         self.running = False
 
         # for thread in self.threads:
@@ -281,7 +286,7 @@ class VoluxOperator:
         )
 
     def get_sync_deltas(self):
-
+        """Return last stored delta for connections."""
         deltas = {}
 
         for cUUID in self.connections:
@@ -299,7 +304,7 @@ class VoluxOperator:
         return deltas
 
     def get_connection_nicknames(self):
-
+        """Return a dict of connection nicknames with connection UUID's as keys."""
         nicknames = {}
 
         for cUUID in self.connections:

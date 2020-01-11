@@ -1,10 +1,13 @@
+"""Defines core module class."""
+
 from .module import VoluxModule
 
 
 class VoluxCore(VoluxModule):
-    """provides a set of utilities for use in other modules"""
+    """Provides a set of utilities for use in other modules."""
 
     def __init__(self, *args, **kwargs):
+        """Instansiate voluxcore module."""
         super().__init__(
             module_name="Volux Core",
             module_attr="core",
@@ -16,26 +19,26 @@ class VoluxCore(VoluxModule):
             set_type=None,
             set_min=None,
             set_max=None,
-            module_setup=self.setup,
-            module_cleanup=self.cleanup,
+            module_setup=self._setup,
+            module_cleanup=self._cleanup,
             shared_modules=[],
             pollrate=None,
         )
         self.val = 0
 
-    def get(self):
-
+    def get(self):  # pylint: disable=method-hidden
+        """Get stored value."""
         return self.val
 
-    def set(self, new_val):
-
+    def set(self, new_val):  # pylint: disable=method-hidden
+        """Set stored value."""
         self.val = new_val
 
-    def setup(self):
+    def _setup(self):  # pylint: disable=method-hidden
 
         pass
 
-    def cleanup(self):
+    def _cleanup(self):  # pylint: disable=method-hidden
 
         pass
 

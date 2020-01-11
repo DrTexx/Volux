@@ -1,11 +1,14 @@
-""" allows a user to used a cached version of an input to feed multiple outputs """
+"""Allows a user to use a cached version of an input to feed multiple outputs."""
 
 # site
 import volux
 
 
 class VoluxCache(volux.VoluxModule):
+    """Volux module for caching a value."""
+
     def __init__(self, *args, **kwargs):
+        """Instantiate cache module."""
         super().__init__(
             module_name="Volux Cache",
             module_attr="cache",
@@ -17,25 +20,25 @@ class VoluxCache(volux.VoluxModule):
             set_type=int,
             set_min=0,
             set_max=100,
-            module_setup=self.setup,
-            module_cleanup=self.cleanup,
+            module_setup=self._setup,
+            module_cleanup=self._cleanup,
             shared_modules=[],
             pollrate=None,
         )
         self.cache_val = 0
 
-    def get(self):
-
+    def get(self):  # pylint: disable=method-hidden
+        """Get cached value."""
         return self.cache_val
 
-    def set(self, new_val):
-
+    def set(self, new_val):  # pylint: disable=method-hidden
+        """Set cached value."""
         self.cache_val = new_val
 
-    def setup(self):
+    def _setup(self):  # pylint: disable=method-hidden
 
         pass
 
-    def cleanup(self):
+    def _cleanup(self):  # pylint: disable=method-hidden
 
         pass

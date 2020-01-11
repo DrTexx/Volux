@@ -1,8 +1,13 @@
+"""Volux module for printing messages to the CLI."""
+
 import volux
 
 
 class VoluxCliPrint(volux.VoluxModule):
+    """Volux module for printing a value to CLI."""
+
     def __init__(self, *args, **kwargs):
+        """Instantiate cli module."""
         super().__init__(
             module_name="Volux CLI Print",
             module_attr="cli",
@@ -14,26 +19,26 @@ class VoluxCliPrint(volux.VoluxModule):
             set_type=int,
             set_min=0,
             set_max=100,
-            module_setup=self.setup,
-            module_cleanup=self.cleanup,
+            module_setup=self._setup,
+            module_cleanup=self._cleanup,
             shared_modules=[],
             pollrate=None,
         )
         self.cli_val = 0
 
-    def get(self):
-
+    def get(self):  # pylint: disable=method-hidden
+        """Return value last printed."""
         return self.cli_val
 
-    def set(self, new_val):
-
+    def set(self, new_val):  # pylint: disable=method-hidden
+        """Set new value and print it to CLI."""
         self.cli_val = new_val
         print("VoluxCliPrint new value: {}".format(self.cli_val))
 
-    def setup(self):
+    def _setup(self):  # pylint: disable=method-hidden
 
         pass
 
-    def cleanup(self):
+    def _cleanup(self):  # pylint: disable=method-hidden
 
         pass

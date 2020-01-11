@@ -1,3 +1,5 @@
+"""Defines the connection class and any related classes."""
+
 # builtin
 import uuid
 import time
@@ -5,18 +7,22 @@ import threading
 
 
 class NoDelta:
+    """Placeholder class for internal logic."""
+
     def __init__(self):
+        """Create a new NoDelta instance."""
         pass
 
     def __str__(self):
+        """Override default string to be N/A."""
         return "N/A"
 
 
 class VoluxConnection:
-    """Contains all the properties of a connection between two modules"""
+    """Contains all the properties of a connection between two modules."""
 
     def __init__(self, input_module, output_module, hz):
-
+        """Instansiate a new connection."""
         self.input = input_module
         self.output = output_module
         self.UUID = uuid.uuid4()
@@ -29,7 +35,7 @@ class VoluxConnection:
         )
 
     def sync(self):
-
+        """Send the input modules output to the output module."""
         t_start = time.process_time()
 
         wait_thread = threading.Thread(target=self._wait)
