@@ -114,3 +114,6 @@ volux-repo
 # external packages
 voluxlightvisualiser
 cpmixer
+
+# vscode related
+.vscode/

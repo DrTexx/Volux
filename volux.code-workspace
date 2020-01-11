@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.autoComplete.addBrackets": true,
+		"python.formatting.provider": "black",
+		"python.linting.banditEnabled": true,
+		"python.linting.flake8Enabled": true,
+		"python.linting.mypyEnabled": true,
+		"python.linting.pydocstyleEnabled": true,
+		"python.testing.pytestEnabled": true,
+		"editor.formatOnSave": true
+	}
+}
