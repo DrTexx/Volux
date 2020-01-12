@@ -12,6 +12,23 @@
 		"python.linting.mypyEnabled": true,
 		"python.linting.pydocstyleEnabled": true,
 		"python.testing.pytestEnabled": true,
-		"editor.formatOnSave": true
+		"editor.formatOnSave": true,
+		"python.linting.mypyArgs": [
+			"--ignore-missing-imports",
+			"--follow-imports=silent",
+			"--show-column-numbers",
+			"--disallow-untyped-calls",
+			"--disallow-untyped-defs",
+			"--disallow-untyped-decorators",
+			"--warn-unused-configs",
+			"--disallow-any-generics",
+			"--disallow-subclassing-any",
+			"--disallow-incomplete-defs",
+			"--check-untyped-defs",
+			"--no-implicit-optional",
+			"--warn-redundant-casts",
+			"--warn-unused-ignores",
+			"--warn-return-any"
+		]
 	}
 }
