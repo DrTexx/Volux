@@ -1,25 +1,86 @@
 version: 2
 jobs:
-  build: # required for runs that don't use workflows
+  build:
     working_directory: ~/volux
+    # The primary container is an instance of the first image listed. The job's commands run in this container.
     docker:
-      - image: circleci/python:3.7.3
+      - image: circleci/python:buster
+    # # The secondary container is an instance of the second listed image which is run in a common network where ports exposed on the primary container are available on localhost.
+    #   - image: mongo:3.4.4-jessie
     steps:
       - checkout
       - run:
-        command: | # install pipenv
-          sudo pip install pipenv
+          name: Install pipenv
+          command: 'pip install pipenv'
+      # - restore_cache:
+      #     key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-        command: | # use pipenv to install dependencies
-          pipenv install
+          name: Install dependencies with pipenv
+          command: 'pipenv install'
+      # - save_cache:
+      #     key: dependency-cache-{{ checksum "package-lock.json" }}
+      #     paths:
+      #       - node_modules
+  test:
+    docker:
+      - image: circleci/python:buster
+      # - image: mongo:3.4.4-jessie
+    steps:
+      - checkout
       - run:
-        command: | # install test dependencies
-          pipenv install pytest pytest-cov codecov
-      - run:
-        command: | # run tests
-          pipenv run python pytest --cov./
-      - store_test_results:
-        path: .coverage
-      - run:
-        command: | # upload test results to codecov
-          codecov
+          name: Test
+          command: 'pytest --cov=./'
+      # - run:
+      #     name: Generate code coverage
+      #     command: './node_modules/.bin/nyc report --reporter=text-lcov'
+      # - store_artifacts:
+      #     path: test-results.xml
+      #     prefix: tests
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          # filters:
+          #   branches:
+          #     only: master
+
+
+
+
+
+
+
+
+# version: 2
+# jobs:
+#   build: # required for runs that don't use workflows
+#     working_directory: ~/volux
+#     docker:
+#       - image: circleci/python:3.7.3
+#     steps:
+#       - checkout
+#       - run:
+#         command: # install pipenv
+#           sudo pip install pipenv
+#       - run:
+#         command: # use pipenv to install dependencies
+#           pipenv install
+#       - run:
+#         command: # install test dependencies
+#           pipenv install pytest pytest-cov codecov
+#       - run:
+#         command: # run tests
+#           pipenv run python pytest --cov./
+#       - store_test_results:
+#         path: .coverage
+#       - run:
+#         command: | # upload test results to codecov
+#           codecov
