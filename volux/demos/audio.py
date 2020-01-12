@@ -1,3 +1,4 @@
+# package
 from volux import VoluxDemo
 
 

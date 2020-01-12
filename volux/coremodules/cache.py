@@ -3,7 +3,7 @@
 # builtin
 from typing import Any
 
-# site
+# package
 import volux
 
 

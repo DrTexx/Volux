@@ -1,7 +1,9 @@
 """Volux module for printing messages to the CLI."""
 
+# builtin
 from typing import Any
 
+# package
 import volux
 
 
