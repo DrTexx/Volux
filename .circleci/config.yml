@@ -29,7 +29,10 @@ jobs:
       - checkout
       - run:
           name: Install test dependencies
-          command: 'pip install pytest pytest-cov codecov --user'
+          command: 'pip install pipenv pytest pytest-cov codecov --user'
+      - run:
+          name: Install requirements
+          command: 'pipenv install'
       - run:
           name: Test
           command: 'pytest --cov=./'
