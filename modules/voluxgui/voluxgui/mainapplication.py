@@ -150,7 +150,7 @@ class MainApplication(ttk.Frame):
 
     def _update_output_listbox(self):
 
-        request = volux.request.RequestGetModules(self.module_root)
+        request = volux.requests.RequestGetModules(self.module_root)
         modules = self.broker.process_request(request)
 
         for i in range(len(modules)):

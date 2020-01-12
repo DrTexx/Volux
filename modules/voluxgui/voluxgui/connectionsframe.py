@@ -75,7 +75,7 @@ class ConnectionsFrame(ttk.Labelframe):
     def _remove_connection(self, event=None):
 
         connection = self._get_selected_connection()
-        request = volux.request.RemoveConnection(
+        request = volux.requests.RemoveConnection(
             self.module_root, connection=connection
         )
         self.module_root.broker.process_request(request)
@@ -83,19 +83,19 @@ class ConnectionsFrame(ttk.Labelframe):
 
     def _start_connection_sync(self):
 
-        request = volux.request.StartSync(self.module_root)
+        request = volux.requests.StartSync(self.module_root)
 
         self.module_root.broker.process_request(request)
 
     def _stop_connection_sync(self):
 
-        request = volux.request.StopSync(self.module_root)
+        request = volux.requests.StopSync(self.module_root)
 
         self.module_root.broker.process_request(request)
 
     def _get_sync_state(self):
 
-        request = volux.request.SyncState(self.module_root)
+        request = volux.requests.SyncState(self.module_root)
 
         return self.module_root.broker.process_request(request, verbose=False)
 
@@ -164,7 +164,7 @@ class ConnectionsFrame(ttk.Labelframe):
                 output_module,
                 self.module_root.mainApp.LFconnections._get_sync_hz(),
             )
-            request = volux.request.AddConnection(
+            request = volux.requests.AddConnection(
                 self.module_root, connection=connection
             )
             self.module_root.broker.process_request(request)
@@ -172,7 +172,7 @@ class ConnectionsFrame(ttk.Labelframe):
 
     def _get_connections(self):
 
-        request = volux.request.GetConnections(self.module_root)
+        request = volux.requests.GetConnections(self.module_root)
         return self.module_root.broker.process_request(request)
 
     def _get_sync_hz(self):

@@ -78,12 +78,12 @@ class InfoFrame(ttk.Labelframe):
 
     def request_sync_deltas(self):
 
-        request = volux.request.GetSyncDeltas(self.module_root)
+        request = volux.requests.GetSyncDeltas(self.module_root)
         deltas = self.module_root.broker.process_request(request)
         return deltas
 
     def request_connection_nicknames(self):
 
-        request = volux.request.GetConnectionNicknames(self.module_root)
+        request = volux.requests.GetConnectionNicknames(self.module_root)
         connection_nicknames = self.module_root.broker.process_request(request)
         return connection_nicknames

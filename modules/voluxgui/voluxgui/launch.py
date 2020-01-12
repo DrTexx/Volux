@@ -112,14 +112,14 @@ def launch(connection_preset=""):
         # VoluxGui(shared_modules=gui_shared_modules),
         VoluxGui(shared_modules=shared_modules),
         req_permissions=[
-            volux.request.SyncState,
-            volux.request.AddConnection,
-            volux.request.RemoveConnection,
-            volux.request.GetConnections,
-            volux.request.StartSync,
-            volux.request.StopSync,
-            volux.request.GetSyncDeltas,
-            volux.request.GetConnectionNicknames,
+            volux.requests.SyncState,
+            volux.requests.AddConnection,
+            volux.requests.RemoveConnection,
+            volux.requests.GetConnections,
+            volux.requests.StartSync,
+            volux.requests.StopSync,
+            volux.requests.GetSyncDeltas,
+            volux.requests.GetConnectionNicknames,
         ],
     )
 
