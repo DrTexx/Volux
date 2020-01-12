@@ -28,6 +28,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install test dependencies
+          command: 'pip install pytest pytest-cov codecov'
+      - run:
           name: Test
           command: 'pytest --cov=./'
       # - run:
@@ -37,8 +40,12 @@ jobs:
       #     path: test-results.xml
       #     prefix: tests
       - store_artifacts:
-          path: coverage
+          path: .coverage
           prefix: coverage
+      - run:
+          name: Upload coverage report
+          command: 'codecov'
+
 
 workflows:
   version: 2
