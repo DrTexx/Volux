@@ -1,3 +1,5 @@
+# type: ignore
+
 # package
 from volux.demo import VoluxDemo
 from volux import requests as voluxRequests

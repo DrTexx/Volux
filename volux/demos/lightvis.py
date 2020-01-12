@@ -1,3 +1,5 @@
+# type: ignore
+
 """Define simple light volux demo."""
 
 # builtin
@@ -17,7 +19,7 @@ class DemoSimpleLightVis(VoluxDemo):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Please see class docstring."""
-        super().__init__(  # type: ignore
+        super().__init__(
             demo_name="Demo Simple Light Vis",
             demo_method=self._run_demo,
             alias="lightvis",
@@ -37,7 +39,7 @@ class DemoSimpleLightVis(VoluxDemo):
 
         script_hz = 120
         device_label = str(
-            input("LIFX device's label (case-sensitive!) [Strip]: ")
+            input("LIFX device's label (case-sensitive!) [Strip]: ")  # nosec
         )
         if device_label == "":
             device_label = "Strip"
@@ -72,7 +74,7 @@ class DemoSimpleLightVis(VoluxDemo):
         try:
             vlx.modules[lstrip_UUID].prepare()
             vlx.start_sync()
-            input("press [Enter] to stop...")
+            input("press [Enter] to stop...")  # nosec
         except KeyboardInterrupt:
             print("Exit signal sent!")
         finally:

@@ -1,19 +1,33 @@
+# type: ignore
+
+"""Defines volux bar demo."""
+
+# builtin
+import sys
+
 # package
 from volux.demo import VoluxDemo
 
+# ensure python 3 or above is being used.
+if sys.version_info[0] < 3:
+    raise RuntimeError("Python 3 or above required.")
+
 
 class DemoVolLuxBar(VoluxDemo):
+    """Volux demo for overlay elements and interaction with modules."""
+
     def __init__(self, *args, **kwargs):
+        """See class docstring."""
         super().__init__(
             demo_name="Demo Vol Lux Bar",
-            demo_method=self.run_demo,
+            demo_method=self._run_demo,
             alias="bar",
             requirements=["voluxbar", "voluxlight", "voluxvolume", "colorama"],
             *args,
             **kwargs
         )
 
-    def run_demo(self):
+    def _run_demo(self):
 
         self._check_reqs()
 
@@ -24,7 +38,9 @@ class DemoVolLuxBar(VoluxDemo):
         import colorama
 
         device_label = str(
-            input("LIFX device's label (case-sensitive!) [Demo Bulb]: ")
+            input(  # nosec
+                "LIFX device's label (case-sensitive!) [Demo Bulb]: "
+            )
         )
         if device_label == "":
             device_label = "Demo Bulb"
