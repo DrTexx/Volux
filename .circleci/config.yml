@@ -38,7 +38,7 @@ jobs:
           command: 'pipenv install'
       - run:
           name: Test
-          command: 'pipenv run pytest --cov=./'
+          command: 'pipenv run python -m pytest --cov=./'
       # - run:
       #     name: Generate code coverage
       #     command: './node_modules/.bin/nyc report --reporter=text-lcov'
