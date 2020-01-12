@@ -34,7 +34,7 @@ Please note that pyaudio - a requirement of the voluxaudio module - does not sup
 
 | PACKAGE    | OPERATING SYSTEM | REQUIREMENTS |
 | ---        | ---              | ---          |
-| Volux      | Any              | [Python 3.x.x](https://www.python.org/downloads) **\*** |
+| Volux      | Any              | [Python >=3.6](https://www.python.org/downloads) **\*** |
 | Volux Audio | Any       | - [Python 3.6.8](https://www.python.org/downloads/release/python-368/) **\***</br>- Portaudio19 **\***</br>- Libasound2 **\*** |
 | Volux Gui | Any | - Tkinter **\*\*** |
 
@@ -50,12 +50,24 @@ To install Volux, enter the following into your operating system's CLI
 
 \* note for Linux users: install in a virtual environment to avoid heartache
 
-| PACKAGE | INSTALL COMMAND |
-| ---     | ---             |
-| Volux   | `pip install volux` |
-| Volux Audio | `pip install voluxaudio` |
-| Volux Gui | `pip install voluxgui` |
-| Volux Light | `pip install voluxlight` |
+Install pipenv
+```bash
+pip install pipenv
+```
+
+Activate pipenv
+```bash
+cd ~
+pipenv --python 3.7.3
+pipenv shell
+```
+
+| PACKAGE     | INSTALL COMMAND             |
+| ---         | ---                         |
+| Volux       | `pipenv install volux`      |
+| Volux Audio | `pipenv install voluxaudio` |
+| Volux Gui   | `pipenv install voluxgui`   |
+| Volux Light | `pipenv install voluxlight` |
 
 <!-- python3-tk python3-dev python3-venv portaudio19-dev -->
 
@@ -132,33 +144,42 @@ See [here](https://volux.readthedocs.io/en/latest/advanced/install-source.html#i
 1. Import the framework + essentials
   ```python
   import volux
+  import volux.requests as vreqs
   ```
 2. Import modules for use
   ```python
-  from voluxcliprint import VoluxCliPrint
   from voluxaudio import VoluxAudio
-  from voluxGui import VoluxGui
+  from voluxgui import VoluxGui
   ```
 3. Create operator object
   ```python
-  vlx = VoluxOperator()
+  vlx = volux.VoluxOperator()
   ```
 4. Load the modules into the operator
   ```python
-  vlx.add_module(VoluxCliPrint())
-  vlx.add_module(VoluxAudio())
-  vlx.add_module(
-      VoluxGui(shared_modules=[vlx.audio,vlx.cli]),
+  cli_UUID = vlx.add_module(volux.VoluxCliPrint())
+  audio_UUID = vlx.add_module(VoluxAudio())
+  gui_UUID = vlx.add_module(
+      VoluxGui(
+          shared_modules=[
+              vlx.modules[audio_UUID],
+              vlx.modules[cli_UUID]
+          ]
+      ),
       req_permissions=[
-          volux.RequestNewConnection,
-          volux.RequestGetConnections,
-          volux.RequestStartSync
-      ]
+          vreqs.AddConnection,
+          vreqs.RemoveConnection,
+          vreqs.GetConnections,
+          vreqs.StartSync,
+          vreqs.StopSync,
+          vreqs.GetSyncDeltas,
+          vreqs.GetConnectionNicknames,
+      ],
   )
   ```
 5. Launch the GUI!
   ```python
-  vlx.gui.init_window()
+  vlx.modules[gui_UUID].init_window()
   ```
 
 <!-- ### Supported platforms
@@ -187,8 +208,8 @@ Additional testing has been done under these conditions:
 
 | Archi. | Operating System | Desktop Env   | Python | Verison | Status  | Notes                        |
 | ---    | ---              | ---           | ---    | ---     | ---     | ---                          |
-| 64 bit | Debian 10 Buster | Gnome 3.30.2  | 3.7.3  | 0.9.18   | Working | Development conditions       |
-| 64 bit | Ubuntu 18.04     | N/A           | 3.5    | 0.9.17   | Working | CI Conditions                |
+| 64 bit | Debian 10 Buster | Gnome 3.30.2  | 3.7.3  | 0.10.0   | Working | Development conditions       |
+| 64 bit | Debian 10 Buster | Gnome 3.30.2  | 3.7.3  | 0.9.18   | Working | Past development conditions  |
 | 64 bit | Ubuntu 18.04     | N/A           | 3.6    | 0.9.17   | Working | CI Conditions                |
 | 64 bit | Ubuntu 18.04     | N/A           | 3.7    | 0.9.17   | Working | CI Conditions                |
 | 64 bit | Ubuntu 18.04     | N/A           | 3.8    | 0.9.17   | Working | CI Conditions                |
