@@ -170,25 +170,27 @@ class MainApplication(ttk.Frame):
 
     def _right_click(self, event):
 
-        if self.VoluxBar_obj.mode == "default":
+        if "light" in self.VoluxBar_obj.modes:
 
-            self.VoluxBar_obj.mode = "light"
-            self.VoluxBar_obj.gui_style.configure(
-                "BarVal.TFrame", background="BLUE"
-            )
+            if self.VoluxBar_obj.mode == "default":
 
-        elif self.VoluxBar_obj.mode == "light":
+                self.VoluxBar_obj.mode = "light"
+                self.VoluxBar_obj.gui_style.configure(
+                    "BarVal.TFrame", background="BLUE"
+                )
 
-            self.VoluxBar_obj.mode = "default"
-            self.VoluxBar_obj.gui_style.configure(
-                "BarVal.TFrame", background="GREEN"
-            )
+            elif self.VoluxBar_obj.mode == "light":
 
-        else:
+                self.VoluxBar_obj.mode = "default"
+                self.VoluxBar_obj.gui_style.configure(
+                    "BarVal.TFrame", background="GREEN"
+                )
 
-            raise Exception("mode not recognized!")
+            else:
 
-        self._refresh_bar()
+                raise Exception("mode not recognized!")
+
+            self._refresh_bar()
 
     def _exit_app(self, event):
 
