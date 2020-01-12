@@ -7,21 +7,17 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install deps with pipenv
         command: | # use pipenv to install dependencies
           sudo pip install pipenv
           pipenv install
       - run:
-        name: Install test dependencies
         command: | # install test dependencies
           pipenv install pytest pytest-cov codecov
       - run:
-        name: Run tests
         command: | # run tests
           pipenv run python pytest --cov./
       - store_test_results:
         path: .coverage
       - run:
-        name: Upload test results
         command: | # upload test results to codecov
           codecov
