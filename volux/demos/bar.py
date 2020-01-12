@@ -48,18 +48,20 @@ class DemoVolLuxBar(VoluxDemo):
         # create Volux Operator object (hub for communication between modules)
         vlx = volux.VoluxOperator()
 
-        vlx.add_module(voluxvolume.VoluxVolume())
-        vlx.add_module(voluxbar.VoluxBar())
-        vlx.bar.add_mode("default", vlx.volume)
+        vol_UUID = vlx.add_module(voluxvolume.VoluxVolume())
+        bar_UUID = vlx.add_module(voluxbar.VoluxBar())
+        vlx.modules[bar_UUID].add_mode("default", vlx.modules[vol_UUID])
         try:
-            vlx.add_module(
+            demolight_UUID = vlx.add_module(
                 voluxlight.VoluxLight(
                     instance_label="demo",
                     init_mode="device",
                     init_mode_args={"label": device_label},
                 )
             )
-            vlx.bar.add_mode("light", vlx.light_demo)
+            vlx.modules[bar_UUID].add_mode(
+                "light", vlx.modules[demolight_UUID]
+            )
         except Exception as err:
             print(
                 "{}WARNING: couldn't add light module/s... reason: {}{}".format(
@@ -73,4 +75,4 @@ class DemoVolLuxBar(VoluxDemo):
                 colorama.Fore.YELLOW, colorama.Style.RESET_ALL
             )
         )
-        vlx.bar.init_window()
+        vlx.modules[bar_UUID].init_window()
