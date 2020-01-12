@@ -47,7 +47,7 @@ jobs:
           prefix: coverage
       - run:
           name: Upload coverage report
-          command: 'codecov'
+          command: 'pipenv run python -m codecov'
 
 
 workflows:
