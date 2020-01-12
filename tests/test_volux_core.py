@@ -33,11 +33,10 @@ class Test_operator:
     def test_filter_by_superclass(self):
 
         global module_items
-        module_items.append(DecoyClass())
+        mi = list(module_items)
+        mi.append(DecoyClass())
         global demos_collected
-        demos_collected = vlx.core.filter_by_superclass(
-            module_items, volux.VoluxDemo
-        )
+        demos_collected = vlx.core.filter_by_superclass(mi, volux.VoluxDemo)
 
         for demo_x in demos_collected:
             assert demo_x.superclass == volux.VoluxDemo
@@ -46,10 +45,10 @@ class Test_operator:
 
         global demo_dict
         global demos_collected
-        demo_dict = vlx.core.gen_demo_dict(demos_collected)
+        demo_dict = vlx.core.gen_demo_dict(list(demos_collected))
 
         for demo_name in demo_dict:
-            assert demo_dict[demo_name].superclass == volux.VoluxDemo
+            assert issubclass(demo_dict[demo_name], volux.VoluxDemo)
 
     def test_get_demos(self):
 
@@ -61,16 +60,6 @@ class Test_operator:
         raw_demo_aliases = [d()._alias for d in vlx.core.get_demos()]
         for demo_alias in vlx.core.get_demo_aliases():
             assert demo_alias in raw_demo_aliases
-
-    def test_get_demo_dict(self):
-
-        dict = vlx.core.get_demo_dict()
-        all_demo_names = vlx.core.get_demo_aliases()
-        all_demos = vlx.core.get_demos()
-
-        for key in dict:
-            assert key in all_demo_names
-            assert dict[key] in all_demos
 
     def test_get_script_names(self):
 

@@ -35,14 +35,14 @@ log.addHandler(ch)
 class VoluxOperator:
     """Class for managing the operation of the volux platform."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Instantiate a new operator."""
         self.modules: Dict[UUID, VoluxModule] = {}
         self.permissions: Dict[UUID, List[VoluxBrokerRequest]] = {}
         self.broker: VoluxBroker = VoluxBroker(self)
         self.add_module(VoluxCore())
         self.connections: Dict[UUID, VoluxConnection] = {}
-        self.threads: list = []
+        self.threads: List[Thread] = []
         self.running: bool = False
 
     def add_module(
@@ -164,9 +164,9 @@ class VoluxOperator:
         """Return a dict of loaded modules."""
         return self.modules
 
-    def add_connection(self, connection: VoluxConnection) -> None:
+    def add_connection(self, connection: Union[VoluxConnection, None]) -> None:
         """Add a new connection to operator. The connection's sync method will start being called once the operators start_sync method has been called."""
-        if type(connection) == VoluxConnection:
+        if isinstance(connection, VoluxConnection):
 
             if connection.UUID in self.connections:
                 log.warning("connection already exists!")
@@ -188,28 +188,31 @@ class VoluxOperator:
                 "connection must be an instance of VoluxConnection"
             )
 
-    def remove_connection(self, connection: VoluxConnection) -> None:
+    def remove_connection(
+        self, connection: Union[VoluxConnection, None]
+    ) -> None:
         """Remove a connection from the operator."""
-        if connection.UUID in self.connections:
+        if isinstance(connection, VoluxConnection):
+            if connection.UUID in self.connections:
 
-            self.connections[connection.UUID]._stopped()
-            del self.connections[connection.UUID]
-            log.info(
-                "connection removed: {name} [{color}{UUID}{reset}]".format(
-                    name=connection.nickname,
-                    color=colorama.Fore.CYAN,
-                    UUID=connection.UUID,
-                    reset=colorama.Style.RESET_ALL,
+                self.connections[connection.UUID]._stopped()
+                del self.connections[connection.UUID]
+                log.info(
+                    "connection removed: {name} [{color}{UUID}{reset}]".format(
+                        name=connection.nickname,
+                        color=colorama.Fore.CYAN,
+                        UUID=connection.UUID,
+                        reset=colorama.Style.RESET_ALL,
+                    )
                 )
-            )
 
-        else:
+            else:
 
-            raise ValueError(
-                "Can not remove connection: UUID is not in connections ({})".format(
-                    connection.UUID
+                raise ValueError(
+                    "Can not remove connection: UUID is not in connections ({})".format(
+                        connection.UUID
+                    )
                 )
-            )
 
     def start_sync(self) -> None:
         """Begin syncing connections."""
@@ -245,7 +248,7 @@ class VoluxOperator:
             )
             self.stop_sync
 
-    def _wrap_sync(self, connection: VoluxConnection) -> Callable:
+    def _wrap_sync(self, connection: VoluxConnection) -> Callable[[], None]:
         def wrapped_sync() -> None:
 
             try:

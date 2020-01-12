@@ -8,7 +8,7 @@ import colorama
 colorama.init()
 
 
-def main():
+def main() -> None:
     """Handle CLI interaction for Volux."""
     list_choices = ["demos", "modules", "scripts"]
     wip_string = "{}not yet implemented{}".format(
@@ -153,9 +153,9 @@ def main():
         from volux import demos, VoluxDemo, VoluxCore
 
         _core = VoluxCore()
-        demo_dict = _core.get_demo_dict()
+        demo_dict = _core.gen_demo_dict()
         if arguments.DEMO in demo_dict:
-            demo_dict[arguments.DEMO]().run_demo()
+            demo_dict[arguments.DEMO]().run()  # type: ignore
         else:
             print(
                 "{}Error: '{}' is not a valid demo{}".format(

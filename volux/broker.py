@@ -2,11 +2,13 @@
 
 # builtin
 import logging
-from typing import Any
+from typing import Any, Union, Dict
 from uuid import UUID
 
 # module
-import volux.request
+from .connection import VoluxConnection, NoDelta
+from .request import VoluxBrokerRequest
+from . import requests as voluxrequests
 
 log = logging.getLogger("volux broker")
 log.setLevel(logging.DEBUG)
@@ -25,15 +27,15 @@ log.addHandler(ch)
 class VoluxBroker:
     """Mediates interaction between volux operator and modules."""
 
-    def __init__(self, operator):
+    def __init__(self, operator: Any) -> None:
         """Instansiate a new broker instance."""
-        self.operator = operator
+        self.operator: Any = operator
 
     def process_request(
-        self, request: volux.request.VoluxBrokerRequest, verbose: bool = True
+        self, request: VoluxBrokerRequest, verbose: bool = True
     ) -> Any:
         """Evaluate a request object and execute it's associated action if all requirements are satisfied."""
-        if issubclass(type(request), volux.request.VoluxBrokerRequest) is True:
+        if issubclass(type(request), VoluxBrokerRequest) is True:
 
             mUUID: UUID = request.module.UUID
 
@@ -64,35 +66,35 @@ class VoluxBroker:
                         )
                     )
 
-                    if req_type == volux.request.AddConnection:
+                    if req_type == voluxrequests.AddConnection:
 
                         self.operator.add_connection(request.connection)
 
-                    elif req_type == volux.request.RemoveConnection:
+                    elif req_type == voluxrequests.RemoveConnection:
 
                         self.operator.remove_connection(request.connection)
 
-                    elif req_type == volux.request.GetConnections:
+                    elif req_type == voluxrequests.GetConnections:
 
                         return self.operator.connections
 
-                    elif req_type == volux.request.StartSync:
+                    elif req_type == voluxrequests.StartSync:
 
                         self.operator.start_sync()
 
-                    elif req_type == volux.request.SyncState:
+                    elif req_type == voluxrequests.SyncState:
 
                         return self.operator.running
 
-                    elif req_type == volux.request.StopSync:
+                    elif req_type == voluxrequests.StopSync:
 
                         self.operator.stop_sync()
 
-                    elif req_type == volux.request.GetSyncDeltas:
+                    elif req_type == voluxrequests.GetSyncDeltas:
 
                         return self.operator.get_sync_deltas()
 
-                    elif req_type == volux.request.GetConnectionNicknames:
+                    elif req_type == voluxrequests.GetConnectionNicknames:
 
                         return self.operator.get_connection_nicknames()
 
@@ -125,3 +127,5 @@ class VoluxBroker:
         else:
 
             raise TypeError("request must be a subclass of VoluxBrokerRequest")
+
+        return None

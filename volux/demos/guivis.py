@@ -1,4 +1,5 @@
 from volux.demo import VoluxDemo
+from volux import requests as voluxRequests
 
 
 class DemoGuiVis(VoluxDemo):
@@ -23,15 +24,30 @@ class DemoGuiVis(VoluxDemo):
         # instantiate an operator for managing connections
         vlx = volux.VoluxOperator()
         # add modules
-        vlx.add_module(volux.VoluxCliPrint())
-        vlx.add_module(voluxaudio.VoluxAudio())
-        vlx.add_module(voluxgui.VoluxGui())
+        cli_UUID = vlx.add_module(volux.VoluxCliPrint())
+        audio_UUID = vlx.add_module(voluxaudio.VoluxAudio())
+        vlx.add_module(
+            voluxgui.VoluxGui(
+                shared_modules=[vlx.modules[cli_UUID], vlx.modules[audio_UUID]]
+            ),
+            req_permissions=[
+                voluxRequests.SyncState,
+                voluxRequests.AddConnection,
+                voluxRequests.RemoveConnection,
+                voluxRequests.GetConnections,
+                voluxRequests.StartSync,
+                voluxRequests.StopSync,
+                voluxRequests.GetSyncDeltas,
+                voluxRequests.GetConnectionNicknames,
+            ],
+        )
         # add connections
         vlx.add_connection(
             volux.VoluxConnection(vlx.audio, vlx.gui, 120)
         )  # change GUI bar to match audio amplitude
         # vlx.add_connection(volux.VoluxConnection(vlx.audio,vlx.cli,120))  # print audio amplitude to terminal
-        vlx.start_sync()
+        vlx.gui.mainApp.LFconnections._refresh_connections()
+        vlx.gui.mainApp.LFconnections._toggle_sync_externally()
         vlx.gui.init_window()
         vlx.stop_sync()
         print("Ctrl+C to end demo...")

@@ -2,6 +2,7 @@
 
 # builtin
 import importlib
+from typing import Callable, List, Any
 
 # site
 import colorama
@@ -12,18 +13,18 @@ class VoluxDemo:
 
     def __init__(
         self,
-        demo_name,
-        demo_method,
-        alias,
-        requirements: list = [],
-        *args,
-        **kwargs
-    ):
+        demo_name: str,
+        demo_method: Callable[[], None],
+        alias: str,
+        requirements: List[Any] = [],
+        *args: Any,
+        **kwargs: Any
+    ) -> None:
         """Do not directly instansiate, this class should always be used as a base for other specific demo classes."""
-        self._name = demo_name
-        self._method = demo_method
-        self._alias = alias
-        self._requirements = requirements  # optional
+        self._name: str = demo_name
+        self._method: Callable[[], None] = demo_method
+        self._alias: str = alias
+        self._requirements: List[Any] = requirements  # optional
 
     def run(self) -> None:
         """Run the demo."""

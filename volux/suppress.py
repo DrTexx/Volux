@@ -1,6 +1,7 @@
 """Define a context manager to suppress stdout and stderr."""
 
 import os
+from typing import Any
 
 # full credit for this code goes to this post by jeremiahbuddha on stackoverflow:
 # https://stackoverflow.com/questions/11130156/suppress-stdout-stderr-print-from-python-functions
@@ -16,7 +17,7 @@ class SuppressStdoutStderr(object):
     exited (at least, I think that is why it lets exceptions through).
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Instatiate suppresser class. Should always be instansiated through the use of python's 'with'."""
         # Open a pair of null files
         self.null_fds = [os.open(os.devnull, os.O_RDWR) for x in range(2)]
@@ -28,7 +29,7 @@ class SuppressStdoutStderr(object):
         os.dup2(self.null_fds[0], 1)
         os.dup2(self.null_fds[1], 2)
 
-    def __exit__(self, *_) -> None:
+    def __exit__(self, *_: Any) -> None:
         """Re-assign the real stdout/stderr back to (1) and (2)."""
         os.dup2(self.save_fds[0], 1)
         os.dup2(self.save_fds[1], 2)

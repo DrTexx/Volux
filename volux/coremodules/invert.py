@@ -1,5 +1,8 @@
 """A metamodule for inverting the value of an input based on the inputs min/max output."""
 
+# builtin
+from typing import Any
+
 # site
 import volux
 
@@ -7,7 +10,14 @@ import volux
 class VoluxInvert(volux.VoluxModule):
     """Volux module for inverting inputs from 0 to 100."""
 
-    def __init__(self, min=0, max=100, *args, **kwargs):
+    def __init__(
+        self,
+        pollrate: int = 1,
+        min: int = 0,
+        max: int = 100,
+        *args: Any,
+        **kwargs: Any
+    ):
         """Instantiate invert module."""
         super().__init__(
             module_name="Volux Invert",
@@ -23,7 +33,7 @@ class VoluxInvert(volux.VoluxModule):
             module_setup=self._setup,
             module_cleanup=self._cleanup,
             shared_modules=[],
-            pollrate=None,
+            pollrate=pollrate,
         )
         self.val: int = 0
 
@@ -35,10 +45,10 @@ class VoluxInvert(volux.VoluxModule):
         """Store the value for later inversion."""
         self.val = new_val
 
-    def _setup(self):  # pylint: disable=method-hidden
+    def _setup(self) -> None:  # pylint: disable=method-hidden
 
         pass
 
-    def _cleanup(self):  # pylint: disable=method-hidden
+    def _cleanup(self) -> None:  # pylint: disable=method-hidden
 
         pass

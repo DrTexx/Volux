@@ -1,5 +1,8 @@
 """Allows a user to use a cached version of an input to feed multiple outputs."""
 
+# builtin
+from typing import Any
+
 # site
 import volux
 
@@ -7,7 +10,7 @@ import volux
 class VoluxCache(volux.VoluxModule):
     """Volux module for caching a value."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, pollrate: int = 1, *args: Any, **kwargs: Any):
         """Instantiate cache module."""
         super().__init__(
             module_name="Volux Cache",
@@ -23,7 +26,7 @@ class VoluxCache(volux.VoluxModule):
             module_setup=self._setup,
             module_cleanup=self._cleanup,
             shared_modules=[],
-            pollrate=None,
+            pollrate=pollrate,
         )
         self.cache_val: int = 0
 
