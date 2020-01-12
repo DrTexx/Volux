@@ -1,18 +1,32 @@
+"""Define simple light volux demo."""
+
+# builtin
+from typing import Any
+import sys
+
+# package
 from volux.demo import VoluxDemo
+
+# ensure python 3 or above is being used.
+if sys.version_info[0] < 3:
+    raise RuntimeError("Python 3 or above required.")
 
 
 class DemoSimpleLightVis(VoluxDemo):
-    def __init__(self, *args, **kwargs):
-        super().__init__(
+    """Simple demo for audio visualisation with smartlights."""
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        """Please see class docstring."""
+        super().__init__(  # type: ignore
             demo_name="Demo Simple Light Vis",
-            demo_method=self.run_demo,
+            demo_method=self._run_demo,
             alias="lightvis",
             requirements=["voluxaudio", "voluxlight", "voluxlightvisualiser"],
             *args,
             **kwargs
         )
 
-    def run_demo(self):
+    def _run_demo(self) -> None:
 
         self._check_reqs()
 
