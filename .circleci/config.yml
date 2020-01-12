@@ -7,8 +7,10 @@ jobs:
     steps:
       - checkout
       - run:
-        command: | # use pipenv to install dependencies
+        command: | # install pipenv
           sudo pip install pipenv
+      - run:
+        command: | # use pipenv to install dependencies
           pipenv install
       - run:
         command: | # install test dependencies
