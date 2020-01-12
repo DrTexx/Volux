@@ -1,6 +1,7 @@
 #!/usr/bin/env python -e
 
 """A setuptools based setup module.
+
 See:
 https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
@@ -83,7 +84,7 @@ setuptools.setup(
     classifiers=classifiers,
     install_requires=["colorama==0.4.1"],  # requirements
     setup_requires=["wheel", "setuptools"],
-    requires_python=[">=3"],  # required python version
+    requires_python=[">=3.6"],  # required python version
     requires_external=[],
     project_urls=project_urls,
     long_description=long_description,  # Optional

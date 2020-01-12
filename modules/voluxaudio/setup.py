@@ -34,6 +34,6 @@ setuptools.setup(
         "PyAudio>=0.2.11",
     ],
     setup_requires=["wheel", "setuptools"],
-    python_requires=">=3",
+    python_requires=">=3.6",
     requires_external=["libasound2-dev"],
 )

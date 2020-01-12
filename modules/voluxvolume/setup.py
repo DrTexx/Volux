@@ -29,6 +29,6 @@ setuptools.setup(
     license="GPLv3+",
     install_requires=["volux>=0.10.0,<1.0.0", "cpmixer==0.8.1"],
     setup_requires=["wheel", "setuptools"],
-    python_requires=">=3",
+    python_requires=">=3.6",
     requires_external=["python3-tk"],
 )

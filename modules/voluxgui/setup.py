@@ -29,7 +29,7 @@ setuptools.setup(
     license="GPLv3+",
     install_requires=["volux>=0.10.0,<1.0.0"],
     setup_requires=["wheel", "setuptools"],
-    python_requires=">=3",
+    python_requires=">=3.6",
     requires_external=["python3-tk"],
     entry_points={  # Optional
         "console_scripts": [
