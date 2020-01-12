@@ -12,6 +12,8 @@ mypy = "*"
 bandit = "*"
 pytest = "*"
 black = "*"
+pytest-cov = "*"
+codecov = "*"
 
 [packages]
 colorama = "==0.4.1"

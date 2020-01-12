@@ -1,32 +1,27 @@
-version: 2.1
-orbs:
-  tester: thekevjames/tester@1.1.13
+version: 2
 jobs:
-  build:
+  build: # required for runs that don't use workflows
+    working_directory: ~/volux
     docker:
-      - image: circleci/python:3.6.8
+      - image: circleci/python:3.7.3
     steps:
       - checkout
       - run:
-          command: | # use pipenv to install dependencies
-            sudo pip install pipenv
-            pipenv install
-  test:
-    docker:
-      - image: circleci/python:3.6.8
-    steps:
-      - checkout # checkout source code to working directory
+        name: Install deps with pipenv
+        command: | # use pipenv to install dependencies
+          sudo pip install pipenv
+          pipenv install
       - run:
-        command: pytest
-  pytest:
-    docker:
-      - image: circleci/python:3.6.8
-    steps:
-      - checkout
-      - run
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test
+        name: Install test dependencies
+        command: | # install test dependencies
+          pipenv install pytest pytest-cov codecov
+      - run:
+        name: Run tests
+        command: | # run tests
+          pipenv run python pytest --cov./
+      - store_test_results:
+        path: .coverage
+      - run:
+        name: Upload test results
+        command: | # upload test results to codecov
+          codecov
