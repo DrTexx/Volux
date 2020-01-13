@@ -39,7 +39,7 @@ class VoluxParser:
 
         self.launch_parser = self._add_launch_parser(self.subparsers)
         self.demo_parser = self._add_demo_parser(self.subparsers)
-        self.info_parser = self._add_info_parser(self.subparsers)
+        self.module_parser = self._add_module_parser(self.subparsers)
         self.script_parser = self._add_script_parser(self.subparsers)
 
         self.arguments = self.parser.parse_args()
@@ -141,6 +141,17 @@ class VoluxParser:
 
             self._err_internal("demo validation didn't return a bool")
 
+    def print_module_list(self) -> None:
+        """Print list of available volux modules."""
+        print("MODULE LIST")
+        # import modulefinder
+
+        # print(modulefinder.ModuleFinder())
+
+    def print_module_info(self, vmod_name: str) -> None:
+        """Print info on a specific volux module."""
+        print(f"MODULE INFO: {vmod_name}")
+
     def handle_arguments(self, arguments: argparse.Namespace) -> None:
         """Handle inputed arguments."""
         log.debug(f"[[ ARGUMENTS: ]] {arguments}")
@@ -170,7 +181,25 @@ class VoluxParser:
 
             else:
 
-                raise TypeError("demo name must be a string")
+                self._err_internal("demo name must be a string")
+                exit()
+
+        elif arguments.subcommand == "module":
+
+            if arguments.MODULE is None:
+
+                self.print_module_list()
+                exit()
+
+            elif isinstance(arguments.MODULE, str):
+
+                self.print_module_info(arguments.MODULE)
+                exit()
+
+            else:
+
+                self._err_internal("module name must be a string")
+                exit()
 
         print("CANCELLING, PAST WIP POINT")
         exit()
@@ -280,29 +309,31 @@ class VoluxParser:
         )
         return parser_launch
 
-    def _add_list_parser(
-        self, child_parser: argparse._SubParsersAction
-    ) -> argparse.ArgumentParser:
-        # create the parser for the "list" command
-        parser_list = child_parser.add_parser(
-            "list", help="list available demos, modules or scripts"
-        )
-        parser_list.add_argument(
-            "LIST", action="store", help="name of list to retrieve"
-        )
-        return parser_list
-
     def _add_demo_parser(
         self, child_parser: argparse._SubParsersAction
     ) -> argparse.ArgumentParser:
         """Return parser for the 'demo' subcommand."""
         parser_demo = child_parser.add_parser(
-            "demo", help="run the specified demo"
+            "demo", help="list available demos"
         )
         parser_demo.add_argument(
             "DEMO", action="store", help="name of the demo to run", nargs="?"
         )
         return parser_demo
+
+    def _add_module_parser(
+        self, child_parser: argparse._SubParsersAction
+    ) -> argparse.ArgumentParser:
+        parser_module = child_parser.add_parser(
+            "module", help="list available volux modules"
+        )
+        parser_module.add_argument(
+            "MODULE",
+            action="store",
+            help="list available volux modules",
+            nargs="?",
+        )
+        return parser_module
 
     def _add_script_parser(
         self, child_parser: argparse._SubParsersAction
