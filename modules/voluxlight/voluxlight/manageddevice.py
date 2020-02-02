@@ -1,29 +1,49 @@
+"""Defines manageddevice class for lights and related classes."""
+
+from typing import Union, Tuple
+import lifxlan
+
+
 class UnsupportedFeature:
-    def __init__(self):
+    """Class to represent unsupported features of lights."""
+
+    def __init__(self) -> None:
+        """See class docstring."""
         pass
 
 
 class DeviceState:
-    def __init__(self, power=None, color=None, infrared=None):
+    """Class to represent a light's exported state."""
+
+    def __init__(
+        self,
+        power: Union[None, bool] = None,
+        color: Union[None, Tuple[int, int, int, int]] = None,
+    ) -> None:
+        """See class docstring."""
         self.power = power
         self.color = color
 
 
 class ManagedDevice:
-    def __init__(self, device):
+    """Class to help work with lifx devices."""
+
+    def __init__(self, device: lifxlan.Device) -> None:
+        """See class docstring."""
         self.device = device
         self.label = device.get_label()
         self.power = device.get_power()
         self.is_light = device.is_light()
         self.supports_color = device.supports_color()
 
-        self.color = None
+        self.color: Union[
+            None, Tuple[int, int, int, int], UnsupportedFeature
+        ] = None
         # self.temperature = UnsupportedFeature()
         # self.multizone = UnsupportedFeature()
-        # self.infrared = UnsupportedFeature()
 
-    def ssave(self):
-        """save device state inside of class"""
+    def ssave(self) -> None:
+        """Save device state inside of class."""
         self.power = self.device.get_power()
 
         if self.supports_color is True:
@@ -33,17 +53,17 @@ class ManagedDevice:
         else:
             raise TypeError("self.supports_color should be a boolean value")
 
-    def sload(self):
-        """load device state last saved inside of class"""
+    def sload(self) -> None:
+        """Load device state last saved inside of class."""
         self.device.set_power(self.power)
 
         if self.supports_color is True:
             self.device.set_color(self.color)
 
-    def simport(self, devicestate):
-
+    def simport(self, devicestate: DeviceState) -> None:
+        """Use an instance of DeviceState to alter light state."""
         raise NotImplementedError()
 
-    def sexport(self):
-
+    def sexport(self) -> None:
+        """Export an instance of DeviceState for later importing."""
         raise NotImplementedError()

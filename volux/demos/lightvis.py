@@ -72,11 +72,9 @@ class DemoSimpleLightVis(VoluxDemo):
         )
 
         try:
-            vlx.modules[lstrip_UUID].prepare()
             vlx.start_sync()
             input("press [Enter] to stop...")  # nosec
         except KeyboardInterrupt:
             print("Exit signal sent!")
         finally:
             vlx.stop_sync()
-            vlx.modules[lstrip_UUID].restore()

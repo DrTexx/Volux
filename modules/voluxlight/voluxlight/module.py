@@ -1,5 +1,8 @@
+"""Defines the voluxlight module."""
+
 # builtin
 import logging
+from typing import Any, Dict, List, Union, Tuple
 
 # site
 import volux
@@ -23,25 +26,27 @@ log.addHandler(ch)
 
 
 class VoluxLight(volux.VoluxModule):
+    """Volux module for managing lifx lights."""
+
     def __init__(
         self,
-        instance_label,
-        init_mode,
-        init_mode_args={},
-        group=None,
-        shared_modules=[],
-        pollrate=None,
-        *args,
-        **kwargs
-    ):
+        instance_label: str,
+        init_mode: str,
+        init_mode_args: Dict[Any, Any] = {},
+        shared_modules: List[volux.VoluxModule] = [],
+        pollrate: int = 0,
+        *args: Any,
+        **kwargs: Any,
+    ) -> None:
+        """See class docstring."""
         super().__init__(
             module_name="Volux Light ({})".format(instance_label),
             module_attr="light_{}".format(instance_label),
-            module_get=self.get,
+            module_get=self._get,
             get_type=float,
             get_min=0,
             get_max=100,
-            module_set=self.set,
+            module_set=self._set,
             set_type=float,
             set_min=0,
             set_max=100,
@@ -75,7 +80,7 @@ class VoluxLight(volux.VoluxModule):
                 self.devices = self.lifx.get_devices()
 
             elif self.init_mode == "device":
-                if type(self.init_mode_args) == dict:
+                if isinstance(self.init_mode_args, dict):
                     if (
                         "ip" in self.init_mode_args
                         and "mac" in self.init_mode_args
@@ -128,21 +133,21 @@ class VoluxLight(volux.VoluxModule):
         log.debug("devices: {}".format(self.devices))
         self.mdevices = [ManagedDevice(device) for device in self.devices]
 
-    def get(self):
+    def _get(self):
 
         for mdevice in self.mdevices:
 
             color = mdevice.device.get_color()
-            power = color[2] / 65535
+            power = int(color[2] / 65535)
             return power * 100
 
-    def set(self, new_val):
+    def _set(
+        self, new_val: Union[int, float, Tuple[int, int, int, int]]
+    ) -> None:
 
-        # print("new_val: {} ({})".format(new_val,type(new_val)))
+        print(f"new_val: {new_val} ({type(new_val)})")
 
-        input_type = type(new_val)
-
-        if input_type == float or input_type == int:
+        if isinstance(new_val, float) or isinstance(new_val, int):
 
             if new_val < self._set_min:
                 new_val = self._set_min
@@ -161,7 +166,7 @@ class VoluxLight(volux.VoluxModule):
                 )
                 mdevice.device.set_color(new_color)
 
-        elif input_type == tuple:
+        elif isinstance(new_val, tuple):
 
             self.set_color(
                 new_val, duration=10, rapid=True
@@ -171,26 +176,29 @@ class VoluxLight(volux.VoluxModule):
 
             raise TypeError("input for set must be int, float or HSBK tuple")
 
-    def setup(self):
-
+    def setup(self) -> None:
+        """Tasks for setup."""
         for mdevice in self.mdevices:
-
             mdevice.ssave()
 
-    def cleanup(self):
-
+    def cleanup(self) -> None:
+        """Tasks for cleanup."""
         for mdevice in self.mdevices:
-
             mdevice.sload()
 
-    def set_color(self, new_color, duration=20, rapid=True):
-
+    def set_color(
+        self,
+        new_color: Tuple[int, int, int, int],
+        duration: int = 20,
+        rapid: bool = True,
+    ) -> None:
+        """Set device colour."""
         for mdevice in self.mdevices:
 
             mdevice.device.set_color(new_color, duration=duration, rapid=rapid)
 
-    def toggle(self):
-
+    def toggle(self) -> None:
+        """Toggle power of light."""
         for mdevice in self.mdevices:
 
             power = mdevice.device.get_power()
@@ -198,10 +206,12 @@ class VoluxLight(volux.VoluxModule):
                 not power
             )  # not ideal behaviour if all lights in different states
 
-    def prepare(self):
+    # def prepare(self) -> None:
+    #     """Prepare the light."""
+    #     for mdevice in self.mdevices:
+    #         mdevice.ssave()
 
-        [mdevice.ssave() for mdevice in self.mdevices]
-
-    def restore(self):
-
-        [mdevice.sload() for mdevice in self.mdevices]
+    # def restore(self) -> None:
+    #     """Restore the original light state."""
+    #     for mdevice in self.mdevices:
+    #         mdevice.sload()
