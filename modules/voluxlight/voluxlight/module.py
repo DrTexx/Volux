@@ -164,7 +164,7 @@ class VoluxLight(volux.VoluxModule):
         elif input_type == tuple:
 
             self.set_color(
-                new_val, duration=10, rapid=True
+                new_val, duration=50, rapid=True
             )  # this directly correlates with how long a beat must be at max volume to achieve max color intensitiy
 
         else:
