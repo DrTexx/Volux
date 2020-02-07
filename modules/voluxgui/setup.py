@@ -18,7 +18,7 @@ with open(path.join(here, readme_filename), encoding=readme_encoding) as f:
 
 setuptools.setup(
     name=__package_name__,  # Required
-    version="0.3.0",  # Required
+    version="0.3.1",  # Required
     packages=[__package_name__],  # Required
     metadata_version="2.1",  # Optional
     summary="volux module which provides a gui for volux itself",  # Optional

@@ -12,7 +12,7 @@ class SuppressStdoutStderr(object):
 
     i.e. will suppress all print, even if the print originates in a
     compiled C/Fortran sub-function.
-       This will not suppress raised exceptions, since exceptions are printed
+    This will not suppress raised exceptions, since exceptions are printed
     to stderr just before a script exits, and after the context manager has
     exited (at least, I think that is why it lets exceptions through).
     """
