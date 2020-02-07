@@ -15,6 +15,7 @@ from .inputsframe import InputsFrame
 from .outputsframe import OutputsFrame
 from .connectionsframe import ConnectionsFrame
 from .infoframe import InfoFrame
+from .testframe import TestFrame
 
 log = logging.getLogger("voluxgui module - mainapplication (frame)")
 log.setLevel(logging.DEBUG)
@@ -78,10 +79,15 @@ class MainApplication(ttk.Frame):
         self.LFinfo = InfoFrame(self.Finfo, self.module_root)
         self.LFinfo.pack(anchor="nw")
 
+        self.Ftest = ttk.Frame(self)
+        self.LFtest = TestFrame(self.Ftest, self.module_root)
+        self.LFtest.pack(anchor="nw")
+
         self.p.add(self.Finputs)
         self.p.add(self.Foutputs)
         self.p.add(self.Fconnections)
         self.p.add(self.Finfo)
+        self.p.add(self.Ftest)
 
         self.wip_notice = ttk.Label(
             self, text="NOTE: GUI IS A WORK-IN-PROGRESS", anchor=tk.CENTER
