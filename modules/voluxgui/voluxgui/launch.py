@@ -10,6 +10,7 @@ def launch(connection_preset=""):
     # site
     import volux
     import colorama
+    import lifxlan
 
     try:
         import voluxlightvisualiser
@@ -22,6 +23,7 @@ def launch(connection_preset=""):
 
     # package
     from voluxgui import VoluxGui
+    from voluxlight import get_all_lights
 
     log = logging.getLogger("voluxgui launch")
     log.setLevel(logging.DEBUG)
@@ -57,33 +59,26 @@ def launch(connection_preset=""):
     invert_UUID = vlx.add_module(volux.VoluxInvert())
     shared_modules.append(vlx.modules[invert_UUID])
 
+    light_labels = []  # note: pretty hacky, not ideal. Wastes time.
+    for light in get_all_lights():
+        light_labels.append(light.get_label())
+
+    print("light labels:", light_labels)
+    for light_label in light_labels:
+        add_volux_module(
+            "voluxlight",
+            "VoluxLight",
+            instance_label=light_label,
+            init_mode="device",
+            init_mode_args={"label": light_label},
+        )
+
     l_strip_UUID = add_volux_module(
         "voluxlight",
         "VoluxLight",
         instance_label="strip",
         init_mode="device",
         init_mode_args={"label": "Strip"},
-    )
-    add_volux_module(
-        "voluxlight",
-        "VoluxLight",
-        instance_label="ceiling",
-        init_mode="device",
-        init_mode_args={"label": "Office Ceiling"},
-    )
-    add_volux_module(
-        "voluxlight",
-        "VoluxLight",
-        instance_label="demo",
-        init_mode="device",
-        init_mode_args={"label": "Demo Bulb"},
-    )
-    add_volux_module(
-        "voluxlight",
-        "VoluxLight",
-        instance_label="1100lum",
-        init_mode="device",
-        init_mode_args={"label": "Office 1100lum"},
     )
     vis_UUID = add_volux_module(
         "voluxlightvisualiser",
