@@ -37,7 +37,7 @@ class DemoSimpleLightVis(VoluxDemo):
         import voluxlight
         import voluxlightvisualiser as vvis
 
-        script_hz = 120
+        script_hz = 60
         device_label = str(
             input("LIFX device's label (case-sensitive!) [Strip]: ")  # nosec
         )
@@ -56,7 +56,10 @@ class DemoSimpleLightVis(VoluxDemo):
         )
         vis_UUID = vlx.add_module(
             vvis.VoluxLightVisualiser(
-                mode="intense", hueHz=script_hz, hue_cycle_duration=5
+                mode="intense",
+                hueHz=script_hz,
+                hue_cycle_duration=10,
+                input_value_impact=10,
             )
         )
 
