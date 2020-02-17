@@ -39,9 +39,18 @@ class DemoGuiVis(VoluxDemo):
         cli_UUID = vlx.add_module(volux.VoluxCliPrint())
         audio_UUID = vlx.add_module(voluxaudio.VoluxAudio())
         cache_UUID = vlx.add_module(volux.VoluxCache())
+        invert_UUID = vlx.add_module(volux.VoluxInvert())
         lightvis_UUID = vlx.add_module(
             voluxlightvisualiser.VoluxLightVisualiser(
                 mode="intense", hueHz=SCRIPT_HZ, hue_cycle_duration=5,
+            )
+        )
+        lightvis_inverted_UUID = vlx.add_module(
+            voluxlightvisualiser.VoluxLightVisualiser(
+                mode="intense",
+                hueHz=SCRIPT_HZ,
+                hue_cycle_duration=5,
+                initial_hue=65535 / 2,
             )
         )
         # list static modules for sharing
@@ -49,7 +58,9 @@ class DemoGuiVis(VoluxDemo):
             vlx.modules[cli_UUID],
             vlx.modules[audio_UUID],
             vlx.modules[cache_UUID],
+            vlx.modules[invert_UUID],
             vlx.modules[lightvis_UUID],
+            vlx.modules[lightvis_inverted_UUID],
         ]
         # discover lights
         lights = voluxlight.get_all_lights()
@@ -99,7 +110,19 @@ class DemoGuiVis(VoluxDemo):
             volux.VoluxConnection(
                 vlx.modules[cache_UUID], vlx.modules[lightvis_UUID], SCRIPT_HZ
             )
-        )  # send audio cache to lightvis
+        )  # send audio cache to invert module
+        vlx.add_connection(
+            volux.VoluxConnection(
+                vlx.modules[cache_UUID], vlx.modules[invert_UUID], SCRIPT_HZ,
+            )
+        )  # send invert to lightvis (inverted)
+        vlx.add_connection(
+            volux.VoluxConnection(
+                vlx.modules[invert_UUID],
+                vlx.modules[lightvis_inverted_UUID],
+                SCRIPT_HZ,
+            )
+        )  # send audio cache to inverted lightvis
         # vlx.add_connection(volux.VoluxConnection(vlx.audio,vlx.cli,120))  # print audio amplitude to terminal
         vlx.modules[gui_UUID].mainApp.LFconnections._refresh_connections()
         vlx.modules[gui_UUID].mainApp.LFconnections._toggle_sync_externally()
