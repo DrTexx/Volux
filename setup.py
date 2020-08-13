@@ -92,7 +92,7 @@ setuptools.setup(
     package_data={"volux": ["version.txt"]},  # Optional
     entry_points={  # Optional
         "console_scripts": [
-            "{}={}:__main__.main".format(__package_name__, __package_name__)
+            "{}={}.cli:main".format(__package_name__, __package_name__)
         ]
     },
 )
