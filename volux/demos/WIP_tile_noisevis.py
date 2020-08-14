@@ -41,7 +41,7 @@ tiles = lifx.get_tilechain_lights()
 min_pixels = 0
 max_pixels = 64
 n_pixels = min_pixels
-tile_colors = [tile.get_tile_colors(0) for tile in tiles]
+tile_colors = [tile.get_tile_colors(idx) for idx, tile in enumerate(tiles)]
 print(tile_colors)
 
 try:
