@@ -54,14 +54,7 @@ try:
 
         # print(f"tile_colors[0][0]: {tile_colors[0][0]}")
         cur_amp = vlxaudio.get()
-        max_probability = 10
-        """(1 / this) is probability."""
-        probability_of_reactive_pixel = int(
-            max_probability * (cur_amp / 100)
-        )  # make reactive less likely with more amplitude
-        # probability_of_reactive_pixel = int(
-        #     5 * (100 / clamp(1, cur_amp, 100))
-        # )  # make reactive more likely with more amplitude
+
         for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
             for t_idx, tile in enumerate(tilechains):
                 tilechains_tiles_colors[tc_idx][t_idx] = nfe.render(cur_amp)
