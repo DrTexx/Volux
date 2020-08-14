@@ -3,14 +3,11 @@
 import lifxlan
 import time
 import voluxaudio
-from random import randint
+
+from volux.demos.MOVE_ME_tile.engines import NoiseFrameEngine
 
 vlxaudio = voluxaudio.VoluxAudio()
 vlxaudio.setup()
-
-
-def clamp(minimum, x, maximum):
-    return max(minimum, min(x, maximum))
 
 
 def engage_x_pixels(x, _max=64):
@@ -34,15 +31,19 @@ def mutate_pixel(n, new_color, all_colors):
     return all_colors
 
 
+nfe = NoiseFrameEngine()
+
 lifx = lifxlan.LifxLAN()
 
-tiles = lifx.get_tilechain_lights()
+tilechains = lifx.get_tilechain_lights()
 
 min_pixels = 0
 max_pixels = 64
 n_pixels = min_pixels
-tile_colors = [tile.get_tile_colors(idx) for idx, tile in enumerate(tiles)]
-print(tile_colors)
+tilechains_tiles_colors = [
+    tile.get_tile_colors(idx) for idx, tile in enumerate(tilechains)
+]
+print(tilechains_tiles_colors)
 
 try:
 
@@ -61,28 +62,15 @@ try:
         # probability_of_reactive_pixel = int(
         #     5 * (100 / clamp(1, cur_amp, 100))
         # )  # make reactive more likely with more amplitude
-        for i in range(64):
-            if randint(0, probability_of_reactive_pixel) == 1:
-                tile_colors[0][0][i] = (
-                    (65535 / 1),
-                    (65535 / 100) * (randint(80, 100)),
-                    (65535 / 100) * cur_amp,
-                    3500,
-                )
-            else:
-                tile_colors[0][0][i] = (
-                    (65535 / 2),
-                    (65535 / 100) * (randint(1, 100)),
-                    (65535 / 100) * cur_amp / 4,
-                    3500,
-                )
+        for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
+            for t_idx, tile in enumerate(tilechains):
+                tilechains_tiles_colors[tc_idx][t_idx] = nfe.render(cur_amp)
 
-        for tile in tiles:
-            print(f"setting {n_pixels} pixels")
-            # print(f"tile colors: {tile_colors[0][0]}")
-            tile.set_tile_colors(
-                0, tile_colors[0][0], rapid=True,
-            )
+        for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
+            for t_idx, tile in enumerate(tilechains):
+                tile.set_tile_colors(
+                    0, tilechains_tiles_colors[tc_idx][t_idx], rapid=True
+                )
 
         n_pixels += 1
 
