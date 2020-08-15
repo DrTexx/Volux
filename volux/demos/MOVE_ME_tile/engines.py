@@ -114,3 +114,46 @@ class NoiseFrameEngine(FrameEngine):
 class SplashMotionEngine(MotionEngine):
     def __init__(self):
         raise NotImplementedError("Splash Motion Engine not yet implemented.")
+
+
+class NorthernMotionEngine(MotionEngine):
+    """Northern Lights. Bottom Text.
+
+    Paint the first pixel of the tile with a val-based hue and brightness, produces a trail that runs down the entire tile and slowly fades away.
+
+    The higher the val, the longer the pixel takes to fade away while trailing down the tile.
+    """
+
+    def __init__(self):
+        super().__init__(
+            render_func=self._render_func, settings=RenderingEngineSettings()
+        )
+        self.frame = [(0, 65535, (65535 / 100) * 10, 3500) for _ in range(64)]
+
+    def _render_func(self, val, settings: RenderingEngineSettings):
+        print("settings not respected yet.")
+        for idx, pixel in enumerate(self.frame):
+            # if pixel[1] >= 65535:
+            # else:
+            #     self.frame[idx][1] += 1
+            self.frame[0] = (
+                randint(int((65535 / 100) * val), int((65535 / 100) * val)),
+                # 65535 / 2,
+                65535,
+                # randint(int((65535 / 100) * val), int((65535 / 100) * val)),
+                (65535 / 100) * val,
+                3500,
+            )
+            self.frame[idx - 1] = (
+                self.frame[idx][0],
+                # (self.frame[idx][0] - 100) % 65535,
+                # self.frame[idx][1],
+                max(0, self.frame[idx][1] - 400),
+                # self.frame[idx][2],
+                max(0, self.frame[idx][2] - 800),
+                self.frame[idx][3],
+            )
+
+        print(f"shifted {'#' * int((val / 10))}")
+
+        return self.frame
