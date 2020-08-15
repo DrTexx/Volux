@@ -113,7 +113,7 @@ try:
             delta = time_now - last_time
             # print(f"time between: {600*delta}ms")
             print(
-                f"latency | {600*delta:.2f}: {'-' * int(((600*delta) - 19))}#"
+                f"latency | {600*delta:.2f}: {'-' * int(((600*delta) - 600*hz))}#"
             )
             last_time = time_now
 
