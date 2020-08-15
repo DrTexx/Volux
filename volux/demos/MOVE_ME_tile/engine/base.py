@@ -1,4 +1,4 @@
-from ..types import FrameRenderFunction
+from ..types import FrameRenderFunction, LifxTileFrame, RenderingEngineSettings
 
 
 class RenderingEngine:
@@ -7,5 +7,13 @@ class RenderingEngine:
     Provides a generic interface.
     """
 
-    def __init__(self, render_func: FrameRenderFunction):
-        self.render = render_func
+    def __init__(
+        self,
+        render_func: FrameRenderFunction,
+        settings: RenderingEngineSettings,
+    ):
+        self._render_func = render_func
+        self.settings = settings
+
+    def render(self, val) -> LifxTileFrame:
+        return self._render_func(val, settings=self.settings)
