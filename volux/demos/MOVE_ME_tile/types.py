@@ -1,4 +1,4 @@
-from typing import Tuple, List, NamedTuple
+from typing import List, NamedTuple, Callable
 
 
 class HSBK(NamedTuple):
@@ -9,3 +9,7 @@ class HSBK(NamedTuple):
 
 
 LifxTileFrame = List[HSBK]
+
+
+class FrameRenderFunction:
+    Callable[[int], LifxTileFrame]
