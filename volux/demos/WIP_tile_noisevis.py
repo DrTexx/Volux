@@ -4,7 +4,11 @@ import lifxlan
 import time
 import voluxaudio
 
-from volux.demos.MOVE_ME_tile.engines import NoiseFrameEngine
+from volux.demos.MOVE_ME_tile.engines import (
+    NoiseFrameEngine,
+    SolidFrameEngine,
+    NorthernMotionEngine,
+)
 
 vlxaudio = voluxaudio.VoluxAudio()
 vlxaudio.setup()
@@ -32,6 +36,8 @@ def mutate_pixel(n, new_color, all_colors):
 
 
 nfe = NoiseFrameEngine()
+sfe = SolidFrameEngine()
+nme = NorthernMotionEngine()
 
 lifx = lifxlan.LifxLAN()
 
@@ -57,7 +63,15 @@ try:
 
         for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
             for t_idx, tile in enumerate(tilechains):
-                tilechains_tiles_colors[tc_idx][t_idx] = nfe.render(cur_amp)
+                try:
+                    tilechains_tiles_colors[tc_idx][t_idx] = nme.render(
+                        min(cur_amp * 1, 100)
+                    )
+                except Exception as e:
+                    print(e)
+                    tilechains_tiles_colors[tc_idx][t_idx] = sfe.render(
+                        cur_amp
+                    )
 
         for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
             for t_idx, tile in enumerate(tilechains):
@@ -67,7 +81,7 @@ try:
 
         n_pixels += 1
 
-        time.sleep(1 / 60)
+        time.sleep(1 / 240)
 
 except KeyboardInterrupt:
     pass
