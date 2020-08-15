@@ -17,6 +17,7 @@ codecov = "*"
 
 [packages]
 colorama = "==0.4.1"
+typing-extensions = "*"
 
 [requires]
 python_version = "3.7"
