@@ -109,3 +109,8 @@ class NoiseFrameEngine(FrameEngine):
         print(f"generated a noise frame ({'#' * ceil(val/10):10})")
 
         return tile_colors
+
+
+class SplashMotionEngine(MotionEngine):
+    def __init__(self):
+        raise NotImplementedError("Splash Motion Engine not yet implemented.")
