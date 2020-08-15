@@ -131,7 +131,7 @@ class NorthernMotionEngine(MotionEngine):
         self.frame = [(0, 65535, (65535 / 100) * 10, 3500) for _ in range(64)]
 
     def _render_func(self, val, settings: RenderingEngineSettings):
-        print("settings not respected yet.")
+        # print("settings not respected yet.")
         for idx, pixel in enumerate(self.frame):
             # if pixel[1] >= 65535:
             # else:
@@ -154,6 +154,6 @@ class NorthernMotionEngine(MotionEngine):
                 self.frame[idx][3],
             )
 
-        print(f"shifted {'#' * int((val / 10))}")
+        # print(f"shifted {'#' * int((val / 10))}")
 
         return self.frame

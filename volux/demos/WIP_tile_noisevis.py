@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 
-import lifxlan
+
 import time
+import threading
+from queue import Queue
+
+import lifxlan
+
 import voluxaudio
+
 
 from volux.demos.MOVE_ME_tile.engines import (
     NoiseFrameEngine,
@@ -51,37 +57,94 @@ tilechains_tiles_colors = [
 ]
 print(tilechains_tiles_colors)
 
+print_lock = threading.Lock()
+
+
+def timeit(func):
+    def _func(*args, **kwargs):
+        start_t = time.perf_counter()
+        func(*args, **kwargs)
+        with print_lock:
+            print(f"effective Hz: {600 * (time.perf_counter() - start_t)}")
+
+    return _func
+
+
 try:
 
+    lifx_packet_lock = threading.Lock()
+    ready_for_next_packet = threading.Event()
+    q = Queue()
+    last_time = time.perf_counter()
+    hz = 1 / 120
+
+    def t_send_color(val, timeout):
+        # when this exits, the lock is released
+        with lifx_packet_lock:
+            global last_time
+
+            # ready_for_next_packet.wait(timeout=timeout)
+            if time.perf_counter() - last_time < timeout:
+                return
+
+            for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
+                for t_idx, tile in enumerate(tilechains):
+                    try:
+                        tilechains_tiles_colors[tc_idx][t_idx] = nme.render(
+                            min(val * 1, 100)
+                        )
+                    except Exception as e:
+                        print(e)
+                        tilechains_tiles_colors[tc_idx][t_idx] = sfe.render(
+                            val
+                        )
+
+            for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
+                for t_idx, tile in enumerate(tilechains):
+                    tile.set_tile_colors(
+                        0, tilechains_tiles_colors[tc_idx][t_idx], rapid=True
+                    )
+
+            print(f"shifted [{'#' * int(val):100}]")
+
+            time_now = time.perf_counter()
+            delta = time_now - last_time
+            # print(f"time between: {600*delta}ms")
+            print(
+                f"latency | {600*delta:.2f}: {'-' * int(((600*delta) - 19))}#"
+            )
+            last_time = time_now
+
+    def t_timing_manager(timeout):
+        ready_for_next_packet.clear()
+        time.sleep(timeout)
+        ready_for_next_packet.set()
+
+    # define the worker which will run on each thread
+    def worker(timeout):
+        while True:
+            t_send_color(val=q.get(), timeout=timeout)
+            q.task_done()
+
+    # create timing manager worker
+    # t = threading.Thread(target=t_timing_manager, kwargs={"timeout": hz})
+    # t.daemon = True
+    # t.start()
+
+    # create workers
+    for x in range(5):
+        t = threading.Thread(target=worker, kwargs={"timeout": hz})
+        # this ensures the thread will die when the main thread dies
+        # can set t.daemon to False if you want it to keep running
+        t.daemon = True
+        t.start()
+
+    # populate the queue with values
     while True:
+        val = vlxaudio.get()
+        q.put(val)
+        time.sleep(hz)
 
-        if n_pixels > max_pixels:
-            n_pixels = min_pixels
-
-        # print(f"tile_colors[0][0]: {tile_colors[0][0]}")
-        cur_amp = vlxaudio.get()
-
-        for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
-            for t_idx, tile in enumerate(tilechains):
-                try:
-                    tilechains_tiles_colors[tc_idx][t_idx] = nme.render(
-                        min(cur_amp * 1, 100)
-                    )
-                except Exception as e:
-                    print(e)
-                    tilechains_tiles_colors[tc_idx][t_idx] = sfe.render(
-                        cur_amp
-                    )
-
-        for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
-            for t_idx, tile in enumerate(tilechains):
-                tile.set_tile_colors(
-                    0, tilechains_tiles_colors[tc_idx][t_idx], rapid=True
-                )
-
-        n_pixels += 1
-
-        time.sleep(1 / 240)
 
 except KeyboardInterrupt:
     pass
