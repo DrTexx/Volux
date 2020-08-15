@@ -74,6 +74,7 @@ try:
 
     lifx_packet_lock = threading.Lock()
     ready_for_next_packet = threading.Event()
+    frame_mutation_lock = threading.Lock()
     q = Queue()
     last_time = time.perf_counter()
     hz = 1 / 120
@@ -90,9 +91,10 @@ try:
             for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
                 for t_idx, tile in enumerate(tilechains):
                     try:
-                        tilechains_tiles_colors[tc_idx][t_idx] = nme.render(
-                            min(val * 1, 100)
-                        )
+                        with frame_mutation_lock:
+                            tilechains_tiles_colors[tc_idx][
+                                t_idx
+                            ] = nme.render(min(val * 1, 100))
                     except Exception as e:
                         print(e)
                         tilechains_tiles_colors[tc_idx][t_idx] = sfe.render(
