@@ -92,8 +92,12 @@ class VoluxLight(volux.VoluxModule):
                                 self.init_mode_args["label"]
                             )
                         )
+                    elif "object" in self.init_mode_args:
+                        self.devices.append(self.init_mode_args["object"])
                     else:
-                        raise KeyError("'label' not specified in mode_args")
+                        raise KeyError(
+                            "'label' or 'object' not specified in mode_args"
+                        )
                 else:
                     raise TypeError("init_mode_args must be of type 'dict'")
 
