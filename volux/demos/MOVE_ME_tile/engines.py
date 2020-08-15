@@ -68,8 +68,8 @@ class NoiseFrameEngine(FrameEngine):
         )
         super().__init__(settings=settings, render_func=self._func)
 
+    # TODO: settings not respected yet.
     def _func(self, val, settings):
-        print("settings not respected yet.")
 
         max_probability = 10
         """(1 / this) is probability."""
@@ -79,7 +79,7 @@ class NoiseFrameEngine(FrameEngine):
         # probability_of_reactive_pixel = int(
         #     max_probability * (100 / clamp(1, val, 100))
         # )
-        print(f"reactivity probability: 1 / {probability_of_reactive_pixel}")
+        # print(f"reactivity probability: 1 / {probability_of_reactive_pixel}")
 
         tile_colors = []
 
@@ -106,7 +106,7 @@ class NoiseFrameEngine(FrameEngine):
                     )
                 )
 
-        print(f"generated a noise frame ({'#' * ceil(val/10):10})")
+        # print(f"generated a noise frame ({'#' * ceil(val/10):10})")
 
         return tile_colors
 
