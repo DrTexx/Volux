@@ -136,7 +136,7 @@ class NorthernMotionEngine(MotionEngine):
             # if pixel[1] >= 65535:
             # else:
             #     self.frame[idx][1] += 1
-            self.frame[0] = (
+            self.frame[-1] = (
                 randint(int((65535 / 100) * val), int((65535 / 100) * val)),
                 # 65535 / 2,
                 65535,
