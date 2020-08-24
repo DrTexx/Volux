@@ -3,6 +3,7 @@ import sys
 import logging
 from time import sleep
 import platform
+from collections import namedtuple
 
 # site
 import volux
@@ -12,6 +13,7 @@ import colorama
 
 # local
 from .hsv2ansi import *
+from .lowpass import butter_lowpass_filter
 
 # user_platform = platform.system()
 # if user_platform == "Windows":
@@ -41,6 +43,8 @@ def clamp(value, minv, maxv):
 
     return max(min(value, maxv), minv)
 
+
+vlxaudio_out = namedtuple("vlxaudio_out", ["channels", "lowpasses"])
 
 __requires_python__ = [">=3", "<3.8"]  # required python version
 
@@ -98,6 +102,8 @@ class VoluxAudio(volux.VoluxModule):
             shared_modules=shared_modules,
             pollrate=pollrate,
         )
+        self._num_channels = 2  # TODO: make configurable
+        self._sample_rate = 44100  # TODO: make configurable
 
     def get(self):
 
@@ -108,6 +114,65 @@ class VoluxAudio(volux.VoluxModule):
         else:
 
             return float(self._get_amplitude())  # 0 .. 100
+
+    # def get_bass(self, freq=60):
+
+    #     if self.audio_data == []:
+
+    #         return float(0)
+
+    #     else:
+
+    #         return 65535
+
+    # TODO: temporary name while testing, needs to be updated once bugs fixed
+    def _audio_debug(self):
+        # create empty 2D array with list for each channel
+        channels = [[] for _ in range(self._num_channels)]
+
+        sample_channel = 0
+        for sample in self.audio_data:
+
+            channels[sample_channel].append(sample)
+
+            if sample_channel < self._num_channels - 1:
+                sample_channel += 1
+            elif sample_channel == self._num_channels - 1:
+                sample_channel = 0
+            else:
+                raise RuntimeError("Bad sample channel during audio splitting")
+
+        # audio data shape:
+        # -- [
+        # ---------- 0: channel 1 @ t ~ goes from -32,768 .. +32,767
+        # ---------- 1: channel 2 @ t ~ goes from -32,768 .. +32,767
+        # ---------- 2: channel 1 @ t+1 ~ goes from -32,768 .. +32,767
+        # ---------- 3: channel 2 @ t+1 ~ goes from -32,768 .. +32,767
+        # -- etc..
+        # ------- 2046: channel 1 @ t+? ~ goes from -32,768 .. +32,767
+        # ------- 2047: channel 2 @ t+? ~ goes from -32,768 .. +32,767
+        # -- ]
+
+        # print(self.audio_data)
+        # print(
+        #     len(self.audio_data)
+        # )  # self.audio_data contains 2^11 items, which translates to a list of 2048 items in the list
+
+        # NOTE: Highest a channel average seems like it would be 1024, reached around 912 with a 20Hz tone at 0db
+
+        channel_averages = []
+        for channel in channels:
+            # channel_averages.append(np.linalg.norm(channel) / len(channel))
+            channel_averages.append(
+                np.linalg.norm(channel) / 1024
+            )  # TODO: figure out how to derive 1024 eqiv. without checking every time or hard-coding
+
+        channel_lowpasses = []
+        for channel in channels:
+            lp = butter_lowpass_filter(channel, cutoff=60, fs=44100, order=3)
+            channel_lowpasses.append(np.linalg.norm(lp) / 1024)
+
+        return vlxaudio_out(channel_averages, channel_lowpasses)  # 0 .. 1024
 
     def set(self, new_val):
 
@@ -140,8 +205,8 @@ class VoluxAudio(volux.VoluxModule):
 
         stream = self.pa.open(
             format=pyaudio.paInt16,
-            channels=2,  # todo: this shouldn't be hardcoded
-            rate=44100,  # todo: this shouldn't be hardcoded
+            channels=self._num_channels,
+            rate=self._sample_rate,
             input=True,
             stream_callback=self._stream_callback,
         )
@@ -151,7 +216,6 @@ class VoluxAudio(volux.VoluxModule):
 
         audio_data = np.frombuffer(in_data, dtype=np.int16)
         self.audio_data = audio_data
-        self.needs_update = True  # is this still needed?
 
         return (audio_data, pyaudio.paContinue)
 
