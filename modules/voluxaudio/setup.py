@@ -32,6 +32,7 @@ setuptools.setup(
         "colorama>=0.4.1",
         "numpy>=1.17.3",
         "PyAudio>=0.2.11",
+        "scipy>=1.5.2",
     ],
     setup_requires=["wheel", "setuptools"],
     python_requires=">=3.6",
