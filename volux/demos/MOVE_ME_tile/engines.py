@@ -30,7 +30,9 @@ class SolidFrameEngine(FrameEngine):
 
     def _func(self, val, settings):
         print("settings not respected yet.")
-        return [(0, 65535, (65535 / 100) * val, 3500) for _ in range(64)]
+        return [
+            (0, 65535, (65535 / 1024) * val[0][0], 3500) for _ in range(64)
+        ]
         # for idx, pixel in enumerate(self.frame):
         #     if idx % 2 == 0:
         #         self.frame[idx] = (
@@ -71,10 +73,15 @@ class NoiseFrameEngine(FrameEngine):
     # TODO: settings not respected yet.
     def _func(self, val, settings):
 
+        norm_combined = (val[0][0] + val[0][1]) / 2
+        lowp_combined = (val[1][0] + val[1][1]) / 2
+
         max_probability = 10
         """(1 / this) is probability."""
         # make reactive pixels less likely when value is higher
-        probability_of_reactive_pixel = int(max_probability * (val / 100))
+        probability_of_reactive_pixel = int(
+            max_probability * (norm_combined / 1024)
+        )
         # make reactive more likely with more amplitude
         # probability_of_reactive_pixel = int(
         #     max_probability * (100 / clamp(1, val, 100))
@@ -90,7 +97,7 @@ class NoiseFrameEngine(FrameEngine):
                     HSBK(
                         (65535 / 1),
                         (65535 / 100) * (randint(80, 100)),
-                        (65535 / 100) * val,
+                        (65535 / 1024) * norm_combined,
                         6500,
                     )
                 )
@@ -101,7 +108,7 @@ class NoiseFrameEngine(FrameEngine):
                         (65535 / 100) * (randint(90, 100)),
                         # (65535 / 100) * val / 10,
                         # (65535 / 100) * (19 + (31 / max(1, val))),
-                        (65535 / 100) * (1 + (19 / max(1, val))),
+                        (65535 / 1024) * (1 + (19 / max(1, lowp_combined))),
                         6500,
                     )
                 )
