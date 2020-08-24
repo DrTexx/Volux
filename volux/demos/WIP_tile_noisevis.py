@@ -77,7 +77,7 @@ try:
     frame_mutation_lock = threading.Lock()
     q = Queue()
     last_time = time.perf_counter()
-    hz = 1 / 120
+    hz = 1 / 240
 
     def t_send_color(val, timeout):
         # when this exits, the lock is released
@@ -90,24 +90,30 @@ try:
 
             for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
                 for t_idx, tile in enumerate(tilechains):
-                    try:
-                        with frame_mutation_lock:
-                            tilechains_tiles_colors[tc_idx][
-                                t_idx
-                            ] = nme.render(min(val * 1, 100))
-                    except Exception as e:
-                        print(e)
-                        tilechains_tiles_colors[tc_idx][t_idx] = sfe.render(
+                    # try:
+                    with frame_mutation_lock:
+                        tilechains_tiles_colors[tc_idx][t_idx] = nme.render(
                             val
                         )
+                    # except Exception as e:
+                    #     print(e)
+                    #     tilechains_tiles_colors[tc_idx][t_idx] = sfe.render(
+                    #         val
+                    #     )
 
             for tc_idx, tilechain in enumerate(tilechains_tiles_colors):
                 for t_idx, tile in enumerate(tilechains):
                     tile.set_tile_colors(
-                        0, tilechains_tiles_colors[tc_idx][t_idx], rapid=True
+                        0,
+                        tilechains_tiles_colors[tc_idx][t_idx],
+                        tile_count=2,  # CLONE PATTERN BETWEEN TILES
+                        rapid=True,
                     )
 
-            print(f"shifted [{'#' * int(val):100}]")
+            print(f"L - NORM [{'#' * int(val[0][0]/10.24):100}]")
+            print(f"R - NORM [{'#' * int(val[0][1]/10.24):100}]")
+            print(f"L - BASS [{'#' * int(val[1][0]/10.24):100}]")
+            print(f"R - BASS [{'#' * int(val[1][1]/10.24):100}]")
 
             time_now = time.perf_counter()
             delta = time_now - last_time
@@ -143,7 +149,7 @@ try:
 
     # populate the queue with values
     while True:
-        val = vlxaudio.get()
+        val = vlxaudio._audio_debug()
         q.put(val)
         time.sleep(hz)
 
