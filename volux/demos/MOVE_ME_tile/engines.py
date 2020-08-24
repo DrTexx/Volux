@@ -119,7 +119,13 @@ class NoiseFrameEngine(FrameEngine):
 
 
 class SplashMotionEngine(MotionEngine):
+    """Light emits from the centre of the tile and moves towards the perimeters.
+
+    Looks cool in a dark room.
+    """
+
     def __init__(self):
+
         raise NotImplementedError("Splash Motion Engine not yet implemented.")
 
 
@@ -135,32 +141,49 @@ class NorthernMotionEngine(MotionEngine):
         super().__init__(
             render_func=self._render_func, settings=RenderingEngineSettings()
         )
-        self.frame = [(0, 65535, (65535 / 100) * 10, 3500) for _ in range(64)]
+        self.frame = [(0, 65535, 65535 * 0.1, 3500) for _ in range(64)]
+        self.i = 0
 
     def _render_func(self, val, settings: RenderingEngineSettings):
         # print("settings not respected yet.")
+        norm_combined = (val[0][0] + val[0][1]) / 2
+        lowp_combined = (val[1][0] + val[1][1]) / 2
         for idx, pixel in enumerate(self.frame):
             # if pixel[1] >= 65535:
             # else:
             #     self.frame[idx][1] += 1
-            self.frame[-1] = (
-                randint(int((65535 / 100) * val), int((65535 / 100) * val)),
-                # 65535 / 2,
-                65535,
-                # randint(int((65535 / 100) * val), int((65535 / 100) * val)),
-                (65535 / 100) * val,
-                3500,
-            )
+            if idx == 1:
+                self.frame[-1] = (
+                    int((65535 / 1024) * (lowp_combined)),
+                    # (int(65535 / 1024) * norm_combined + self.i) % 65535,
+                    # 65535 / 2,
+                    65535,
+                    # randint(int((65535 / 100) * val), int((65535 / 100) * val)),
+                    min((65535 / 1024) * (norm_combined * 2), 65535),
+                    3500,
+                )
             self.frame[idx - 1] = (
+                # (self.frame[idx][0] - (self.i / 10000)) % 65535,
                 self.frame[idx][0],
+                # (self.frame[idx][0] + (self.i / val)) % 65535,
                 # (self.frame[idx][0] - 100) % 65535,
+                # (self.frame[idx][0] - (800 - (8 * val))) % 65535,
                 # self.frame[idx][1],
-                max(0, self.frame[idx][1] - 400),
+                max(
+                    0,
+                    self.frame[idx][1]
+                    - ((4 * ((lowp_combined / 10.24) * 1.5))),
+                ),
                 # self.frame[idx][2],
                 max(0, self.frame[idx][2] - 800),
                 self.frame[idx][3],
             )
 
         # print(f"shifted {'#' * int((val / 10))}")
+
+        # incrementer = 50
+        # self.i = self.i + incrementer
+        # if self.i >= 65535 * incrementer:
+        #     self.i = 0
 
         return self.frame
