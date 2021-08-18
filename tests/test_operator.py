@@ -27,9 +27,12 @@ class Test_operator:
         assert not (cli_UUID in vlx.modules)
 
     def test_remove_missing_module(self):
+        global cli_UUID
+        if cli_UUID in vlx.modules:
+            vlx.remove_module(cli_module)
         with pytest.raises(AttributeError):
             vlx.remove_module(cli_module)
-        vlx.add_module(cli_module)
+        cli_UUID = vlx.add_module(cli_module)
 
     def test_validate_module(self):
         assert vlx.validate_module(vlx) is False
