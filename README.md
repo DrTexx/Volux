@@ -1,3 +1,33 @@
+
+---
+
+### *💾 Get the current version of Volux over at 🦊 **[the GitLab repository here](https://gitlab.com/volux/volux).***
+
+---
+
+<details>
+  <summary><b>📢 This repository contains an unmaintained legacy version of the Volux project from 2019...</b></summary>
+  
+  ##### What's the purpose of this repo now there's a new version?
+
+  The latest version of Volux doesn't have any publicly released modules yet. This legacy repo is being left open so that you can give Volux a test and still play around with the modules available in the legacy version.
+
+  ##### How I can I find out when modules are available for the new version of Volux?
+
+  I'll announce public releases of modules [on Twitter](https://twitter.com/DrTexx).
+
+  ##### Where can I find modules released for the new version of Volux?
+
+  I'll provide links to public modules in the [new GitLab repository](https://gitlab.com/volux/volux).
+
+  ##### What should I do if I have any other questions?
+
+  Please feel free to ask me any other questions over [on Twitter](https://twitter.com/DrTexx).
+</details>
+
+
+---
+
 [![Build Status](https://travis-ci.org/DrTexx/Volux.svg?branch=master)](https://travis-ci.org/DrTexx/Volux)
 [![Documentation Status](https://readthedocs.org/projects/volux/badge/?version=latest)](https://volux.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/DrTexx/Volux/branch/master/graph/badge.svg)](https://codecov.io/gh/DrTexx/Volux)
