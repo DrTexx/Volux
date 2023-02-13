@@ -31,7 +31,6 @@
 [![Build Status](https://travis-ci.org/DrTexx/Volux.svg?branch=master)](https://travis-ci.org/DrTexx/Volux)
 [![Documentation Status](https://readthedocs.org/projects/volux/badge/?version=latest)](https://volux.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/DrTexx/Volux/branch/master/graph/badge.svg)](https://codecov.io/gh/DrTexx/Volux)
-[![Requirements Status](https://requires.io/github/DrTexx/Volux/requirements.svg?branch=master)](https://requires.io/github/DrTexx/Volux/requirements/?branch=master)
 
 [![PyPI Version](https://img.shields.io/pypi/v/volux.svg?style=flat-square)](https://pypi.python.org/pypi/volux/)
 [![GitHub release](https://img.shields.io/github/release-pre/DrTexx/volux.svg?style=flat-square)](https://GitHub.com/DrTexx/volux/releases/)
