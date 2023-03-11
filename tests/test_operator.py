@@ -10,6 +10,8 @@ cli_UUID = None
 class Test_operator:
     def test_add_module(self):
         global cli_UUID
+        if cli_UUID in vlx.modules:
+            vlx.remove_module(cli_module)
         cli_UUID = vlx.add_module(cli_module)
         assert cli_UUID in vlx.modules
 
