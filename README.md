@@ -28,6 +28,8 @@
 
 ---
 
+# NEW REPOSITORY: https://gitlab.com/volux/volux
+
 [![Build Status](https://travis-ci.org/DrTexx/Volux.svg?branch=master)](https://travis-ci.org/DrTexx/Volux)
 [![Documentation Status](https://readthedocs.org/projects/volux/badge/?version=latest)](https://volux.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/DrTexx/Volux/branch/master/graph/badge.svg)](https://codecov.io/gh/DrTexx/Volux)
